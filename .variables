@@ -1,0 +1,7 @@
+export CURRENT="$HOME/devel/python/django/current"
+export VISUAL="emacs -nw"
+export PINKY="/run/media/$USER/PINKY"
+export KMD_STUFF="$HOME/devel/kmd_stuff"
+export KENV="$HOME/devel/workbench/env"
+export EDITOR="emacs"
+export CPPTEMPLATE="$HOME/devel/pure_cpp/cppinit"

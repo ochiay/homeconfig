@@ -1,0 +1,11 @@
+# -*- mode: Org; coding: utf-8; -*-
+* HOME CONFIG GIT REPO
+** EMACS
+** TMUX
+** RANGER
+** .DIERY.ORG
+** COMMENT .gitignore
+   #+INCLUDE: "~/.gitignore" src shell
+#+BEGIN_INCLUDE
+
+#+END_INCLUDE

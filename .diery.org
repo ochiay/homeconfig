@@ -1,0 +1,781 @@
+#+STARTUP: overwiew
+#+OPTIONS: ^:nil _:nil
+
+* GIT
+  + git ls-files | while read f; do git blame -w -M -C -C --line-porcelain "$f" | grep "^author " ; done | sort -f | uniq -ic | sort -nr
+  + checkout -- сменить ветку
+  + branch -- создать ветку
+    -- -f -- задать ветке родителя
+  + <ветка>^ -- родитель
+  + <ветка>~<num> -- родитель под номером git clone <user>@<ip>/<wut>
+
+  + git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
+    git config --global core.editor "name"
+  + добавление локального репозитория
+
+    git init --bare /path/to/bare/repo.git
+    project/git/folder: git remote add origin /path/to/bare/repo.git
+
+* CPP
+  where is nothing about
+
+** gcc keys:
+
+
+* JAVASCRIPT
+  + functions:
+    - alert
+** code
+   <script src="/path/to/script.js"></script> -- подключение
+
+
+* AWESOME
+** navigations
+   - mod + j|k
+** help
+   - mod + s
+
+
+* ZATHURA                               :zathura:
+** common                                                          :hotkeys:
+   - gg, G, nG : go to the first, the last or to the nth page(44gg f.e)
+   - h,k,j,l : left, down, up, right direction
+   - J, PgDn | K, PgUP : next|previos page
+   - a,s : adjust window in best-fit or width mode
+
+
+* DJANGO
+** tips
+   pipreqs -- for generate requirements.txt
+** tests
+
+** errors
+   Related model 'contract.Data' cannot be resolvedlass
+** FILE STRUCTURE
+   WSGI -- точка входа
+   urls -- точка входа aka роутер
+   views aka controller
+*** urls
+    urlpatterns = [
+    url(<url>, '<app>.views.<function>')
+    ]
+    in templates
+*** settins
+    + context processor?!
+
+** django (modules)
+*** apps
+*** conf
+*** contrib
+*** core
+**** settings
+*** db
+**** models
+*** dispatch
+*** forms
+*** http
+*** middleware
+*** shortcuts
+*** template
+*** templatetags
+*** test
+*** urls
+*** utils
+*** views
+    - conf
+      - settings --
+    - auth.admin -- регистирование приложений для админки
+      <app>.admin.py:
+      from django.contrib import admin
+      from <models> import <model>
+      admin.site.register(<model>)
+    - db.models
+      - Max
+    - contrib
+      - auth -- фреймворк аутентификации и моделей по умолчанию
+        - middleware.SessionMiddleware -- управление сессиями между запросами
+      - contenttypes -- контент-типовая система(даёт разершения, связанные с моделями)
+      - sessions.middleware.AuthenticationMiddleware -- связывает пользователей, использующих сессии, запрсоами.
+    - views
+      - generic
+        - edit
+** models
+*** migration errors
+    already exists --fake initial
+*** meta options
+    abstract
+    app_label
+    db_table
+*** query set (<model>.objects.all()
+**** methods
+***** order_by
+***** filter
+      __icontains
+      __contains
+      __unaccent
+      __lower
+      __(i)startswith
+      __(i)endswith
+      __lte, __lt -- less or equal
+      __gte, __gt -- great or equal
+      __exact -- exact match
+      __iexact -- case insensitive exact
+      __in
+      __range
+
+*** Fields
+**** DateField
+***** param:
+      auto_now_add True?False
+**** all
+     field.on_delete:
+     CASCADE|PROTECT|SET_NULL|SET_DEFAULT|SET()|DO_NOTHING
+*** tips
+    <model>.objects.all().delete()
+** views #контроллер
+*** tools
+
+** django.http :: djmodule
+   HttpRequest вход
+   HttpResponse выход
+   HttpResponse -Redirect|-ResponsePermanentRedirect|NotFound|Forbidden
+   + request ::
+   request is class 'django.core.handlers.wsgi.WSGIRequest' object
+   method - метод запроса
+   GET - словарь с гет-параметрами(адресная строка), только и всего
+   POST - словарь с пост-параметрами(форма)
+   COOKIES - словарь с куки
+   FILES - загруженные файлы
+   META - cgi-like переменные
+   session словарь сессия*
+   user пользователь
+   some spec info
+   + HttpRequest :: status_code?
+                    (переопределён в наследниках redirect,notfound e.c")
+                    + keys :: keys in httpresp. dictionary
+                              + Content-Dispostion !?
+   + Redirect
+     example: 'http://yandex.ru'
+   + [ ]  ::
+
+*** classes
+**** values
+     ort_field
+**** method
+     dispatch :: overwrite self.parametres before
+     using get_query ..for example
+
+** templates
+   apfirst -- uppercase
+** forms
+   leaned_data -- after calling method "is_valid" forms fill this parameter
+
+*** methods
+    clean
+*** create form class
+**** ModelForm
+** http
+   request is class 'django.core.handlers.wsgi.WSGIRequest' object
+** CBV -- class-based views
+   base class -- django.views.View
+
+** functions
+   <model>.objects.get(id=<id>)
+
+*** CREATING PROJECTS
+    1.makemigrations 2.migrate -- подготовить инструкции и внести изменения
+    django-admin startproject <project> : create new folder with <project> name, and one more folder inside with same name
+    django-admin startproject .<project>
+
+
+
+
+
+** Templates
+   capfirst -- uppercase first letter
+** TODO shortcuts
+   resolver_url !?
+** layout reconfiguration
+   - project name
+     - apps
+     - config
+     - template
+   ---
+   * rename project_folder to "config"
+   * change in manage.py os.environ.setdefault
+   * change in config/wsgi.py os
+   * change all project_name modules into "config folder name"
+
+
+* WEB/HTML
+** form
+   + atribute
+   + enctype :
+     + application/x-www-form-urlencoded
+     + multipart/form-data
+     + TEXT/PLAIN
+
+
+* EMACS
+  + \c -- ctrl, \M -- alt
+  + ~/.emacs -- config file
+  + ~/.emacs.d -- configuration dir(packages/themes etc)
+  + mark is same as select
+  + yank is same as paste
+  + (*fc) -- from personal config
+  + some inquiry(help) buffers can be closed with <q>-key
+  + \c-x ^ -- enlarge window
+  + \c-x {|} -- shrink|enlarge window horizontaly
+  + \c-q \c-j -- for newline in query-seaching
+** all
+   - \c-q \c-j : in command-menu help to insert RET for searching f.e.
+   - \M-x <function> : run function
+   - \M-u|l : upcase|downcase word
+   - \c-x C-= : increase|decrease font size
+   - \c-S-backspase : kill whole line
+   - \M-; : comment end-line
+   - \c-x-; : comment-line (for programming langueges)
+   - \c-' : comment-or-uncoment-region (*fc)
+   - \c-/ : undo
+   - \c-x 3 : split window vertically
+   - \c-x 2 : split window below
+   - \c-x 0 : close current window
+   - \c-x h : mark all
+   - \M-\ : delete-horizontal-space
+   - \c-u C-x r N
+** help
+   - \c-h
+     ? -- help of the helps
+     a -- aproposx
+     f -- functions
+     c -- hotkeys
+     i -- info
+
+** navigation
+   - \c-n|p : next | previos line
+   - \M->|< : end | beggining of buffer
+   - \c-a|e : beggining|end of line
+   - \c-<space> : select mode
+   - \c-x-<space> : rectangle selection mode
+   - \M-w : copy selection(kill-ring-save)
+   - \c-y : insert selection(yank)
+   - \c-w : kill selection(\c-y paste it too) (*not work in *fc \c-w \c-w)
+
+** MODE
+** WEB-MODE
+   General
+   M-; comment / uncomment line(s)
+   C-c C-f toggle folding on a tag/block
+   C-c C-i indent entire buffer
+   C-c C-m mark and expand
+   C-c C-s insert snippet
+   C-c C-w toggle display of invalid whitespaces
+   DOM
+   C-c C-d a replace apostrophes
+   C-c C-d d show tag mismatch
+   C-c C-d e replace HTML entities
+   C-c C-d n normalize
+   C-c C-d q replace dumb quotes
+   C-c C-d t traverse dom tree
+   C-c C-d x xpath
+   Block
+   C-c C-b b block beginning
+   C-c C-b c block close
+   C-c C-b e block end
+   C-c C-b k block kill
+   C-c C-b n next block
+   C-c C-b p previous block
+   C-c C-b s block select
+   HTML element
+   C-c C-e / element close
+   C-c C-e a select element content
+   C-c C-e b element beginning
+   C-c C-e c element clone
+   C-c C-e d child element (down)
+   C-c C-e e element end
+   C-c C-e f toggle folding on children
+   C-c C-e i element insert
+   C-c C-e k element kill
+   C-c C-e m mute blanks between children
+   C-c C-e n next element
+   C-c C-e p previous element
+   C-c C-e r rename element
+   C-c C-e s select element
+   C-c C-e t transpose element
+   C-c C-e u parent element (up)
+   C-c C-e v element vanish
+   C-c C-e w wrap element
+   HTML tag
+   C-c C-t a sort attributes
+   C-c C-t b tag beginning
+   C-c C-t e tag end
+   C-c C-t m fetch matching tag
+   C-c C-t n next tag
+   C-c C-t p previous tag
+   C-c C-t s select tag
+   HTMLattribute
+   C-c C-a b attribute beginning
+   C-c C-a e attribute end
+   C-c C-a i attribute insert
+   C-c C-a k attribute kill
+   C-c C-a n attribute next
+   C-c C-a p attribute previous
+   C-c C-a s attribute select
+   C-c C-a t attribute transpose
+
+*** DIRED
+
+*** ORG-MODE
+    * all:
+      - C-h i C-s org Cm Cm : open fucking manual
+      - C-c C-e : org-export-dispatch
+      - M-tab : completition
+      - <s+M : BEGIN_SRC-END_SRC snippet
+      ** navigation
+      - C-c C-n’     (‘outline-next-visible-heading’)
+    * lists
+      * M-ret -- org-insert-heading
+      * M-S-ret -- insert new item with checkbox
+      * M-S-left|right -- inc|dec indentation of list
+      * C-c ^ -- sort plain list
+    * note
+      - C-c C- : org-add-note
+    * on tag
+      - M-S-<right>|<left> -- increase|decrease hierarchy position with all child branches
+    * timestamps
+      - C-c . -- org-time-stamp
+      - C-c C-c -- normalize timestamp
+      - S-<left>|<right> -- down day|up day
+*** INFO
+**** navigation
+     - n|p : next, previos on the same line
+     - DEL|SPACE : scroll-up | ~-down
+     - [ | ] : backword-node | forward-node
+** regexp
+   | .           | any character (but newline)                                                              |
+   | *           | previous character or group, repeated 0 or more time                                     |
+   | +           | previous character or group, repeated 1 or more time                                     |
+   | ?           | previous character or group, repeated 0 or 1 time                                        |
+   | ^           | start of line                                                                            |
+   | $           | end of line                                                                              |
+   | [...]       | any character between brackets                                                           |
+   | [^..]       | any character not in the brackets                                                        |
+   | [a-z]       | any character between a and z                                                            |
+   | \           | prevents interpretation of following special char                                        |
+   | \\vert      | or                                                                                       |
+   | \w          | word constituent                                                                         |
+   | \b          | word boundary                                                                            |
+   | \sc         | character with c syntax (e.g. \s- for whitespace char)                                   |
+   | \( \)       | start/end of group                                                                       |
+   | \&lt; \&gt; | start/end of word (faulty rendering: backslash + less-than and backslash + greater-than) |
+   | \_< \_>     | start/end of symbol                                                                      |
+   | \` \'       | start/end of buffer/string                                                               |
+   | \1          | string matched by the first group                                                        |
+   | \n          | string matched by the nth group                                                          |
+   | \{3\}       | previous character or group, repeated 3 times                                            |
+   | \{3,\}      | previous character or group, repeated 3 or more times                                    |
+   | \{3,6\}     | previous character or group, repeated 3 to 6 times                                       |
+   | \=          | match succeeds if it is located at point                                                 |
+
+** bookmark
+
+** melpa
+   package-list-packages
+
+
+* POSTGRESGL
+** upgrade
+   systemctl stop postgresql.service
+   systemctl status postgresql.service
+   pacman -S postgresql postgresql-libs postgresql-old-upgrade
+   mv /var/lib/postgres/data /var/lib/postgres/olddata
+   mkdir /var/lib/postgres/data /var/lib/postgres/tmp
+   chown postgres:postgres /var/lib/postgres/data /var/lib/postgres/tmp
+   postgres]$ initdb -D '/var/lib/postgres/data'
+** AUTH
+   sudo su - <name>
+
+
+* PYTHON
+** virtualenv
+   python -m venv <dir> : initialization
+   source <dir>/bin/activate :
+
+   virtualenv --python=<python> path
+** regexp
+
+   |--------+----------------------------------------------------------------|
+   | name   | desc                                                           |
+   |--------+----------------------------------------------------------------|
+   | text   | Соответствует строке text.                                     |
+   |--------+----------------------------------------------------------------|
+   | .      | Соответствует любому символу, кроме символа перевода строки.   |
+   |--------+----------------------------------------------------------------|
+   | ^      | Соответствует позиции начала строки.                           |
+   |--------+----------------------------------------------------------------|
+   | $      | Соответствует позиции конца строки.                            |
+   |--------+----------------------------------------------------------------|
+   | *      | Ноль или более повторений предшествующего выражения;           |
+   |        | соответствует максимально возможному числу повторений.         |
+   |--------+----------------------------------------------------------------|
+   | +      | Одно или более повторений предшествующего выражения;           |
+   |        | соответствует максимально возможному числу повторений.         |
+   |--------+----------------------------------------------------------------|
+   | ?      | Ноль или одно повторение предшествующего выражения.            |
+   |--------+----------------------------------------------------------------|
+   | *?     | Ноль или более повторений предшествующего выражения;           |
+   |        | соответствует минимально возможному числу повторений.          |
+   |--------+----------------------------------------------------------------|
+   | +?     | Одно или более повторений предшествующего выражения;           |
+   |        | соответствует минимально возможному числу повторений.          |
+   |--------+----------------------------------------------------------------|
+   | ??     | Ноль или одно повторение предшествующего выражения;            |
+   |        | соответствует минимально возможному числу повторений.          |
+   |--------+----------------------------------------------------------------|
+   | {m}    | Соответствует точно m повторениям предшествующего выражения.   |
+   |--------+----------------------------------------------------------------|
+   | {m, n} | Соответствует от m до n повторений предшествующего выражения.  |
+   |        | Если аргумент m опущен, он принимается равным                  |
+   |--------+----------------------------------------------------------------|
+   | 0.     | Если аргумент n опущен, он принимается равным бес  конечности. |
+   |--------+----------------------------------------------------------------|
+
+   |------+-----------------------------------------------------------|
+   | name | desc                                                      |
+   |------+-----------------------------------------------------------|
+   | s    | Строка (для объекта любого другого типа будет выполнен    |
+   |      | вызов  функции str(X), чтобы получить строковое представ- |
+   |      | ление  объекта)                                           |
+   |------+-----------------------------------------------------------|
+   | r    | s, но использует функцию repr, а не str                   |
+   |------+-----------------------------------------------------------|
+   | c    | Символ                                                    |
+   |------+-----------------------------------------------------------|
+   | d    | Десятичное (целое) число                                  |
+   |------+-----------------------------------------------------------|
+   | i    | Целое число                                               |
+   |------+-----------------------------------------------------------|
+   | u    | То же, что и d (устарел: больше не является представлени- |
+   |      | ем  целого без знака)                                     |
+   |------+-----------------------------------------------------------|
+   | o    | Восьмеричное целое число                                  |
+   |------+-----------------------------------------------------------|
+   | x    | Шестнадцатеричное целое число                             |
+   |------+-----------------------------------------------------------|
+   | X    | x, но шестнадцатеричные цифры возвращаются в верхнем      |
+   |      | регистре                                                  |
+   |------+-----------------------------------------------------------|
+   | e    | Вещественное число в экспоненциальной форме               |
+   |------+-----------------------------------------------------------|
+   | E    | e, но алфавитные символы возвращаются в верхнем           |
+   |      | регистре                                                  |
+   |------+-----------------------------------------------------------|
+   | f    | Вещественное число в десятичном представлении             |
+   |------+-----------------------------------------------------------|
+   | F    | Вещественное число в десятичном представлении             |
+   |------+-----------------------------------------------------------|
+   | g    | Вещественное число e или f                                |
+   |------+-----------------------------------------------------------|
+   | G    | Вещественное число E или а                                |
+   |------+-----------------------------------------------------------|
+   | %    | Символ %                                                  |
+   |------+-----------------------------------------------------------|
+
+   #+TBLFM:
+
+** filter
+
+** grouping imported packages
+   + standard library imports
+   + related third party imports
+   + local application/library-specific imports
+
+
+* TMUX
+  commands:
+  + tmux attach : "connect" to previous session(probably)
+  + tmux kill-server :
+  hotkeys:
+  + \c-b ?                             : help(all bind keys)
+  + \c-b "                             : split horizontally
+  + \c-b %                             : split vertically
+  + \c-b k                             : kill pane
+  + \c-b <left>|<right>|<up>|<down>    : move to left|right|up|down pane(ring)
+  + \c-b o                             : next pane
+  + \c-b \M-<left>|<right>|<up>|<down> : change pane size
+  + \c-b s                             : session menu(q for quit)
+  + \c-b w                             : window menu
+  + \c-b c                             : create new window
+  + \c-b <num>                         : jump to <num> window
+
+
+* BASH
+** MC
+*** tab switch
+    +  ~/.config/mc/mc.keymap
+    + $@ -- all arguments in quotes(shoul be "$@")
+    + $* -- all arguments separeted spaces
+    + $^
+    + $-
+    + $# -- count of argument
+** commands
+   sort -u -o : unique with output in file
+   tree -R | less -c
+   ls --color | less
+   apropos,type,locate,slocate,where,which
+   stat,file
+** variables
+   $_
+   !$
+   ${}
+   $@
+   $^
+** binds
+   \M + . : last argument
+
+
+* MAKE
+** automatic variables
+   $@
+   The file name of the target of the rule. If the target is an archive member, then ‘$@’ is the name of the archive file. In a pattern rule that has multiple targets (see Introduction to Pattern Rules), ‘$@’ is the name of whichever target caused the rule’s recipe to be run.
+
+   $%
+   The target member name, when the target is an archive member. See Archives. For example, if the target is foo.a(bar.o) then ‘$%’ is bar.o and ‘$@’ is foo.a. ‘$%’ is empty when the target is not an archive member.
+
+   $<
+   The name of the first prerequisite. If the target got its recipe from an implicit rule, this will be the first prerequisite added by the implicit rule (see Implicit Rules).
+
+   $?
+   The names of all the prerequisites that are newer than the target, with spaces between them. For prerequisites which are archive members, only the named member is used (see Archives).
+
+   $^
+   The names of all the prerequisites, with spaces between them. For prerequisites which are archive members, only the named member is used (see Archives). A target has only one prerequisite on each other file it depends on, no matter how many times each file is listed as a prerequisite. So if you list a prerequisite more than once for a target, the value of $^ contains just one copy of the name. This list does not contain any of the order-only prerequisites; for those see the ‘$|’ variable, below.
+
+   $+
+   This is like ‘$^’, but prerequisites listed more than once are duplicated in the order they were listed in the makefile. This is primarily useful for use in linking commands where it is meaningful to repeat library file names in a particular order.
+
+   $|
+   The names of all the order-only prerequisites, with spaces between them.
+
+   $*
+   The stem with which an implicit rule matches (see How Patterns Match). If the target is dir/a.foo.b and the target pattern is a.%.b then the stem is dir/foo. The stem is useful for constructing names of related files.
+
+   In a static pattern rule, the stem is part of the file name that matched the ‘%’ in the target pattern.
+
+   In an explicit rule, there is no stem; so ‘$*’ cannot be determined in that way. Instead, if the target name ends with a recognized suffix (see Old-Fashioned Suffix Rules), ‘$*’ is set to the target name minus the suffix. For example, if the target name is ‘foo.c’, then ‘$*’ is set to ‘foo’, since ‘.c’ is a suffix. GNU make does this bizarre thing only for compatibility with other implementations of make. You should generally avoid using ‘$*’ except in implicit rules or static pattern rules.
+
+   If the target name in an explicit rule does not end with a recognized suffix, ‘$*’ is set to the empty string for that rule.
+
+   ‘$?’ is useful even in explicit rules when you wish to operate on only the prerequisites that have changed. For example, suppose that an archive named lib is supposed to contain copies of several object files. This rule copies just the changed object files into the archive:
+
+   lib: foo.o bar.o lose.o win.o
+   ar r lib $?
+   Of the variables listed above, four have values that are single file names, and three have values that are lists of file names. These seven have variants that get just the file’s directory name or just the file name within the directory. The variant variables’ names are formed by appending ‘D’ or ‘F’, respectively. These variants are semi-obsolete in GNU make since the functions dir and notdir can be used to get a similar effect (see Functions for File Names). Note, however, that the ‘D’ variants all omit the trailing slash which always appears in the output of the dir function. Here is a table of the variants:
+
+   ‘$(@D)’
+   The directory part of the file name of the target, with the trailing slash removed. If the value of ‘$@’ is dir/foo.o then ‘$(@D)’ is dir. This value is . if ‘$@’ does not contain a slash.
+
+   ‘$(@F)’
+   The file-within-directory part of the file name of the target. If the value of ‘$@’ is dir/foo.o then ‘$(@F)’ is foo.o. ‘$(@F)’ is equivalent to ‘$(notdir $@)’.
+
+   ‘$(*D)’
+   ‘$(*F)’
+   The directory part and the file-within-directory part of the stem; dir and foo in this example.
+
+   ‘$(%D)’
+   ‘$(%F)’
+   The directory part and the file-within-directory part of the target archive member name. This makes sense only for archive member targets of the form archive(member) and is useful only when member may contain a directory name. (See Archive Members as Targets.)
+
+   ‘$(<D)’
+   ‘$(<F)’
+   The directory part and the file-within-directory part of the first prerequisite.
+
+   ‘$(^D)’
+   ‘$(^F)’
+   Lists of the directory parts and the file-within-directory parts of all prerequisites.
+
+   ‘$(+D)’
+   ‘$(+F)’
+   Lists of the directory parts and the file-within-directory parts of all prerequisites, including multiple instances of duplicated prerequisites.
+
+   ‘$(?D)’
+   ‘$(?F)’
+   Lists of the directory parts and the file-within-directory parts of all prerequisites that are newer than the target.
+
+
+
+* LINUX
+** conky
+   mkdir -p ~/.config/conky && conky --print-config > ~/.config/conky/conky.conf
+** docker
+*** add user to docker group
+** arch specific
+   pacman -Qi | grep 'Name\|Size\|Description' | cut -d: -f2 | paste - - - | awk -F'\t' 'BEGIN{ s["MiB"]=1024; s["KiB"]=1;} {split($3, a, " "); print a[1] * s[a[2]], "KiB", $1}' | sort -n
+   pacman -S - < .applist.txt
+** systemctl
+   - emacs daemon
+     # .config/systemd/user/emacsdaemon.service
+     +BEGIN_SRC shell
+     # If your Emacs is installed in a non-standard location, you may need
+     # to copy this file to a standard directory, eg ~/.config/systemd/user/ .
+     # If you install this file by hand, change the "Exec" lines below
+     # to use absolute file names for the executables.
+     [Unit]
+     description=Emacs text editor
+     documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
+
+     [Service]
+     type=simple
+     execStart=emacs --fg-daemon
+     execStop=emacsclient --eval "(kill-emacs)"
+     environment=SSH_AUTH_SOCK=%t/keyring/ssh
+     restart=on-failure
+
+     [Install]
+     wantedBy=default.target])
+     +END_SRC
+
+   - capslock switcher daemon
+     # .config/systemd/user/capsswitcher.service
+     [Unit]
+     Description = ctrl-caps switcher
+
+     [Service]
+     ExecStart=/usr/bin/setxkbmap "us,ru" "," "ctrl:swapcaps"
+
+     [Install]
+     WantedBy=default.target
+
+
+** init
+*** swap
+    swapon --show
+    free -h
+    fallocate -l 512M <path2file>
+    chmod 600 <path2file>
+    mkswap <path2file>
+    swapon <path2file>
+*** scripts
+    per login:
+    setxkbmap "us,ru" "," "ctrl:swapcaps"
+    only once :: after all installations
+    cp /etc/mc/mc.keymap ~/.config/mc
+    mkdir -p .config/systemd/user/
+    cp /usr/share/emacs/26.1/etc/emacs.service ~/.config/systemd/user/
+    systemctl enable --user emacs
+    systemctl start --user emacs
+** fonts
+   /usr/share/fonts/misc/font.alias
+
+** mpd config
+   cp /usr/share/doc/mpd/mpdconf.example ~/.config/mpd/mpd.conf
+   mkdir ~/.config/mpd/playlists
+   touch ~/.config/mpd/{database,log,pid,state,sticker.sql}
+** APP LIST
+   awesome
+   baobab
+   cherrytree
+   chromium
+   conky
+   cronie
+   emacs
+   calculator-gtk2
+   gcc
+   gimp
+   gksu
+   goldendict
+   gparted
+   gunicorn
+   inkscape
+   kchmviewer
+   make
+   mc
+   nginx
+   ntfs-3g
+   openssh
+   openssl
+   pcmanfm
+   pidgin
+   postgresql
+   pycharm-community-edition
+   python
+   python-django
+   python-numpy
+   python-psycopg2
+   python-requests
+   python-scipy
+   python-setuptools
+   python-virtualenv
+   python-urllib3
+   rclone
+   rsync
+   samba
+   sqlite
+   tmux
+   tree
+   udisks2
+   unrar
+   unzip
+   usbutils
+   wine
+   xdg-utils
+   xorg-xev
+   xorg-xmodmap
+   xorg-xprop
+   xterm
+   zathura
+   zathura-cb
+   zathura-djvu
+   zathura-pdf-poppler
+   zenity
+** tools
+   modinfo
+
+** ranger
+
+** xorg
+   /etc/X11/xorg.conf.d/20-keyboard-layout.conf
+   Section "InputClass"
+   Identifier             "keyboard-layout"
+   MatchIsKeyboard        "on"
+   Option "XkbLayout" "us,ru"
+   Option "XkbOptions" "grp:ctrls_toggle"
+   Option "XkbOptions" "ctrl:swapcaps"
+   EndSection
+
+
+* BOOTSTRAP
+*** col abbr
+    .col- (extra small devices - screen width less than 576px)
+    .col-sm- (small devices - screen width equal to or greater than 576px)
+    .col-md- (medium devices - screen width equal to or greater than 768px)
+    .col-lg- (large devices - screen width equal to or greater than 992px)
+    .col-xl- (xlarge devices - screen width equal to or greater than 1200px)
+*** tags
+    kbd
+    q
+    # --
+
+
+* TASKS
+** Emacs
+*** Org mode:
+
+** django
+*** views
+    form = Form(request.POST or None)
+    if form.is_valid
+*** urls
+    in templates:
+    #+BEGIN_SRC html
+  {% url "news:detail" pk=object.pk %}
+    #+END_SRC
+*** "нескучные запросы с django orm"
+*** How to display and properly indent a tree structure [closed]
+*** Getting a modified preorder tree traversal model (nested set) into a <ul>
+
+** python
+   многопоточность в одну строку
+   распараллеливание
+   использование python и excel
+   как работает yield

@@ -1,0 +1,175 @@
+#!/usr/bin/env bash
+#.aliases
+#добавляется в .bashrc
+# [[ $- != *i* ]] && return
+# if [ -f ~/.aliases ];then
+#     . ~/.aliases
+# fi
+# if [ -f ~/.variables ];then
+#     . ~/.variables
+# fi'
+# нужно создать .variables(или раскоментировать нижние), если будете
+# выносить переменные отдельно, содержит :
+# export PINKY="/run/media/$USER/PINKY"'  #~ dlya usbsync и cdusb
+alias ctl_restart="systemctl restart"
+alias ctl_enable="systemctl enable"
+alias ctl_status="systemctl status"
+alias ctl_start="systemctl start"
+# cd
+#alias install=""
+alias lya='\!-1 | less'
+alias pd='pushd'
+alias pp='popd'
+alias cdh="pushd $HOME"
+alias venvactivate="source ~/devel/venv/bin/activate"
+alias cdcurrent="pushd ~/devel/python/django/samplesite_old && tmux new-session -s 'current' 'source ~/devel/venv/bin/activate'"
+alias cdlie="pushd ~/liebrary/"
+alias cddev="pushd ~/devel/"
+alias cdkmd='pushd $KMD'
+alias cdprimary_ps='cd /home/kell/devel/workbench/primary_ps'
+alias cdkmdstuff='pushd $KMD_STUFF'
+alias cdusb='pushd $PINKY'
+
+alias recfg='qq ~/.aliases && . ~/.bashrc ; echo "bash is reconfigured"'
+alias dvl='pushd ~/devel/workbench/snd_pst/'
+alias emagz="nohup emacs -f shell --no-desktop -f delete-other-windows --no-site-file &"
+alias qq="emacs -nw -eval \"(load-theme 'tango-dark)\""
+alias findem="find -regextype emacs -regex"
+alias fuckfinger="xmodmap ~/.HEAL_MY_THUMB_KILL_MY_NERVES"
+alias tmxs="tmux start-server"
+alias tmxd="tmux detach"
+alias tmxk="tmux kill-server"
+alias tmxa="tmux attach"
+alias loadp3='. /home/lilu_soft/bashrc_cfd && sourceP3'
+#django
+alias activedjangovirtualenvironment='. ~/.virtualenv/djangodev/bin/activate'
+
+alias createsuperuser="./manage.py createsuperuser"
+alias deletemigrations='find . -path "*/migrations/*.py" -not -name "__init__.py" -delete -print && find . -path "*.pyc"  -delete -print'
+
+alias gitclone='pushd ~/downloads/builds/;git clone'
+alias dbshell="./manage.py dbshell"
+
+alias runserver="./manage.py runserver 0:8000"
+alias shell="./manage.py shell"
+alias migrate="./manage.py makemigrations && ./manage.py migrate"
+#utils
+alias clrasil="find -regextype emacs -regex '^.*\(\(\.#.*\)\|\(~\|#\)\)$' -delete -print"
+alias hlp="bind -p | less -R"
+alias ls='ls --color=always'
+alias la='ls -ah --color=always'
+alias lal='ls -alh --color=always'
+alias lesr="less -R"
+alias treel="tree -C | less -R"
+alias kek='ls -1 --color=always'
+#git
+alias gitupdate="git update-index --assume-unchanged"
+alias br='git branch'
+alias st='git status'
+alias ms='git checkout master'
+alias is='git checkout is'
+alias git-ch="git checkout"
+# pacman
+alias spacman="sudo pacman -S"
+alias sspacman="pacman -Ss"
+alias pacmani='pacman -Si'
+alias pacmans='sudo pacman -S'
+alias pacmanss='pacman -Ss'
+alias ska='kill -9'
+alias blya="sudo !!"
+# function recfg() {
+#     reflag=
+#     while getopts 'r:' OPTION
+#     do
+#         case $OPTION in
+#             r) . ~/.variables && . ~/.bashrc
+#                printf "# dd" >&2
+#                reflag=1
+#                exit 1
+#                ;;
+#             h) printf "Usage: %s: [-h] dd\n " $(basename $0) >&2
+
+#                ;;
+#             ?) printf "Usage: %s: [-h] dd\n " "djXS" >&2
+#             ;;
+#         esac
+
+#     done
+#     shift $(($OPTIND - 1))
+#     #qq ~/.aliases && . ~/.bashrc
+# }
+# find id of application
+function fapp() {
+    #find application in processes
+    idflag=
+    while getopts 'i:' OPTION
+    do
+        case $OPTION in
+            i) echo "i"
+               idflag=1
+               shift $(expr $OPTION - 1)
+               ;;
+            ?)
+
+            ;;
+        esac
+
+    done
+    ps -aux | grep ${1} --color=always | grep -v grep --color=always
+
+}
+# legacy way to sync config with $PINKY destination/transfer configs on git
+function usbsync() {
+    #!/usr/bin/env bash
+    if [ $# -lt 1 ];then
+        echo "not enought parametres\n
+            -u|d filename"
+        exit 2
+    fi
+
+    for arg in "$@";do
+        case $arg in
+            *-u)FROM=$HOME
+                TO="${PINKY}/cfg"
+                shift
+                ;;
+            *-d)FROM="${PINKY}/cfg"
+                TO=$HOME
+                shift
+                ;;
+            *-c)FROM=$HOME
+                TO="${HOME}/tmp/cfg"
+                shift
+                ;;
+            *-h)echo "\
+-u -- from home to usb
+-c -- to tmp
+-d -- from usb to home\
+"
+                return 1
+                ;;
+            *);;
+        esac
+    done
+    if [ $# -eq 0 ];then
+        filename="${HOME}/scripts/filelist"
+    else
+        filename="$(locate ${1})"
+    fi
+    echo "yep"
+    echo "filename is: ${filename}"
+    if [ -f "${filename}" ];then
+        echo "+++++++ coping data from $FROM to $TO +++++++"
+
+        pushd $FROM
+        echo -n 'current dir is: '
+
+        pwd
+        while read line; do
+            echo "Copying from ${line} to ${TO}"
+            rsync -avR "${line}" "${TO}"
+        done < "$filename"
+        popd
+    fi
+
+}
