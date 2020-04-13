@@ -1,0 +1,10 @@
+(setq package-selected-packages
+      '(neotree
+        yasnippet
+        popup
+        helm
+        web-mode
+        apropospriate-theme
+        lua-modex
+        ))
+(package-selected-packages)
