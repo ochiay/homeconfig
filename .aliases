@@ -25,17 +25,18 @@ alias venvactivate="source ~/devel/venv/bin/activate"
 alias cdcurrent="pushd ~/devel/python/django/samplesite_old && tmux new-session -s 'current' 'source ~/devel/venv/bin/activate'"
 alias cdlie="pushd ~/liebrary/"
 alias cddev="pushd ~/devel/"
-alias cdkmd='pushd $KMD'
+alias cdwd='pushd ~/devel/python/django/kskd'
 alias cdprimary_ps='cd /home/kell/devel/workbench/primary_ps'
 alias cdkmdstuff='pushd $KMD_STUFF'
 alias cdusb='pushd $PINKY'
 
-alias recfg='qq ~/.aliases && . ~/.bashrc ; echo "bash is reconfigured"'
+alias recfg='qq ~/.aliases && . ~/.zshrc ; echo "zsh is reconfigured"'
 alias dvl='pushd ~/devel/workbench/snd_pst/'
 alias emagz="nohup emacs -f shell --no-desktop -f delete-other-windows --no-site-file &"
-alias qq="emacs -nw -eval \"(load-theme 'tango-dark)\""
+alias qq="emacs -nw --no-desktop -eval \"(load-theme 'tango-dark)\""
 alias findem="find -regextype emacs -regex"
-alias fuckfinger="xmodmap ~/.HEAL_MY_THUMB_KILL_MY_NERVES"
+alias diery="qq ~/.diery.org"
+#alias fuckfinger="xmodmap ~/.HEAL_MY_THUMB_KILL_MY_NERVES"
 alias tmxs="tmux start-server"
 alias tmxd="tmux detach"
 alias tmxk="tmux kill-server"
@@ -43,7 +44,7 @@ alias tmxa="tmux attach"
 alias loadp3='. /home/lilu_soft/bashrc_cfd && sourceP3'
 #django
 alias activedjangovirtualenvironment='. ~/.virtualenv/djangodev/bin/activate'
-
+alias rebase="dropdb kskd_prod; createdb kskd_prod"
 alias createsuperuser="./manage.py createsuperuser"
 alias deletemigrations='find . -path "*/migrations/*.py" -not -name "__init__.py" -delete -print && find . -path "*.pyc"  -delete -print'
 

@@ -510,7 +510,7 @@ clientkeys = awful.util.table.join(
    awful.key({ modkey,           }, 'n', function (c) c.minimized = true end ,
       {description = 'minimize', group = 'client'}),
    -- \m+m go to man page
-   awful.key({ modkey,           }, 'd',
+   awful.key({ modkey,           }, 'm',
       function (c)
          c.maximized = not c.maximized
          c:raise()
@@ -567,7 +567,7 @@ globalkeys = awful.util.table.join(
       function() view_tag(4) end,
       {description = 'view etc', group = 'tag'}
    ),
-   awful.key({ modkey }, 'm',--'#' .. i + 9,
+   awful.key({ modkey }, 'd',--'#' .. i + 9,
       function() view_tag(5) end,
       {description = 'view man', group = 'tag'}
    ),

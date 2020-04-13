@@ -382,7 +382,8 @@
 ** melpa
    package-list-packages
 
-
+** jedi - python
+   pip install jedi epc, m x jedi:install-server
 * POSTGRESGL
 ** upgrade
    systemctl stop postgresql.service
@@ -391,6 +392,7 @@
    mv /var/lib/postgres/data /var/lib/postgres/olddata
    mkdir /var/lib/postgres/data /var/lib/postgres/tmp
    chown postgres:postgres /var/lib/postgres/data /var/lib/postgres/tmp
+   sudo su - postgres -c "initdb --locale ru_RU.UTF-8 -E UTF8 -D '/var/lib/postgres/data'"
    postgres]$ initdb -D '/var/lib/postgres/data'
 ** AUTH
    sudo su - <name>
@@ -605,6 +607,9 @@
 
 
 * LINUX
+** help
+*** sysinfo
+    lsblk -l
 ** conky
    mkdir -p ~/.config/conky && conky --print-config > ~/.config/conky/conky.conf
 ** docker
