@@ -784,3 +784,4 @@
    распараллеливание
    использование python и excel
    как работает yield
+xrandr --output DVI-D-0 --brightness 0.4

@@ -70,7 +70,7 @@ local layouts = {
    awful.layout.suit.tile.right,     --"gui"
    awful.layout.suit.tile.right,     --"cfg"
    awful.layout.suit.tile.right,     --"rtfm"
-   awful.layout.suit.fair,           --"ssh"
+   awful.layout.suit.fair,           --"xterm"
    awful.layout.suit.max,            --"dk"
    awful.layout.suit.fair,           --"stuff"
    awful.layout.suit.spiral.dwindle, --"etc"
@@ -231,7 +231,7 @@ end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal('property::geometry', set_wallpaper)
-names = {'web', 'dev', 'gui', 'etc', 'man', 'ssh', 'app', 'pwd', 'tmp'}
+names = {'web', 'dev', 'gui', 'etc', 'man', 'xterm', 'app', 'pwd', 'tmp'}
 
 awful.screen.connect_for_each_screen( function(s)
       -- Wallpaper
@@ -389,9 +389,9 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey,           }, 'e',
       function () run_or_raise('Emacs', 'emacs') end,
       {description = 'popup a emacs', group = 'launcher'}),
-   awful.key({ modkey,           }, '`',
-      function () run_or_raise('XTerm', 'xterm') end,
-      {description = 'popup a xterm', group = 'launcher'}),
+   -- awful.key({ modkey,           }, '`',
+   --    function () run_or_raise('XTerm', 'xterm') end,
+   --    {description = 'popup a xterm', group = 'launcher'}),
    awful.key({ modkey,           }, 'z',
       function () run_or_raise('Zathura', 'zathura') end,
       {description = 'popup a zathura', group = 'launcher'}),
@@ -557,35 +557,39 @@ globalkeys = awful.util.table.join(
          view_tag(6)
          run_or_raise('XTerm', 'xterm')
       end,
-      {descriptrion = 'run xterm on \'ssh\' tag'}
+      {descriptrion = 'run xterm on \'xterm\' tag'}
    ),
    awful.key({ modkey }, 'w',--'#' .. i + 9,
       function() view_tag(4) end,
-      {description = 'view web', group = 'tag'}
+      {description = 'go to web', group = 'tag'}
    ),
    awful.key({ modkey }, 'c',--'#' .. i + 9,
       function() view_tag(4) end,
-      {description = 'view etc', group = 'tag'}
+      {description = 'go to etc', group = 'tag'}
    ),
    awful.key({ modkey }, 'd',--'#' .. i + 9,
       function() view_tag(5) end,
-      {description = 'view man', group = 'tag'}
+      {description = 'go to man', group = 'tag'}
    ),
    awful.key({ modkey }, 's',--'#' .. i + 9,
       function() view_tag(6) end,
-      {description = 'view cfg', group = 'tag'}
+      {description = 'go to cfg', group = 'tag'}
+   ),
+   awful.key({ modkey }, '`',--'#' .. i + 9,
+      function() view_tag(6) end,
+      {description = 'go to xterm', group = 'tag'}
    ),
    awful.key({ modkey }, 'a',--'#' .. i + 9,
       function() view_tag(8) end,
-      {description = 'view pwd', group = 'tag'}
+      {description = 'go to pwd', group = 'tag'}
    ),
    awful.key({ modkey }, 'v',--'#' .. i + 9,
       function() view_tag(7) end,
-      {description = 'view cfg', group = 'tag'}
+      {description = 'go to cfg', group = 'tag'}
    ),
    awful.key({ modkey }, '.',--'#' .. i + 9,
       function() view_tag(7) end,
-      {description = 'view cfg', group = 'tag'}
+      {description = 'go to cfg', group = 'tag'}
    )
 
    -- awful.key({ modkey, }, '`',
