@@ -16,7 +16,7 @@
 (desktop-save-mode 1)
 (set-face-attribute 'default nil :height 110)
 ;;(set-frame-font Font nil t)
-(set-default-font "-PfEd-DejaVu Sans Mono-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1")
+;;(set-default-font "-PfEd-DejaVu Sans Mono-normal-normal-normal-*-*-*-*-*-m-0-iso10646-1")
 ;;visual
 (tool-bar-mode -1)
 (menu-bar-mode -1)
