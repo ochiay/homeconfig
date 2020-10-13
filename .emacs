@@ -282,46 +282,43 @@
  '(ansi-color-names-vector
    ["black" "#d55e00" "#009e73" "#f8ec59" "#0072b2" "#cc79a7" "#56b4e9" "white"])
  '(beacon-color "#F8BBD0")
+ '(blink-cursor-mode nil)
  '(company-quickhelp-color-background "#4F4F4F")
  '(company-quickhelp-color-foreground "#DCDCCC")
  '(custom-safe-themes
-   (quote
-    ("c3e6b52caa77cb09c049d3c973798bc64b5c43cc437d449eacf35b3e776bf85c" "70f5a47eb08fe7a4ccb88e2550d377ce085fedce81cf30c56e3077f95a2909f2" "a8c595a70865dae8c97c1c396ae9db1b959e86207d02371bc5168edac06897e6" "5a0eee1070a4fc64268f008a4c7abfda32d912118e080e18c3c865ef864d1bea" "40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" default)))
- '(evil-emacs-state-cursor (quote ("#D50000" hbar)))
- '(evil-insert-state-cursor (quote ("#D50000" bar)))
- '(evil-normal-state-cursor (quote ("#F57F17" box)))
- '(evil-visual-state-cursor (quote ("#559a58" box)))
+   '("c3e6b52caa77cb09c049d3c973798bc64b5c43cc437d449eacf35b3e776bf85c" "70f5a47eb08fe7a4ccb88e2550d377ce085fedce81cf30c56e3077f95a2909f2" "a8c595a70865dae8c97c1c396ae9db1b959e86207d02371bc5168edac06897e6" "5a0eee1070a4fc64268f008a4c7abfda32d912118e080e18c3c865ef864d1bea" "40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" default))
+ '(evil-emacs-state-cursor '("#D50000" hbar))
+ '(evil-insert-state-cursor '("#D50000" bar))
+ '(evil-normal-state-cursor '("#F57F17" box))
+ '(evil-visual-state-cursor '("#559a58" box))
  '(fci-rule-color "#383838")
+ '(global-display-line-numbers-mode t)
  '(helm-mode t)
  '(highlight-indent-guides-auto-enabled nil)
  '(highlight-symbol-colors
-   (quote
-    ("#F57F17" "#559a58" "#0097A7" "#42A5F5" "#7E57C2" "#D84315")))
+   '("#F57F17" "#559a58" "#0097A7" "#42A5F5" "#7E57C2" "#D84315"))
  '(highlight-symbol-foreground-color "#3f5a66")
- '(highlight-tail-colors (quote (("#F8BBD0" . 0) ("#f0f0f0" . 100))))
+ '(highlight-tail-colors '(("#F8BBD0" . 0) ("#f0f0f0" . 100)))
+ '(menu-bar-mode nil)
  '(nrepl-message-colors
-   (quote
-    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
+   '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(org-agenda-files nil)
  '(package-selected-packages
-   (quote
-    (django-mode auto-yasnippet django-snippets ac-helm auto-compile jedi apropospriate-theme async helm-core popup nhexl-mode projectile helm zenburn-theme popup-complete yasnippet-snippets yasnippet-classic-snippets auto-complete web-mode yasnippet neotree ggtags htmlize lua-mode flymake-lua)))
- '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+   '(django-mode auto-yasnippet django-snippets ac-helm auto-compile jedi apropospriate-theme async helm-core popup nhexl-mode projectile helm zenburn-theme popup-complete yasnippet-snippets yasnippet-classic-snippets auto-complete web-mode yasnippet neotree ggtags htmlize lua-mode flymake-lua))
+ '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(pos-tip-background-color "#f7aef7aef7ae")
  '(pos-tip-foreground-color "#78909C")
  '(safe-local-variable-values
-   (quote
-    ((eval when
-           (require
-            (quote rainbow-mode)
-            nil t)
+   '((eval when
+           (require 'rainbow-mode nil t)
            (rainbow-mode 1))
-     (engine . django))))
+     (engine . django)))
+ '(show-paren-mode t)
  '(tabbar-background-color "#fcccfcccfccc")
+ '(tool-bar-mode nil)
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
-   (quote
-    ((20 . "#BC8383")
+   '((20 . "#BC8383")
      (40 . "#CC9393")
      (60 . "#DFAF8F")
      (80 . "#D0BF8F")
@@ -338,12 +335,12 @@
      (300 . "#7CB8BB")
      (320 . "#8CD0D3")
      (340 . "#94BFF3")
-     (360 . "#DC8CC3"))))
+     (360 . "#DC8CC3")))
  '(vc-annotate-very-old-color "#DC8CC3"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "Source Code Pro" :foundry "ADBO" :slant normal :weight normal :height 98 :width normal)))))
 (put 'scroll-left 'disabled nil)
