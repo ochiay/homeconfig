@@ -1,4 +1,4 @@
-#+STARTUP: overwiew
+l#+STARTUP: overwiew
 #+OPTIONS: ^:nil _:nil
 
 * GIT
@@ -10,11 +10,21 @@
   + <ветка>~<num> -- родитель под номером git clone <user>@<ip>/<wut>
 
   + git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
-    git config --global core.editor "name"
+
   + добавление локального репозитория
 
     git init --bare /path/to/bare/repo.git
     project/git/folder: git remote add origin /path/to/bare/repo.git
+
+  + settings
+    git config --global core.editor "name"
+               --global user.name|email "name|email"
+               --list
+
+
+* GDB
+  + breakpoints:
+    b <n>, b <file:n>
 
 * CPP
   where is nothing about
