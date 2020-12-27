@@ -17,6 +17,7 @@ alias ctl_status="systemctl status"
 alias ctl_start="systemctl start"
 # cd
 #alias install=""
+alias last_comand="fc -ln -1 >> ~/last_comand.his"
 alias lya='\!-1 | less'
 alias pd='pushd'
 alias pp='popd'
