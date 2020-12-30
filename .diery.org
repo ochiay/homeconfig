@@ -8,19 +8,17 @@ l#+STARTUP: overwiew
     -- -f -- задать ветке родителя
   + <ветка>^ -- родитель
   + <ветка>~<num> -- родитель под номером git clone <user>@<ip>/<wut>
-
   + git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
-
   + добавление локального репозитория
 
     git init --bare /path/to/bare/repo.git
     project/git/folder: git remote add origin /path/to/bare/repo.git
 
   + settings
+
     git config --global core.editor "name"
                --global user.name|email "name|email"
                --list
-
 
 * GDB
   + breakpoints:
@@ -31,20 +29,17 @@ l#+STARTUP: overwiew
 
 ** gcc keys:
 
-
 * JAVASCRIPT
   + functions:
     - alert
 ** code
    <script src="/path/to/script.js"></script> -- подключение
 
-
 * AWESOME
 ** navigations
    - mod + j|k
 ** help
    - mod + s
-
 
 * ZATHURA                               :zathura:
 ** common                                                          :hotkeys:
@@ -53,12 +48,10 @@ l#+STARTUP: overwiew
    - J, PgDn | K, PgUP : next|previos page
    - a,s : adjust window in best-fit or width mode
 
-
 * DJANGO
 ** tips
    pipreqs -- for generate requirements.txt
 ** tests
-
 ** errors
    Related model 'contract.Data' cannot be resolvedlass
 ** FILE STRUCTURE
@@ -72,7 +65,6 @@ l#+STARTUP: overwiew
     in templates
 *** settins
     + context processor?!
-
 ** django (modules)
 *** apps
 *** conf
@@ -132,7 +124,6 @@ l#+STARTUP: overwiew
       __iexact -- case insensitive exact
       __in
       __range
-
 *** Fields
 **** DateField
 ***** param:
@@ -144,7 +135,6 @@ l#+STARTUP: overwiew
     <model>.objects.all().delete()
 ** views #контроллер
 *** tools
-
 ** django.http :: djmodule
    HttpRequest вход
    HttpResponse выход
@@ -167,19 +157,16 @@ l#+STARTUP: overwiew
    + Redirect
      example: 'http://yandex.ru'
    + [ ]  ::
-
 *** classes
 **** values
      ort_field
 **** method
      dispatch :: overwrite self.parametres before
      using get_query ..for example
-
 ** templates
    apfirst -- uppercase
 ** forms
    leaned_data -- after calling method "is_valid" forms fill this parameter
-
 *** methods
     clean
 *** create form class
@@ -188,17 +175,12 @@ l#+STARTUP: overwiew
    request is class 'django.core.handlers.wsgi.WSGIRequest' object
 ** CBV -- class-based views
    base class -- django.views.View
-
 ** functions
    <model>.objects.get(id=<id>)
-
 *** CREATING PROJECTS
     1.makemigrations 2.migrate -- подготовить инструкции и внести изменения
     django-admin startproject <project> : create new folder with <project> name, and one more folder inside with same name
     django-admin startproject .<project>
-
-
-
 
 
 ** Templates
@@ -216,7 +198,6 @@ l#+STARTUP: overwiew
    * change in config/wsgi.py os
    * change all project_name modules into "config folder name"
 
-
 * WEB/HTML
 ** form
    + atribute
@@ -224,7 +205,6 @@ l#+STARTUP: overwiew
      + application/x-www-form-urlencoded
      + multipart/form-data
      + TEXT/PLAIN
-
 
 * EMACS
   + \c -- ctrl, \M -- alt
@@ -260,7 +240,6 @@ l#+STARTUP: overwiew
      f -- functions
      c -- hotkeys
      i -- info
-
 ** navigation
    - \c-n|p : next | previos line
    - \M->|< : end | beggining of buffer
@@ -270,7 +249,6 @@ l#+STARTUP: overwiew
    - \M-w : copy selection(kill-ring-save)
    - \c-y : insert selection(yank)
    - \c-w : kill selection(\c-y paste it too) (*not work in *fc \c-w \c-w)
-
 ** MODE
 ** WEB-MODE
    General
@@ -332,9 +310,7 @@ l#+STARTUP: overwiew
    C-c C-a p attribute previous
    C-c C-a s attribute select
    C-c C-a t attribute transpose
-
 *** DIRED
-
 *** ORG-MODE
     * all:
       - C-h i C-s org Cm Cm : open fucking manual
@@ -386,12 +362,9 @@ l#+STARTUP: overwiew
    | \{3,\}      | previous character or group, repeated 3 or more times                                    |
    | \{3,6\}     | previous character or group, repeated 3 to 6 times                                       |
    | \=          | match succeeds if it is located at point                                                 |
-
 ** bookmark
-
 ** melpa
    package-list-packages
-
 ** jedi - python
    pip install jedi epc, m x jedi:install-server
 * POSTGRESGL
@@ -407,15 +380,12 @@ l#+STARTUP: overwiew
 ** AUTH
    sudo su - <name>
 
-
 * PYTHON
 ** virtualenv
    python -m venv <dir> : initialization
    source <dir>/bin/activate :
-
    virtualenv --python=<python> path
 ** regexp
-
    |--------+----------------------------------------------------------------|
    | name   | desc                                                           |
    |--------+----------------------------------------------------------------|
@@ -451,7 +421,6 @@ l#+STARTUP: overwiew
    |--------+----------------------------------------------------------------|
    | 0.     | Если аргумент n опущен, он принимается равным бес  конечности. |
    |--------+----------------------------------------------------------------|
-
    |------+-----------------------------------------------------------|
    | name | desc                                                      |
    |------+-----------------------------------------------------------|
@@ -492,16 +461,12 @@ l#+STARTUP: overwiew
    |------+-----------------------------------------------------------|
    | %    | Символ %                                                  |
    |------+-----------------------------------------------------------|
-
    #+TBLFM:
-
 ** filter
-
 ** grouping imported packages
    + standard library imports
    + related third party imports
    + local application/library-specific imports
-
 
 * TMUX
   commands:
@@ -519,7 +484,6 @@ l#+STARTUP: overwiew
   + \c-b w                             : window menu
   + \c-b c                             : create new window
   + \c-b <num>                         : jump to <num> window
-
 
 * BASH
 ** MC
@@ -545,76 +509,53 @@ l#+STARTUP: overwiew
 ** binds
    \M + . : last argument
 
-
 * MAKE
 ** automatic variables
    $@
    The file name of the target of the rule. If the target is an archive member, then ‘$@’ is the name of the archive file. In a pattern rule that has multiple targets (see Introduction to Pattern Rules), ‘$@’ is the name of whichever target caused the rule’s recipe to be run.
-
    $%
    The target member name, when the target is an archive member. See Archives. For example, if the target is foo.a(bar.o) then ‘$%’ is bar.o and ‘$@’ is foo.a. ‘$%’ is empty when the target is not an archive member.
-
    $<
    The name of the first prerequisite. If the target got its recipe from an implicit rule, this will be the first prerequisite added by the implicit rule (see Implicit Rules).
-
    $?
    The names of all the prerequisites that are newer than the target, with spaces between them. For prerequisites which are archive members, only the named member is used (see Archives).
-
    $^
    The names of all the prerequisites, with spaces between them. For prerequisites which are archive members, only the named member is used (see Archives). A target has only one prerequisite on each other file it depends on, no matter how many times each file is listed as a prerequisite. So if you list a prerequisite more than once for a target, the value of $^ contains just one copy of the name. This list does not contain any of the order-only prerequisites; for those see the ‘$|’ variable, below.
-
    $+
    This is like ‘$^’, but prerequisites listed more than once are duplicated in the order they were listed in the makefile. This is primarily useful for use in linking commands where it is meaningful to repeat library file names in a particular order.
-
    $|
    The names of all the order-only prerequisites, with spaces between them.
-
    $*
    The stem with which an implicit rule matches (see How Patterns Match). If the target is dir/a.foo.b and the target pattern is a.%.b then the stem is dir/foo. The stem is useful for constructing names of related files.
-
    In a static pattern rule, the stem is part of the file name that matched the ‘%’ in the target pattern.
-
    In an explicit rule, there is no stem; so ‘$*’ cannot be determined in that way. Instead, if the target name ends with a recognized suffix (see Old-Fashioned Suffix Rules), ‘$*’ is set to the target name minus the suffix. For example, if the target name is ‘foo.c’, then ‘$*’ is set to ‘foo’, since ‘.c’ is a suffix. GNU make does this bizarre thing only for compatibility with other implementations of make. You should generally avoid using ‘$*’ except in implicit rules or static pattern rules.
-
    If the target name in an explicit rule does not end with a recognized suffix, ‘$*’ is set to the empty string for that rule.
-
    ‘$?’ is useful even in explicit rules when you wish to operate on only the prerequisites that have changed. For example, suppose that an archive named lib is supposed to contain copies of several object files. This rule copies just the changed object files into the archive:
-
    lib: foo.o bar.o lose.o win.o
    ar r lib $?
    Of the variables listed above, four have values that are single file names, and three have values that are lists of file names. These seven have variants that get just the file’s directory name or just the file name within the directory. The variant variables’ names are formed by appending ‘D’ or ‘F’, respectively. These variants are semi-obsolete in GNU make since the functions dir and notdir can be used to get a similar effect (see Functions for File Names). Note, however, that the ‘D’ variants all omit the trailing slash which always appears in the output of the dir function. Here is a table of the variants:
-
    ‘$(@D)’
    The directory part of the file name of the target, with the trailing slash removed. If the value of ‘$@’ is dir/foo.o then ‘$(@D)’ is dir. This value is . if ‘$@’ does not contain a slash.
-
    ‘$(@F)’
    The file-within-directory part of the file name of the target. If the value of ‘$@’ is dir/foo.o then ‘$(@F)’ is foo.o. ‘$(@F)’ is equivalent to ‘$(notdir $@)’.
-
    ‘$(*D)’
    ‘$(*F)’
    The directory part and the file-within-directory part of the stem; dir and foo in this example.
-
    ‘$(%D)’
    ‘$(%F)’
    The directory part and the file-within-directory part of the target archive member name. This makes sense only for archive member targets of the form archive(member) and is useful only when member may contain a directory name. (See Archive Members as Targets.)
-
    ‘$(<D)’
    ‘$(<F)’
    The directory part and the file-within-directory part of the first prerequisite.
-
    ‘$(^D)’
    ‘$(^F)’
    Lists of the directory parts and the file-within-directory parts of all prerequisites.
-
    ‘$(+D)’
    ‘$(+F)’
    Lists of the directory parts and the file-within-directory parts of all prerequisites, including multiple instances of duplicated prerequisites.
-
    ‘$(?D)’
    ‘$(?F)’
    Lists of the directory parts and the file-within-directory parts of all prerequisites that are newer than the target.
-
-
 
 * LINUX
 ** help
@@ -638,29 +579,23 @@ l#+STARTUP: overwiew
      [Unit]
      description=Emacs text editor
      documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
-
      [Service]
      type=simple
      execStart=emacs --fg-daemon
      execStop=emacsclient --eval "(kill-emacs)"
      environment=SSH_AUTH_SOCK=%t/keyring/ssh
      restart=on-failure
-
      [Install]
      wantedBy=default.target])
      +END_SRC
-
    - capslock switcher daemon
      # .config/systemd/user/capsswitcher.service
      [Unit]
      Description = ctrl-caps switcher
-
      [Service]
      ExecStart=/usr/bin/setxkbmap "us,ru" "," "ctrl:swapcaps"
-
      [Install]
      WantedBy=default.target
-
 
 ** init
 *** swap
@@ -681,7 +616,6 @@ l#+STARTUP: overwiew
     systemctl start --user emacs
 ** fonts
    /usr/share/fonts/misc/font.alias
-
 ** mpd config
    cp /usr/share/doc/mpd/mpdconf.example ~/.config/mpd/mpd.conf
    mkdir ~/.config/mpd/playlists
@@ -745,9 +679,7 @@ l#+STARTUP: overwiew
    zenity
 ** tools
    modinfo
-
 ** ranger
-
 ** xorg
    /etc/X11/xorg.conf.d/20-keyboard-layout.conf
    Section "InputClass"
@@ -757,7 +689,6 @@ l#+STARTUP: overwiew
    Option "XkbOptions" "grp:ctrls_toggle"
    Option "XkbOptions" "ctrl:swapcaps"
    EndSection
-
 
 * BOOTSTRAP
 *** col abbr
@@ -771,11 +702,9 @@ l#+STARTUP: overwiew
     q
     # --
 
-
 * TASKS
 ** Emacs
 *** Org mode:
-
 ** django
 *** views
     form = Form(request.POST or None)
@@ -788,7 +717,6 @@ l#+STARTUP: overwiew
 *** "нескучные запросы с django orm"
 *** How to display and properly indent a tree structure [closed]
 *** Getting a modified preorder tree traversal model (nested set) into a <ul>
-
 ** python
    многопоточность в одну строку
    распараллеливание
