@@ -1,4 +1,4 @@
-l#+STARTUP: overwiew
+#+STARTUP: overwiew
 #+OPTIONS: ^:nil _:nil
 
 * GIT
@@ -558,6 +558,15 @@ l#+STARTUP: overwiew
    Lists of the directory parts and the file-within-directory parts of all prerequisites that are newer than the target.
 
 * LINUX
+** transparency
+mkdir .devilspie                                                          ±[A1●][master]
+touch .devilspie/opacity.ds                                               ±[A1●][master]
+echo '( if                                                                ±[A1●][master]
+( contains ( window_class ) "Gvim" )
+( begin
+( spawn_async (str "transset-df -i " (window_xid) " 0.85" ))
+)
+)' > .devilspie/opacity.ds
 ** help
 *** sysinfo
     lsblk -l
