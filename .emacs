@@ -194,20 +194,27 @@
   (setq electric-pair-mode nil))
 (add-hook 'web-mode-hook 'web-mode-electric-pair-disable)
 
-;; #PLUGINS
-(require 'auto-complete)
-
+;;  #PLUGINS
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-;;pack neotree
+
+;;      auto-complete
+(require 'auto-complete)
+(require 'auto-complete-config)
+(ac-config-default)
+
+;;      pack neotree
 ;;(add-to-list 'load-path "~/.emacs.d/plugins/neotree")
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
-;;pack yasnippet
+
+;;      pack yasnippet
 (require 'yasnippet)
 (yas-global-mode 1)
 (setq yas/indent-line 'auto)
-;;pack popup            ;; use popup menu for yas-choose-value
+
+;;      pack popup
+;; use popup menu for yas-choose-value
 
 (require 'popup)
 ;;pack yafolding
@@ -218,17 +225,14 @@
 ;; (add-hook 'web-mode-hook
 ;;           (lambda () (yafolding-mode)))
 
-(require 'auto-complete-config)
-(global-set-key (kbd "M-x") 'helm-M-x)
-
+;;      helm
 (require 'helm)
 (require 'helm-config)
-
 (helm-mode 1)
+(global-set-key (kbd "M-x") 'helm-M-x)
 
-
-(ac-config-default)
 ;;(add-to-list 'load-path "~/.emacs.d/plugins/webmode")
+;;
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'"      . web-mode))
 (add-to-list 'auto-mode-alist '("\\.phtml\\'"      . web-mode))

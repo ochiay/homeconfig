@@ -24,6 +24,9 @@
 !/.config/awesome/themes/carnation/
 /.config/awesome/themes/carnation/*
 !/.config/awesome/themes/carnation/*
+!/.config/awesome/themes/carnation/icons/
+/.config/awesome/themes/carnation/icons/*
+!/.config/awesome/themes/carnation/icons/*
 !/.config/ranger
 /.config/ranger/*
 !/.config/ranger/rc.conf

@@ -1,4 +1,4 @@
 setxkbmap -layout us,ru -option '' -option ctrl:swapcaps -option grp:ctrls_toggle &
-plank &
-#setxkbmap "us,ru" "," "ctrl:swapcaps" &
-#conky &
+xcompmgr &
+devilspie &
+conky &
