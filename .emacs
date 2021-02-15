@@ -304,7 +304,7 @@
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(org-agenda-files nil)
  '(package-selected-packages
-   '(lua-mode ace-window django-mode auto-yasnippet django-snippets ac-helm auto-compile jedi apropospriate-theme async helm-core popup nhexl-mode projectile helm zenburn-theme popup-complete yasnippet-snippets yasnippet-classic-snippets auto-complete web-mode yasnippet neotree ggtags htmlize flymake-lua))
+   '(markdown-mode ztree lua-mode ace-window django-mode auto-yasnippet django-snippets ac-helm auto-compile jedi apropospriate-theme async helm-core popup nhexl-mode projectile helm zenburn-theme popup-complete yasnippet-snippets yasnippet-classic-snippets auto-complete web-mode yasnippet neotree ggtags htmlize flymake-lua))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(pos-tip-background-color "#f7aef7aef7ae")
  '(pos-tip-foreground-color "#78909C")
