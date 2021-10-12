@@ -2,19 +2,19 @@
 #+OPTIONS: ^:nil _:nil
 
 * GIT
-  + git ls-files | while read f; do git blame -w -M -C -C --line-porcelain "$f" | grep "^author " ; done | sort -f | uniq -ic | sort -nr
-  + checkout -- сменить ветку
-  + branch -- создать ветку
+  - git ls-files | while read f; do git blame -w -M -C -C --line-porcelain "$f" | grep "^author " ; done | sort -f | uniq -ic | sort -nr
+  - checkout -- сменить ветку
+  - branch -- создать ветку
     -- -f -- задать ветке родителя
-  + <ветка>^ -- родитель
-  + <ветка>~<num> -- родитель под номером git clone <user>@<ip>/<wut>
-  + git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
-  + добавление локального репозитория
+  - <ветка>^ -- родитель
+  - <ветка>~<num> -- родитель под номером git clone <user>@<ip>/<wut>
+  - git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
+  - добавление локального репозитория
 
     git init --bare /path/to/bare/repo.git
     project/git/folder: git remote add origin /path/to/bare/repo.git
 
-  + settings
+  - settings
 
     git config --global core.editor "name"
                --global user.name|email "name|email"

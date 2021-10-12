@@ -700,6 +700,10 @@ awful.rules.rules = {
         below = true,
      }
    },
+   {
+    rule = { class = 'Conky' },
+    properties = { border_width = 0 }
+   },
    -- { rule = { instance = 'cairo-dock' },
    -- --      type = 'dock',
    --       properties = {
