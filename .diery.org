@@ -486,7 +486,7 @@
   + \c-b w                             : window menu
   + \c-b c                             : create new window
   + \c-b <num>                         : jump to <num> window
-
+  + \c-b [ : enter into copy mode
 * BASH
 ** MC
 *** tab switch
