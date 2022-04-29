@@ -1,0 +1,291 @@
+#+TITLE: serpent swarm's emacs config
+#+AUTHOR: Vladimir Stetsyuk
+
+* PACKAGE MANAGEMENT
+** Setup package.el to work with MELPA.
+
+  #+begin_src emacs-lisp
+    (require 'package)
+    (add-to-list 'package-archives
+         '("melpa" . "http://melpa.org/packages/")
+         '("elpa" . "https://elpa.gnu.org/packages"))
+    ;; uncomment if have high net speed
+    ;;(package-refresh-contents)
+    (package-initialize)
+  #+end_src
+
+** Installing use-package
+
+  #+begin_src emacs-lisp
+    (unless package-archive-contents
+      (package-refresh-contents))
+    (unless (package-installed-p 'use-package)
+      (package-install 'use-package))
+  #+end_src
+
+* GRAPHICAL USER INTERFACE SETTINGS
+
+
+** Menu, toolbar, scrollbar e.c.
+  #+begin_src emacs-lisp
+    (tool-bar-mode -1)
+    (menu-bar-mode -1)
+    (blink-cursor-mode -1)
+    (set-fringe-mode 10)
+  #+end_src
+** Lines
+  #+begin_src emacs-lisp
+    (show-paren-mode 1)
+    ;; (setq show-paren-style 'expression)
+    (global-display-line-numbers-mode 1)
+    (dolist (mode '(org-mode-hook
+                    term-mode-hook
+                    eshell-mode-hook))
+      (add-hook mode (lambda() (display-line-numbers-mode 0)))) 
+  #+end_src
+** Electric
+  #+begin_src emacs-lisp
+    (electric-pair-mode 1)
+  #+end_src
+
+** Buffer
+   #+begin_src emacs-lisp
+     (defalias 'list-buffers 'ibuffer)
+   #+end_src
+
+* HELM
+  #+begin_src emacs-lisp
+    (use-package helm-config)
+    (use-package helm
+      :ensure t
+      :config
+      (helm-mode 1)
+      (global-set-key (kbd "M-x") 'helm-M-x)
+      )
+  #+end_src
+
+* COMMAND LINE
+  #+begin_src emacs-lisp
+    (defalias 'yes-or-no-p 'y-or-n-p)
+  #+end_src
+  #+begin_src emacs-lisp
+    (use-package which-key
+      :init (which-key-mode)
+      :deminish which-key-mode
+      :config
+      (setq which-key-idle-delay 0.3))
+
+  #+end_src
+
+* GLOBAL SETTINGS
+#+begin_src emacs-lisp
+#+end_src
+  #+begin_src emacs-lisp
+    ;; rewrite selection
+    (delete-selection-mode t)
+    ;; отсутствие строки выделить глифами рядом с полосой с номером строки
+    (setq-default indicate-empty-lines t)
+  #+end_src
+
+* DASHBOARD
+  #+begin_src emacs-lisp
+    ;; DASHBOARD PACKAGE
+    (use-package dashboard
+      :ensure t
+      :init
+      (setq dashboard-set-headling-icons t)
+      (setq dashboard-set-file-icons t)
+      (setq dashboard-center-content nil)
+      (setq dashboard-items '((recents . 10)
+                              (agenda . 5)
+                              (bookmarks . 5)
+                              (projects . 5)
+                              (registers . 5)))
+      :config
+      (dashboard-setup-startup-hook)
+      (dashboard-modify-heading-icons '((recents . "file-text")
+                                        (bookmarks . "book"))))
+
+  #+end_src
+* DEVELOPMENT
+** MAGIT
+#+begin_src emacs-lisp
+      (use-package magit
+        :commands (magit-status magit-get-current-branch)
+        :custom
+        (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+#+end_src
+** LANGUAGES
+#+begin_src emacs-lisp
+
+  (use-package lsp-mode
+    :commands (lsp lsp-deffered)
+    :init
+    (setq lsp-keymap "C-c l")
+    :config
+    (lsp-enable-which-key-integration t)
+    )
+
+#+end_src
+
+*** DART
+  #+begin_src emacs-lisp
+    (use-package lsp-dart)
+    (use-package dart-mode
+      :ensure t
+      )
+  #+end_src
+** PROJECTILE
+  #+begin_srcg emacs-lisp
+    ;; PROJECTILE
+    (use-package projectile
+      :ensure t
+      :config
+      (projectile-global-mode 1)
+      :bind-keymap
+      ("C-c p" . projectile-command-map)
+      )
+  #+end_src
+  
+* POPUP
+#+begin_src emacs-lisp
+  (use-package popup
+    :ensure t
+    :bind
+    (define-key popup-menu-keymap (kbd "C-n") 'popup-next)
+    (define-key popup-menu-keymap (kbd "TAB") 'popup-next)
+    (define-key popup-menu-keymap (kbd "<tab>") 'popup-next)
+    (define-key popup-menu-keymap (kbd "<backtab>") 'popup-previous)
+    (define-key popup-menu-keymap (kbd "C-p") 'popup-previous)
+  )
+  #+end_src
+
+* SNIPPETS
+  #+begin_src emacs-lisp
+    ;; YASNIPET PACKAGE
+
+    (use-package yasnippet
+      :ensure t
+      :init
+      (setq yas/indent-line 'auto)
+      (yas-global-mode 1)
+      )
+    (defun yas-popup-isearch-prompt (prompt choices &optional display-fn)
+      (when (featurep 'popup)
+        (popup-menu*
+         (mapcar
+          (lambda (choice)
+            (popup-make-item
+             (or (and display-fn (funcall display-fn choice))
+                 choice)
+             :value choice))
+          choices)
+         :prompt prompt
+         ;; start isearch mode immediately
+         :isearch t
+         )))
+    (setq yas-prompt-functions
+          '(yas-popup-isearch-prompt yas-ido-prompt yas-no-prompt))
+  #+end_src
+
+* AUTOCOMPLETE
+  #+begin_src emacs-lisp
+    ;; AUTOCOMPLETE PACKAGE
+    (use-package auto-complete
+      :ensure t
+      :config
+      (ac-config-default)
+    )
+  #+end_src
+
+* INTENDATION SETTINGS
+  #+begin_src emacs-lisp
+    ;; DEFAULT TABULATION SIZE
+    (setq-default indent-tabs-mode nil)
+    (setq-default tab-width 4)
+    (setq-default c-basic-offset 4)
+    (setq-default standart-indent 4)
+    ;; switch beggining of lines
+    (global-set-key (kbd "C-a")         'back-to-indentation)
+    (global-set-key (kbd "C-S-a")       'move-beginning-of-line)
+  #+end_src
+
+* FUNCTIONS
+  #+begin_src emacs-lisp
+    (defun speedbar-up()
+      (interactive)
+      (speedbar-update-contents)
+      (speedbar)
+      )
+  #+end_src
+* KEYBINDINGS
+** GLOBAL
+   #+begin_src emacs-lisp
+     ;; truncate lines
+     (global-set-key (kbd "<C-M-return>")'toggle-truncate-lines)
+     ;; whitespace mode
+     (global-set-key (kbd "<f7>")        'whitespace-mode)
+     ;; comment/uncomment
+     (global-set-key (kbd "C-;")         'comment-or-uncomment-region)
+     ;; make Ctrl-` sequence waiting
+     (define-prefix-command 'ctr-w-pref)
+     (global-set-key (kbd "C-`")         'ctr-w-pref)
+     ;; change word/char moving
+
+     (global-set-key (kbd "C-f")         'forward-word)
+     (global-set-key (kbd "C-b")         'backward-word)
+     (global-set-key (kbd "M-f")         'forward-char)
+     (global-set-key (kbd "M-b")         'backward-char)
+     ;; killing word
+     (global-set-key (kbd "C-,")         'backward-kill-word)
+     (global-set-key (kbd "C-.")         'kill-word)
+     ;; use 'alt for changing windows
+   #+end_src
+
+** buffer changes
+   #+begin_src emacs-lisp
+     (global-set-key (kbd "C-S-<tab>")   'bs-cycle-next)
+     (global-set-key (kbd "C-<tab>")     'bs-cycle-previous)
+     (global-set-key (kbd "<f5>")        'save-buffer)
+     (global-set-key (kbd "<f6>")        'revert-buffer)
+     (global-set-key (kbd "<f2>")        'bs-show)
+     (global-set-key (kbd "<f12>")       'speedbar-up)
+   #+end_src
+** navigation
+   #+begin_src emacs-lisp
+     (define-key ctr-w-pref (kbd "j")        'next-multiframe-window)
+     (define-key ctr-w-pref (kbd "k")        'previous-multiframe-window)
+     (define-key ctr-w-pref (kbd "<up>")     'windmove-up)
+     (define-key ctr-w-pref (kbd "<down>")   'windmove-down)
+     (define-key ctr-w-pref (kbd "<left>")   'windmove-left)
+     (define-key ctr-w-pref (kbd "<right>")  'windmove-right)
+     (define-key ctr-w-pref (kbd "g")   'goto-line)
+     (define-key ctr-w-pref (kbd "a")   'align-regexp)
+     ;; (define-key ctr-w-pref (kbd "C-j")  'scroll-down-command)
+     ;; (define-key ctr-w-pref (kbd "C-k")  'scroll-up-command)
+     ;; (define-key ctr-w-pref (kbd "v")    'scroll-other-window)
+     ;; (define-key ctr-w-pref (kbd "p")    'scroll-other-window-down)
+     (define-key ctr-w-pref (kbd "s")    'set-window-width)
+   #+end_src
+** EXECUTIONS
+   #+begin_src emacs-lisp
+     (global-set-key (kbd "<f9>")         'compile)
+     (global-set-key (kbd "<C-f12>")      'eval-buffer)
+   #+end_src
+
+* THEME
+  #+begin_src emacs-lisp
+        (use-package doom-themes
+          :ensure t)
+        (load-theme 'doom-one t)
+        (use-package doom-modeline
+          :ensure t
+          :init (doom-modeline-mode 1)
+          :custom (doom-modeline-height 15))
+#+end_src
+
+* EVIL MODE
+#+begin_src emacs-lisp
+
+#+end_srcx
+

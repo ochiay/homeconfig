@@ -1,3 +1,4 @@
+#!/usr/bin/lua
 -- Standard awesome library
 local gears         = require("gears")
 local awful         = require("awful")
@@ -13,6 +14,8 @@ local menubar       = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget --hp_widget.new({width=60,},)
 local freedesktop   = require("freedesktop")
 
+local quake = require('lain/util/quake')
+
 require("in_error")
 require("awful.hotkeys_popup.keys")
 --
@@ -23,20 +26,17 @@ awful.spawn.with_shell("~/.config/awesome/autorun.sh")
 beautiful.init(string.format("%s/.config/awesome/themes/carnation/theme.lua", os.getenv("HOME")))
 -- beautiful.init(gears.filesystem.get_themes_dir() .. "cesious/theme.lua")
 -- apps
-terminal = "xterm"
-xterm = "xterm"
+
+
+terminal = 'terminator'
 fm = "pcmanfm"
 --
 local separators = lain.util.separators
-local quake = lain.util.quake({
-      app=terminal,
-      height=1,
-      width=1,
-})
+
 local ranger = lain.util.quake({
-      app=xterm,
-      extra="-e ranger",
-      name="xtermQ",
+      app=terminal,
+      extra=" -e ranger",
+      name="xterm",
       height=1,
       width=0.5,
       horiz="right",
@@ -45,14 +45,13 @@ markup = lain.util.markup
 local net_icon = wibox.widget.imagebox(beautiful.widget_net)
 local net = lain.widget.net({
       settings = function()
-         widget:set_markup(
-            markup.fontfg(
-               beautiful.font, "#FEFEFE", " " .. net_now.received .. " ↓↑ " .. net_now.sent .. " "))
+         widget:set_markup( markup.fontfg( beautiful.font, "#FEFEFE", " " .. net_now.received .. " ↓↑ " .. net_now.sent .. " "))
       end
 })
 
 local wifi_icon = wibox.widget.imagebox()
 local eth_icon = wibox.widget.imagebox()
+
 
 
 
@@ -70,7 +69,7 @@ local layouts = {
    awful.layout.suit.tile.right,     --"gui"
    awful.layout.suit.tile.right,     --"cfg"
    awful.layout.suit.tile.right,     --"rtfm"
-   awful.layout.suit.fair,           --"xterm"
+   awful.layout.suit.fair,           --"Xterm"
    awful.layout.suit.max,            --"dk"
    awful.layout.suit.fair,           --"stuff"
    awful.layout.suit.spiral.dwindle, --"etc"
@@ -231,12 +230,13 @@ end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal('property::geometry', set_wallpaper)
-names = {'web', 'dev', 'gui', 'etc', 'man', 'xterm', 'app', 'pwd', 'tmp'}
+names = {'web', 'dev', 'gui', 'etc', 'man', 'cmd', 'app', 'pwd', 'tmp'}
 
 awful.screen.connect_for_each_screen( function(s)
       -- Wallpaper
       set_wallpaper(s)
       -- Each screen has its own tag table.
+      s.quake = quake({ app = "alacritty",argname = "--title %s",extra = "--class QuakeDD -e tmux", visible = true, height = 0.9, screen = s })
       awful.tag( names, s, layouts)
       -- freedesktop.desktop.add_icons({screen=s})
       -- Create a promptbox for each screen
@@ -322,7 +322,7 @@ globalkeys = awful.util.table.join(
          calendar:toggle()
    end),
    awful.key({ }, 'Print', function ()
-         awful.util.spawn('scrot -e \'mv $f ~/pictures/screenshot/ 2>/dev/null\'', false)
+         awful.util.spawn('scrot -e \'mv $f ~/Pictures/screenshot/ 2>/dev/null\'', false)
    end),
    awful.key({ modkey, },  '\'',
       function()
@@ -376,12 +376,14 @@ globalkeys = awful.util.table.join(
    -- Standard program
 
    -- awful.key({ modkey,           }, '\\',
-   --    function () awful.spawn('xterm -e ranger') end,
+   --    function () awful.spawn('Xterm -e ranger') end,
    --    {description = 'open midnight commander', group = 'launcher'}),
-
-   awful.key({ modkey,           }, 'Return',
-      function () quake:toggle() end,
-      {description = 'popup terminal', group = 'launcher'}),
+   
+   awful.key({modkey }, "F12", nil, function () my_dropdown:toggle() end),
+   awful.key({ modkey, }, "Return", function () awful.screen.focused().quake:toggle() end, {description = "dropdown application", group = "launcher"}),
+   -- awful.key({ modkey,           }, 'Return',
+   --    function () quake:toggle() end,
+   --    {description = 'popup terminal', group = 'launcher'}),
    awful.key({ modkey,           }, ';',
       function () ranger:toggle() end,
       {description = 'popup a terminal', group = 'launcher'}),
@@ -390,8 +392,8 @@ globalkeys = awful.util.table.join(
       function () run_or_raise('Emacs', 'emacs') end,
       {description = 'popup a emacs', group = 'launcher'}),
    -- awful.key({ modkey,           }, '`',
-   --    function () run_or_raise('XTerm', 'xterm') end,
-   --    {description = 'popup a xterm', group = 'launcher'}),
+   --    function () run_or_raise('Xterm', 'Xterm') end,
+   --    {description = 'popup a Xterm', group = 'launcher'}),
    awful.key({ modkey,           }, 'z',
       function () run_or_raise('Zathura', 'zathura') end,
       {description = 'popup a zathura', group = 'launcher'}),
@@ -555,9 +557,9 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey, 'Shift'}, '`',
       function()
          view_tag(6)
-         run_or_raise('XTerm', 'xterm')
+         run_or_raise('Terminator', terminal)
       end,
-      {descriptrion = 'run xterm on \'xterm\' tag'}
+      {descriptrion = 'run terminal on \'CMD\' tag'}
    ),
    awful.key({ modkey }, 'w',--'#' .. i + 9,
       function() view_tag(4) end,
@@ -577,7 +579,7 @@ globalkeys = awful.util.table.join(
    ),
    awful.key({ modkey }, '`',--'#' .. i + 9,
       function() view_tag(6) end,
-      {description = 'go to xterm', group = 'tag'}
+      {description = 'go to cmd', group = 'tag'}
    ),
    awful.key({ modkey }, 'a',--'#' .. i + 9,
       function() view_tag(8) end,
@@ -684,10 +686,16 @@ awful.rules.rules = {
                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
      }
    },
+   { rule = { class = 'nwnmain-linux'},
+     properties = { floating = true, maximized = true, fullscreen = true, ontop=true, minimize=false}
+   },
+   { rule = { class = 'Conky'},
+     properties = { border_width = 0 }
+   },
    { rule = { class = 'Zathura'},
      properties = {tag='man'}
    },
-   { rule = { name = 'ranger', instance = 'xterm'},
+   { rule = { name = 'ranger', instance = 'Xterm'},
      properties = {tag='pwd'}
    },
    { rule = { class = 'Plank'},
@@ -730,6 +738,8 @@ awful.rules.rules = {
 
         name = {
            'Event Tester',  -- xev.
+           'qae_exp',
+           'MainWindow',
         },
         role = {
            'AlarmWindow',  -- Thunderbird's calendar.

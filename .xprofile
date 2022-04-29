@@ -1,4 +1,6 @@
 setxkbmap -layout us,ru -option '' -option ctrl:swapcaps -option grp:ctrls_toggle &
+conky & udiskie &
+source ~/.aliases &
 xcompmgr &
 devilspie &
-conky &
+emacs --daemon &

@@ -1,4 +1,4 @@
-#+STARTUP: overwiew
+#+STARTUP: overview
 #+OPTIONS: ^:nil _:nil
 
 * GIT
@@ -21,7 +21,7 @@
                --list
 
 * GDB
-  + breakpoints:
+  * breakpoints:
     b <n>, b <file:n>
 
 * CPP
@@ -381,6 +381,8 @@
    sudo su - <name>
 
 * PYTHON
+** collections *!?
+
 ** virtualenv
    python -m venv <dir> : initialization
    source <dir>/bin/activate :
