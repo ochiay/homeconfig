@@ -1,4 +1,4 @@
-#+STARTUP: overview
+#+STARTUP: overview indent
 #+OPTIONS: ^:nil _:nil
 
 * GIT
@@ -25,6 +25,8 @@
     b <n>, b <file:n>
 
 * DART/FLUTTER
+
+** 
 ** tips
 *** connecting methods with behaviours
 In a statefull widget(A) I create method which has /setState/ function and changes the data and has arguments which it changes. When I create stateless widget(B) which gets Function pointer on this method(also I make a its member) in constructor(as argument) and connect it through (onChanged, onClicked e.c) and set up arguments there.

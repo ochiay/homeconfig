@@ -1,5 +1,6 @@
 blender
 conky
+pa-applet
 emacs
 galculator
 goldendict
@@ -23,3 +24,6 @@ xterm
 zathura
 zathura-djvu
 zathura-pdf-mupdfdevilspie
+unrar
+xarchiver
+unzip
