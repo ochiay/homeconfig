@@ -3,6 +3,7 @@
 #+AUTHOR: Vladimir Stetsyuk
 
 * INFO, HINTS, TIPS, SOURCES e.c.
+
 https://www.reddit.com/r/emacs/comments/117zdnu/what_are_the_benefits_of_vertico_over_helm_or_ivy/
 
 https://github.com/larstvei/dot-emacs/tree/master
@@ -14,13 +15,15 @@ https://github.com/larstvei/dot-emacs/tree/master
 #+begin_src emacs-lisp :noindent
 
 (require 'package)
+(setq use-package-always-ensure t)
+
 (add-to-list
  'package-archives
  '("melpa" . "https://melpa.org/packages/")
  '("elpa" . "https://elpa.gnu.org/packages/"))
 ;; uncomment if have high net speed
-;; (package-refresh-contents)
-;; (package-initialize)
+;;(package-refresh-contents)
+(package-initialize)
 
 #+end_src
 
@@ -56,7 +59,7 @@ Olivetti is a package that simply centers the text of a buffer.
 #+begin_src emacs-lisp
 
 (use-package olivetti
-  :ensure t
+  ;;:ensure t
   :defer t
   :bind (:map custom-bindings-map ("C-c o" . olivetti-mode))
   :config
@@ -79,7 +82,7 @@ Olivetti is a package that simply centers the text of a buffer.
   (add-hook mode (lambda() (display-line-numbers-mode 0))))
 
 (use-package rainbow-delimiters
-  :ensure t
+  ;;:ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
 #+end_src
@@ -103,7 +106,7 @@ Olivetti is a package that simply centers the text of a buffer.
 #+begin_src emacs-lisp
 
 (use-package which-key
-  :ensure t
+  ;;:ensure t
   :init (which-key-mode)
   :diminish which-key-mode
   :config
@@ -120,14 +123,14 @@ Vertico + Consult + Orderless + Embark + Marginalia + Corfu
 #+begin_src emacs-lisp
 
 (use-package vertico
-  :ensure t
+  ;;:ensure t
   :init
   (vertico-mode 1)
   :config
   (setq vertico-count 25))
 
 (use-package vertico-posframe
-  :ensure t
+  ;;:ensure t
   :config
   (vertico-posframe-mode 1)
   (setq vertico-posframe-width 100
@@ -142,7 +145,7 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package savehist
-  :ensure t
+  ;;:ensure t
   :init
   (savehist-mode 1))
 
@@ -153,7 +156,7 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package marginalia
-  :ensure t
+  ;;:ensure t
   :init 
   (marginalia-mode 1))
 
@@ -164,7 +167,7 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package corfu
-  :ensure t
+  ;;:ensure t
   :init
   (global-corfu-mode 1)
   (corfu-popupinfo-mode 1)
@@ -182,7 +185,7 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package orderless
-  :ensure t
+  ;;:ensure t
   :config
   (setq completion-styles '(orderless basic partial-completion)
         completion-category-overrides '((file (styles basic partial-completion)))
@@ -195,7 +198,7 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package orderless
-  :ensure t
+  ;;:ensure t
   :config
   (setq completion-styles '(orderless basic partial-completion)
         completion-category-overrides '((file (styles basic partial-completion)))
@@ -214,7 +217,7 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package which-key
-  :ensure t
+  ;;:ensure t
   :init (which-key-mode)
   :diminish which-key-mode
   :config
@@ -232,10 +235,13 @@ Save minibuffer history
 
 #+begin_src emacs-lisp
 
-;; rewrite selection
+(setq
+ initial-scratch-message nil
+ 
+ )
 
+;; rewrite selection
 (delete-selection-mode t)
-;; отсутствие строки выделить глифами рядом с полосой с номером строки
 
 (setq-default indicate-empty-lines t)
 
@@ -246,7 +252,7 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package dashboard
-  :ensure t
+  ;;:ensure t
   :init
   (setq dashboard-projects-backend 'project-el
         dashboard-startup-banner nil
@@ -266,6 +272,7 @@ Save minibuffer history
   (dashboard-modify-heading-icons '((recents . "file-text")
                                     (bookmarks . "book"))))
 
+(setq initial-buffer-choice (lambda () (switch-to-buffer "*dashboard*")))
 #+end_src
   
 * DEVELOPMENT
@@ -274,7 +281,7 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package magit
-  :ensure t
+  ;;:ensure t
   :commands (magit-status magit-get-current-branch)
   :custom
   (magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
@@ -288,12 +295,13 @@ Save minibuffer history
 #+begin_src emacs-lisp
 ;; lsp-mode
 (use-package company
-  :ensure t
+  ;;:ensure t
   :hook
   (dart-mode . global-company-mode))
-(use-package lsp-ui  :ensure t)
+(use-package lsp-ui  ;;:ensure t
+  )
 (use-package lsp-mode
-  :ensure t
+  ;;:ensure t
   :commands (lsp lsp-deffered)
   :init
   (setq lsp-keymap-prefix "C-c l")
@@ -307,31 +315,35 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package dart-mode
-  :ensure t
+  ;;:ensure t
   :hook (dart-mode . lsp-deferred)
   :config
   (global-set-key (kbd "C-<f9>") 'lsp-dart-run)
   )
 (use-package lsp-dart
-  :ensure t
-  :hook (dart-mode . lsp))
+  ;;:ensure t
+  :hook (dart-mode . lsp)
+  )
 
 #+end_src
   
-***  PYTHON
+*** PYTHON
 
 #+begin_src emacs-lisp
 
 (use-package python-mode
-  :ensure t)
+  ;;:ensure t
+  )
 
 #+end_src
+
 *** LUA
 
 #+begin_src emacs-lisp
 
 (use-package lua-mode
-  :ensure t)
+  ;;:ensure t
+  )
 
 #+end_src
 
@@ -340,7 +352,7 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package projectile
-  :ensure t
+  ;;:ensure t
   :config
   (projectile-global-mode 1)
   :bind-keymap
@@ -352,7 +364,7 @@ Save minibuffer history
 # * POPUP
 #   #+begin_src emacs-lisp
 #     (use-package popup
-#       :ensure t
+#       ;;:ensure t
 #       :bind
 #       (define-key popup-menu-keymap (kbd "C-n") 'popup-next)
 #       (define-key popup-menu-keymap (kbd "TAB") 'popup-next)
@@ -367,7 +379,7 @@ Save minibuffer history
 ;; YASNIPET PACKAGE
 
 (use-package yasnippet
-  :ensure t
+  ;;:ensure t
   :config
   (setq yas/indent-line 'auto)
   (yas-global-mode 1)
@@ -396,7 +408,7 @@ Save minibuffer history
 #+begin_src emacs-lisp
 ;; AUTOCOMPLETE PACKAGE
 ;; (use-package auto-complete
-;;   :ensure t
+;;   ;;:ensure t
 ;;   :config
 ;;   (ac-config-default)
 ;; )
@@ -505,10 +517,11 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package doom-themes
-  :ensure t)
+  ;;:ensure t
+  )
 (load-theme 'doom-one t)
 (use-package doom-modeline
-  :ensure t
+  ;;:ensure t
   :init (doom-modeline-mode 1)
   :custom (doom-modeline-height 25))
 
