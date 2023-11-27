@@ -14,8 +14,8 @@ local os = os
 local theme = dofile(themes_path.."default/theme.lua")
 -- load vector assets' generators for this theme
 
-theme.font         = "Misc Tamsyn 11.5"
-theme.taglist_font = "Icons 10"
+theme.font         = "Misc Tamsyn 12"
+theme.taglist_font = "Terminess Nerd Font Mono Bold 26"
 theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name
 theme.wallpaper = theme.dir .. "wall.png"
 --"Tamzen 12 "FontAwesome" "Roboto Bold 14"
@@ -37,7 +37,7 @@ home = os.getenv("HOME")
 -- theme.hotkeys_fg           = "#C4BFBF"
 -- theme.hotkeys_modifiers_fg = "#C3DCDA"
 -- theme.border_marked        = xrdb.color10
-theme.useless_gap          = dpi(1)
+theme.useless_gap          = dpi(3)
 theme.fg_normal            = "#D7D7D7"
 theme.fg_focus             = "#F6784F"
 theme.bg_normal            = "#06060622"
@@ -54,7 +54,7 @@ theme.tasklist_bg_focus    = "#060606"
 theme.hotkeys_bg           = "#060606da"
 theme.hotkeys_fg           = "#C4BFBF"
 theme.hotkeys_modifiers_fg = "#9A4C6C"
-theme.hotkeys_group_margin = 20
+theme.hotkeys_group_margin = 44
 
 theme.tooltip_fg = "red"
 theme.tooltip_bg = "#060606"
@@ -66,11 +66,13 @@ theme.tooltip_bg = "#060606"
 -- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
 -- mouse_finder_[color|timeout|animate_timeout|radius|factor]
 
+theme.wibar_height = dpi(26)
+theme.wibar_position = "right"
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = themes_path.."default/submenu.png"
-theme.menu_height = dpi(18)
+theme.menu_height = dpi(24)
 theme.menu_width  = dpi(190)
 theme.menu_bg_normal = "#060606da"
 --theme.bg_widget = "#cc0000"
@@ -79,7 +81,9 @@ theme.menu_bg_normal = "#060606da"
 theme = theme_assets.recolor_layout(theme, theme.fg_focus)
 
 -- Recolor titlebar icons:
---
+--q
+theme.titlebar_enable = true
+theme.titlebar_size = dpi(59)
 local function darker(color_value, darker_n)
    local result = "#"
    for s in color_value:gmatch("[a-fA-F0-9][a-fA-F0-9]") do
@@ -114,11 +118,11 @@ theme = theme_assets.recolor_titlebar(
 -- theme.icon_theme = "Arc"--"Adwaita" --"Arc"
 theme.menu_submenu_icon     = theme.dir .. "/icons/submenu.png"
 theme.awesome_icon          = theme.dir .. "/icons/awesome.png"
-theme.taglist_squares_sel   = theme.dir .. "/icons/square_sel.png"
-theme.taglist_squares_unsel = theme.dir .. "/icons/square_unsel.png"
+-- theme.taglist_squares_sel   = theme.dir .. "/icons/square_sel.png"
+-- theme.taglist_squares_unsel = theme.dir .. "/icons/square_unsel.png"
 
 
-
+theme.tabbar_height = 40
 theme.hotkeys_border_width = dpi(2)
 
 

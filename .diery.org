@@ -1,4 +1,4 @@
-#+STARTUP: overwiew
+#+STARTUP: overview indent
 #+OPTIONS: ^:nil _:nil
 
 * GIT
@@ -21,9 +21,82 @@
                --list
 
 * GDB
-  + breakpoints:
+  * breakpoints:
     b <n>, b <file:n>
 
+* DART/FLUTTER
+
+** 
+** tips
+*** connecting methods with behaviours
+In a statefull widget(A) I create method which has /setState/ function and changes the data and has arguments which it changes. When I create stateless widget(B) which gets Function pointer on this method(also I make a its member) in constructor(as argument) and connect it through (onChanged, onClicked e.c) and set up arguments there.
+*** alongside packages
+**** intl
++ DateFormat
+*** WIDGETS
+**** Buttons
+***** IconButton
+***** ElevatedButton (RaisedButton)
+***** TextButton (FlatButton)
+***** OutlinedButton (OutlineButton)
+***** MaterialApp/CupertinoApp
++ Typically the root widget in app
++ Does a lot of 'behind the scenes' setup work for app
++ Allows me to configure a global theme for app
++ Sets up navigation behaviour for my app
+***** Scaffold/CuppertinoPageScaffold
++ Typically used as a frame for a page in app
++ Provides a background, app bar, navigation tabs
++ Only use one scaffold per page!
+**** Layout
+***** Container
++ Extremely versatile widget
++ Can be sized(width, height, maxWidth, maxHeight), styled(border,color,shape..) and more
+****** Properties
++ MainAxisAlignment
++ CrossAxisAlignment
+***** Row/Column
++ Must-use if I need multiple widgets sit next to each other horizontally or vertically
++ Limited styling options => Wrap with a container to apply styling
++ Children can be aligned along main-axis and cross-axis
+***** Flexible/Expanded
++ Separate cheat sheet attached to lecture about Row/Column/Flexible/Expanded
++ Helps me size the child widgets of Row/Column
+**** Content Containers
+***** Stack
++ Used to position items on top of each other
++ Widgets can overlap
+***** Card
++ A container with some default styling
++ Can take one child
++ Typically used to output a single piece/group of information
+  
+**** Repeat Elements
+***** ListView/GridView
++ Used to output lists(or grids) of items
++ Like a Column() but scrollable
++ Can be laid out vertically (default) and horizontally
++ Use ListView.builder() to get optimized item rendering for very long lists
+***** ListTile
++ A pre-styled container/Row() that allows to achieve a typical "list-item look"
++ Offers various slots for widgets (e.g. at the beginning, a title, at the end)
++ Not a must-use but can be handy for a default list-item look
+**** Content Types
+***** Text
++ A widget that simply outputs some text on the screen
++ Can be styled (font family, font weight)
+***** Image
+***** Icon
+
+***** Text
+
+***** Image
+
+***** Icon
+*** WEBDEV
++ Activate
+  dart pub global activate webdev
+   
 * CPP
   where is nothing about
 
@@ -381,6 +454,8 @@
    sudo su - <name>
 
 * PYTHON
+** collections *!?
+
 ** virtualenv
    python -m venv <dir> : initialization
    source <dir>/bin/activate :
@@ -484,7 +559,7 @@
   + \c-b w                             : window menu
   + \c-b c                             : create new window
   + \c-b <num>                         : jump to <num> window
-
+  + \c-b [ : enter into copy mode
 * BASH
 ** MC
 *** tab switch

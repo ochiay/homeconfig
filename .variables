@@ -1,4 +1,4 @@
-export CURRENT="$HOME/devel/python/django/current"
+export CURRENT="$HOME/devel/qt/ae_exp"
 export VISUAL="emacs -nw"
 export PINKY="/run/media/$USER/PINKY"
 export KMD_STUFF="$HOME/devel/kmd_stuff"

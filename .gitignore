@@ -1,6 +1,5 @@
 *
 !.xprofile
-!.emacslist
 !.applist
 !README
 !.Xresources
@@ -35,3 +34,10 @@
 /.config/systemd/*
 !/.config/systemd/user
 !/.config/systemd/user/capsctrlswitcher.service
+!/.emacs.d/
+/.emacs.d/*
+!/.emacs.d/config.org
+!/.emacs.d/init.el
+!/Documents
+/Documents/*
+!/Documents/README

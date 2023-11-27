@@ -1,4 +1,8 @@
-setxkbmap -layout us,ru -option '' -option ctrl:swapcaps -option grp:ctrls_toggle &
+setxkbmap -model pc105 -option grp:ctrls_toggle&
+TERMINAL=/usr/bin/alacritty&
+ANDROID_HOME=/home/kell/Android/Sdk/&
+udiskie &
+source ~/.aliases &
 xcompmgr &
 devilspie &
-conky &
+
