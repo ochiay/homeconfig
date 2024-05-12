@@ -861,8 +861,23 @@ awful.rules.rules = {
          tag = tag_names[5]
       }
    },
+<<<<<<< HEAD
+   {
+    rule = { class = 'Conky' },
+    properties = { border_width = 0 }
+   },
+   -- { rule = { instance = 'cairo-dock' },
+   -- --      type = 'dock',
+   --       properties = {
+   --          floating = true,
+   --          ontop = true,
+   --          focus = false
+   --       }
+   --    },
+=======
 
      
+>>>>>>> 31fb2f645f3a8526f745b000cdb86c36b8e4b4ff
    -- Floating clients.
    {
       rule_any = {
