@@ -1,6 +1,5 @@
 setxkbmap -model pc105 -option grp:ctrls_toggle&
-TERMINAL=/usr/bin/alacritty&
-ANDROID_HOME=/home/kell/Android/Sdk/&
+PATH="$HOME/.config/emacs/bin:$PATH"
 udiskie &
 source ~/.aliases &
 xcompmgr &

@@ -1,7 +1,7 @@
-export CURRENT="$HOME/devel/qt/ae_exp"
 export VISUAL="emacs -nw"
 export PINKY="/run/media/$USER/PINKY"
-export KMD_STUFF="$HOME/devel/kmd_stuff"
-export KENV="$HOME/devel/workbench/env"
 export EDITOR="emacs"
-export CPPTEMPLATE="$HOME/devel/pure_cpp/cppinit"
+export DOOMDIR=/home/kell/.config/doom
+export TERMINAL=/usr/bin/alacritty
+export ANDROID_HOME=/home/kell/Android/Sdk/
+export CHROME_EXECUTABLE=/usr/bin/brave
