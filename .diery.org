@@ -1,3 +1,5 @@
+#+title: Tips For IT-instruments
+#+author: Vladimir Stetsyuk
 #+STARTUP: overview indent
 #+OPTIONS: ^:nil _:nil
 
@@ -19,6 +21,11 @@
     git config --global core.editor "name"
                --global user.name|email "name|email"
                --list
+** TIPS
+Initial home dir:
+git init
+git remote add origin <git address>(https://github.com/username/projectname.git)
+git pull *remote existing files* git pull
 
 * GDB
   * breakpoints:
@@ -322,7 +329,26 @@ In a statefull widget(A) I create method which has /setState/ function and chang
    - \M-w : copy selection(kill-ring-save)
    - \c-y : insert selection(yank)
    - \c-w : kill selection(\c-y paste it too) (*not work in *fc \c-w \c-w)
-** MODE
+** ORG-MODE
+*** BLOCKS
+- C-c C-,
+*** help
+*** Entities
+C-c C-x \ org-toggle-pretty-entities
+org-entities-help
+Entities start from \
+*** Links
+C-c C-l org-insert-link
+[[https://orgmode.org/manual/Internal-Links.html][Internal Links]]
+[[https://orgmode.org/manual/External-Links.html][External Links]]
+*** Text Markup
+- *, a bold object,
+- /, an italic object,
+- _ an underline object,
+- =, a verbatim object,
+- ~, a code object
+- +, a strike-through object.
+
 ** WEB-MODE
    General
    M-; comment / uncomment line(s)
@@ -440,7 +466,7 @@ In a statefull widget(A) I create method which has /setState/ function and chang
    package-list-packages
 ** jedi - python
    pip install jedi epc, m x jedi:install-server
-* POSTGRESGL
+* POSTGRESQL
 ** upgrade
    systemctl stop postgresql.service
    systemctl status postgresql.service
