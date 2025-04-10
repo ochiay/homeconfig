@@ -3,7 +3,7 @@
 #+AUTHOR: Vladimir Stetsyuk
 
 * INFO, HINTS, TIPS, SOURCES e.c.
-
+https://github.com/MatthewZMD/.emacs.d
 https://www.reddit.com/r/emacs/comments/117zdnu/what_are_the_benefits_of_vertico_over_helm_or_ivy/
 
 https://github.com/larstvei/dot-emacs/tree/master
@@ -31,9 +31,6 @@ https://github.com/larstvei/dot-emacs/tree/master
 
 #+begin_src emacs-lisp
 
-;; (unless package-archive-contents
-;;   (package-refresh-contents))
-
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
@@ -45,8 +42,10 @@ https://github.com/larstvei/dot-emacs/tree/master
 
 #+begin_src emacs-lisp
 
-(tool-bar-mode -1)
 (menu-bar-mode -1)
+
+(tool-bar-mode -1)
+
 (blink-cursor-mode -1)
 (set-fringe-mode 10)
 
@@ -101,7 +100,7 @@ Olivetti is a package that simply centers the text of a buffer.
 
 #+end_src
 
-* General Configuration
+* GENERAL CONFIGURATION
 
 #+begin_src emacs-lisp
 
@@ -112,9 +111,10 @@ Olivetti is a package that simply centers the text of a buffer.
   :config
   (setq which-key-idle-delay 1))
 
+
 #+end_src
 
-* Completition
+* COMPLETIONS
 
 Vertico + Consult + Orderless + Embark + Marginalia + Corfu
 
@@ -138,7 +138,7 @@ Vertico + Consult + Orderless + Embark + Marginalia + Corfu
 
 #+end_src
 
-**  Savehist
+** Savehist
 
 Save minibuffer history
 
@@ -162,7 +162,7 @@ Save minibuffer history
 
 #+end_src
 
-**  Corfu
+** Corfu
 
 #+begin_src emacs-lisp
 
@@ -218,7 +218,6 @@ Save minibuffer history
 
 #+end_src
 
-
 * COMMAND LINE
 
 #+begin_src emacs-lisp
@@ -260,6 +259,13 @@ Save minibuffer history
 
 #+end_src
 
+** ORG-MODE                                                       :todolink:
+
+#+begin_src emacs-lisp
+
+(setq org-return-follows-link t)
+
+#+end_src
 * DASHBOARD
 
 #+begin_src emacs-lisp
@@ -268,7 +274,7 @@ Save minibuffer history
   ;;:ensure t
   :init
   (setq dashboard-projects-backend 'project-el
-        dashboard-startup-banner nil
+        ;;dashboard-startup-banner nil
         dashboard-set-footer nil
         dashboard-page-separator "\n\n\n"
         dashboard-set-headling-icons t
@@ -300,7 +306,7 @@ Save minibuffer history
   (magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
 
 #+end_src
-* Spelling
+* SPELLING
 ** Flyspell
 
    Flyspell offers on-the-fly spell checking.
@@ -439,8 +445,13 @@ Save minibuffer history
 ;; YASNIPET PACKAGE
 
 (use-package yasnippet
-  ;;:ensure t
+  :diminish yas-minor-mode
+  :init
+  (use-package yasnippet-snippets :after yasnippet)
+  :bind
+  ;;(:map yas-key)
   :config
+  (yas-reload-all)
   (setq yas-indent-line 'auto)
   (yas-global-mode 1)
   )

@@ -866,22 +866,16 @@ awful.rules.rules = {
     rule = { class = 'Conky' },
     properties = { border_width = 0 }
    },
-   -- { rule = { instance = 'cairo-dock' },
-   -- --      type = 'dock',
-   --       properties = {
-   --          floating = true,
-   --          ontop = true,
-   --          focus = false
-   --       }
-   --    },
+
    -- Floating clients.
    {
       rule_any = {
          instance = {
             'DTA',  -- Firefox addon DownThemAll.
-           'copyq',  -- Includes session name in class.
-        },
-        class = {
+            'copyq',  -- Includes session name in class.
+         },
+
+         class = {
            'Galculator',
            'GoldenDict',
            'URxvt',
@@ -893,7 +887,8 @@ awful.rules.rules = {
            'Wpa_gui',
            'pinentry',
            'veromix',
-           'xtightvncviewer'},
+           'xtightvncviewer'
+        },
 
         name = {
            'Event Tester',  -- xev.
