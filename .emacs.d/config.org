@@ -465,6 +465,7 @@ Save minibuffer history
 #+end_src
 
 * AUTOCOMPLETE
+
 #+begin_src emacs-lisp
 ;; AUTOCOMPLETE PACKAGE
 ;; (use-package auto-complete
@@ -491,6 +492,7 @@ Save minibuffer history
 #+end_src
 
 * FUNCTIONS
+
 #+begin_src emacs-lisp
 
 (defun speedbar-up()
@@ -502,6 +504,16 @@ Save minibuffer history
 #+end_src
   
 * KEYBINDINGS
+
+** MULTILINGUAL INPUT SUPPORT
+
+#+begin_src emacs-lisp
+(use-package reverse-im
+  :ensure t
+  :config
+  (setq reverse-im-input-methods '("russian-computer"))
+  (reverse-im-mode 1))
+#+end_src
 
 ** GLOBAL
 

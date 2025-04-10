@@ -15,14 +15,25 @@ alias ctl_restart="systemctl restart"
 alias ctl_enable="systemctl enable"
 alias ctl_status="systemctl status"
 alias ctl_start="systemctl start"
-# cd
-#alias install=""
+
+# PYTHON
+# django environment
+export DJANGO_ENV='~/devel/python/environment/django_env'
+alias activate_django_env="source ~/devel/python/environment/django_env/bin/activate"
+
+alias cd_django_current="pushd ~/devel/python/django/azaa"
+alias rebase="dropdb kskd_prod; createdb kskd_prod"
+alias createsuperuser="./manage.py createsuperuser"
+alias deletemigrations='find . -path "*/migrations/*.py" -not -name "__init__.py" -delete -print && find . -path "*.pyc"  -delete -print'
+
+#---------------
+
 alias last_comand="fc -ln -1 >> ~/last_comand.his"
 alias lya='\!-1 | less'
 alias pd='pushd'
 alias pp='popd'
 alias cdh="pushd $HOME"
-alias venvactivate="source ~/devel/venv/bin/activate"
+
 alias cdcurrent="pushd ~/devel/python/django/samplesite_old && tmux new-session -s 'current' 'source ~/devel/venv/bin/activate'"
 alias cdlie="pushd ~/liebrary/"
 alias cddev="pushd ~/devel/"
@@ -38,16 +49,17 @@ alias qq="emacs -nw --no-desktop -eval \"(load-theme 'tango-dark)\""
 alias findem="find -regextype emacs -regex"
 alias diery="qq ~/.diery.org"
 #alias fuckfinger="xmodmap ~/.HEAL_MY_THUMB_KILL_MY_NERVES"
+
+# TMUX
+
 alias tmxs="tmux start-server"
 alias tmxd="tmux detach"
 alias tmxk="tmux kill-server"
 alias tmxa="tmux attach"
-alias loadp3='. /home/lilu_soft/bashrc_cfd && sourceP3'
-#django
-alias activedjangovirtualenvironment='. ~/.virtualenv/djangodev/bin/activate'
-alias rebase="dropdb kskd_prod; createdb kskd_prod"
-alias createsuperuser="./manage.py createsuperuser"
-alias deletemigrations='find . -path "*/migrations/*.py" -not -name "__init__.py" -delete -print && find . -path "*.pyc"  -delete -print'
+
+
+
+
 
 alias gitclone='pushd ~/downloads/builds/;git clone'
 alias dbshell="./manage.py dbshell"
