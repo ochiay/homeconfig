@@ -1,5 +1,5 @@
-#+title: Tips For IT-instruments
-#+author: Vladimir Stetsyuk
+#+TITLE: Tips For IT-instruments
+#+AUTHOR: Vladimir Stetsyuk
 #+STARTUP: overview indent
 #+OPTIONS: ^:nil _:nil
 
@@ -287,16 +287,17 @@ In a statefull widget(A) I create method which has /setState/ function and chang
      + TEXT/PLAIN
 
 * EMACS
-  + \c -- ctrl, \M -- alt
-  + ~/.emacs -- config file
-  + ~/.emacs.d -- configuration dir(packages/themes etc)
-  + mark is same as select
-  + yank is same as paste
-  + (*fc) -- from personal config
-  + some inquiry(help) buffers can be closed with <q>-key
-  + \c-x ^ -- enlarge window
-  + \c-x {|} -- shrink|enlarge window horizontaly
-  + \c-q \c-j -- for newline in query-seaching
+** reload config
+M-x load-file ~/.emacs.d/init.el
+or restart-emacs on melpa
+
+after updating something sometimes go wrong, so I should rm -rf emacs.d/elpa
+** general
+    
+  C-x ^         -- enlarge window
+  C-x { | C-x } -- shrink, enlarge window horizontaly
+  C-q C-j       -- for newline in query-seaching
+    
 ** all
    - \c-q \c-j : in command-menu help to insert RET for searching f.e.
    - \M-x <function> : run function

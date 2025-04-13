@@ -4,7 +4,6 @@
 
 * INFO, HINTS, TIPS, SOURCES e.c.
 https://github.com/MatthewZMD/.emacs.d
-https://www.reddit.com/r/emacs/comments/117zdnu/what_are_the_benefits_of_vertico_over_helm_or_ivy/
 
 https://github.com/larstvei/dot-emacs/tree/master
 
@@ -15,14 +14,12 @@ https://github.com/larstvei/dot-emacs/tree/master
 #+begin_src emacs-lisp :noindent
 
 (require 'package)
-(setq use-package-always-ensure t)
 
-(add-to-list
- 'package-archives
- '("melpa" . "https://melpa.org/packages/")
- '("elpa" . "https://elpa.gnu.org/packages/"))
-;; uncomment if have high net speed
-;;(package-refresh-contents)
+(setq package-archives
+      '(("melpa" . "https://melpa.org/packages/")
+        ("elpa" . "https://elpa.gnu.org/packages/")))
+
+;;(package-refresh-contents) ;; uncomment if have high net speed
 (package-initialize)
 
 #+end_src
@@ -34,21 +31,63 @@ https://github.com/larstvei/dot-emacs/tree/master
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
+(require 'use-package)
+(setq use-package-always-ensure t)
+
 #+end_src
 
 * GRAPHICAL USER INTERFACE SETTINGS
+
+** FONT
+
+#+begin_src emacs-lisp
+
+(setenv "XFT_ANTI_ALIAS" "true")   ; Включить сглаживание шрифтов
+(setenv "XFT_HINTING" "true")      ; Включить подстройку шрифтов
+(set-face-attribute 'default nil :family "Hack" :height 110) ;; (frame-parameter nil 'font)
+
+#+end_src
 
 ** Menu, toolbar, scrollbar e.c.
 
 #+begin_src emacs-lisp
 
-(menu-bar-mode -1)
-
 (tool-bar-mode -1)
-
+(menu-bar-mode -1)
+(tool-bar-mode -1)
 (blink-cursor-mode -1)
+(electric-pair-mode 1)
 (set-fringe-mode 10)
 
+#+end_src
+
+** Treemacs
+
+#+begin_src emacs-lisp
+  
+(use-package treemacs
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  :config
+  (setq treemacs-is-never-other-window t
+        treemacs-width 30
+        treemacs-show-cursor nil)
+  :bind
+  (:map global-map
+        ("M-0"       . treemacs-select-window)
+        ("C-x t 1"   . treemacs-delete-other-windows)
+        ("C-x t t"   . treemacs)
+        ("C-x t B"   . treemacs-bookmark)
+        ("C-x t C-t" . treemacs-find-file)
+        ("C-x t M-t" . treemacs-find-tag)))
+
+(use-package treemacs-projectile
+  :after (treemacs projectile))
+
+(use-package treemacs-magit
+  :after (treemacs magit))
 #+end_src
 
 ** Olivetti
@@ -58,7 +97,6 @@ Olivetti is a package that simply centers the text of a buffer.
 #+begin_src emacs-lisp
 
 (use-package olivetti
-  ;;:ensure t
   :defer t
   :bind (:map custom-bindings-map ("C-c o" . olivetti-mode))
   :config
@@ -86,12 +124,6 @@ Olivetti is a package that simply centers the text of a buffer.
 
 #+end_src
 
-** Electric
-
-#+begin_src emacs-lisp
-(electric-pair-mode 1)
-#+end_src
-
 ** Buffer
 
 #+begin_src emacs-lisp
@@ -104,13 +136,19 @@ Olivetti is a package that simply centers the text of a buffer.
 
 #+begin_src emacs-lisp
 
+(defvar custom-bindings-map (make-sparse-keymap)
+  "A keymap for custom bindings.")
+  
+#+end_src
+
+#+begin_src emacs-lisp
+
 (use-package which-key
   ;;:ensure t
-  :init (which-key-mode)
+  :init (which-key-mode 1)
   :diminish which-key-mode
   :config
   (setq which-key-idle-delay 1))
-
 
 #+end_src
 
@@ -197,12 +235,14 @@ Save minibuffer history
 
 #+begin_src emacs-lisp
 
-(use-package orderless
-  ;;:ensure t
+
+
+(use-package consult
+  :bind (:map custom-bindings-map
+              ("C-x b" . consult-buffer)
+              ("C-c r" . consult-ripgrep))
   :config
-  (setq completion-styles '(orderless basic partial-completion)
-        completion-category-overrides '((file (styles basic partial-completion)))
-        orderless-component-separator "[ |]"))
+  (setq consult-preview-key (list :debounce 0.1 'any)))
 
 #+end_src
 
@@ -220,6 +260,53 @@ Save minibuffer history
 
 * COMMAND LINE
 
+#+begin_src emacs-lisp
+(use-package vterm
+  :commands vterm
+  :bind ((:map vterm-mode-map
+               ("C-y" . vterm-yank)
+               ("M-y" . vterm-yank-pop)
+               ("C-q" . vterm-send-next-key)
+               ("C-z" . nil)
+               ("M-:" . nil)))
+  :custom
+  (vterm-kill-buffer-on-exit t)
+  (vterm-max-scrollback 10000)
+  (vterm-buffer-name-string "vterm %s"))
+
+(use-package vterm
+  :defer t
+  :preface
+  (defvar vterms nil)
+
+  (defun toggle-vterm (&optional n)
+    (interactive)
+    (setq vterms (seq-filter 'buffer-live-p vterms))
+    (let ((default-directory (or (vc-root-dir) default-directory)))
+     (cond ((numberp n) (push (vterm n) vterms))
+           ((null vterms) (push (vterm 1) vterms))
+           ((seq-contains-p vterms (current-buffer))
+            (switch-to-buffer (car (seq-difference (buffer-list) vterms))))
+           (t (switch-to-buffer (car (seq-intersection (buffer-list) vterms)))))))
+
+  :bind (:map custom-bindings-map
+              ("C-z" . toggle-vterm)
+              ("M-1" . (lambda () (interactive) (toggle-vterm 1)))
+              ("M-2" . (lambda () (interactive) (toggle-vterm 2)))
+              ("M-3" . (lambda () (interactive) (toggle-vterm 3)))
+              ("M-4" . (lambda () (interactive) (toggle-vterm 4)))
+              ("M-5" . (lambda () (interactive) (toggle-vterm 5)))
+              ("M-6" . (lambda () (interactive) (toggle-vterm 6)))
+              ("M-7" . (lambda () (interactive) (toggle-vterm 7)))
+              ("M-8" . (lambda () (interactive) (toggle-vterm 8)))
+              ("M-9" . (lambda () (interactive) (toggle-vterm 9))))
+
+  :config
+  ;; Don't query about killing vterm buffers, just kill it
+  (advice-add vterm (after kill-with-no-query nil activate)
+    (set-process-query-on-exit-flag (get-buffer-process ad-return-value) nil)))
+
+#+end_src
 #+begin_src emacs-lisp
 
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -247,10 +334,7 @@ Save minibuffer history
 
 #+begin_src emacs-lisp
 
-(setq
- initial-scratch-message nil
- 
- )
+(setq initial-scratch-message nil )
 
 ;; rewrite selection
 (delete-selection-mode t)
@@ -266,47 +350,111 @@ Save minibuffer history
 (setq org-return-follows-link t)
 
 #+end_src
+
 * DASHBOARD
 
 #+begin_src emacs-lisp
 
 (use-package dashboard
-  ;;:ensure t
   :init
-  (setq dashboard-projects-backend 'project-el
-        ;;dashboard-startup-banner nil
+  (setq dashboard-projects-backend 'projectile)
+
+  (setq dashboard-projects-switch-function
+        #'my/open-project-with-perspective)
+  
+  (setq ;;dashboard-projects-backend 'projectile
         dashboard-set-footer nil
+        dashboard-center-content t
         dashboard-page-separator "\n\n\n"
-        dashboard-set-headling-icons t
+        dashboard-set-heading-icons t
         dashboard-set-file-icons t
-        dashboard-center-content nil
         dashboard-items '((recents . 10)
-                          (agenda . 5)
-                          (bookmarks . 5)
                           (projects . 5)
-                          (registers . 5)))
+                          (bookmarks . 5)
+                          (agenda . 5)
+                          (registers . 5))
+        )
   :config
-  (dashboard-setup-startup-hook)
+  (defun my/open-project-with-perspective (project)
+    "Открывает PROJECT сессией persp и treemacs."
+    (let* ((project-root (expand-file-name project))
+           (project-name (file-name-nondirectory (directory-file-name project-root)))
+           (persp-file (expand-file-name (concat project-name ".persp") persp-save-dir)))
+    
+      (persp-switch project-name)
+      
+      (when (file-exists-p persp-file)
+        (persp-load-state-from-file persp-file))
 
-  (dashboard-modify-heading-icons '((recents . "file-text")
-                                    (bookmarks . "book"))))
+      (let ((default-directory project-root))
+        (treemacs-add-and-display-current-project-exclusively))))
 
-(setq initial-buffer-choice (lambda () (switch-to-buffer "*dashboard*")))
+  (defun my/projectile-open-project ()
+    "Обёртка для projectile-switch-project-action."
+    (my/open-project-with-perspective (projectile-project-root)))
+  
+  (with-eval-after-load 'dashboard
+ 
+    (setq dashboard-startupify-list
+          (remove 'dashboard-insert-banner dashboard-startupify-list))
+    (setq dashboard-startupify-list
+          (remove 'dashboard-insert-init-info dashboard-startupify-list))
+    (setq dashboard-startupify-list
+          (remove 'dashboard-insert-banner-title dashboard-startupify-list))
+    )
+    
+    (dashboard-setup-startup-hook))
+
+;;(setq initial-buffer-choice (lambda () (switch-to-buffer "*dashboard*")))
+(defun save-project-session-on-exit ()
+  "Сохраняет сессию persp перед выходом."
+  (let ((project-name 
+    (when (projectile-project-p)
+      (projectile-project-name))))
+    (when project-name
+      (persp-save-state-to-file (expand-file-name (concat project-name ".persp") persp-save-dir)))))
+
+(setq projectile-switch-project-action #'dashboard-open-project)
+
+(add-hook 'kill-emacs-hook #'save-project-session-on-exit)
+
 #+end_src
   
 * DEVELOPMENT
+
+** DESKTOP
+
+#+begin_src emacs-lisp
+
+(use-package persp-mode
+  :init
+  (setq persp-autokill-buffer-on-remove 'kill-weak)
+  (setq persp-init-frame-behaviour nil)
+  (setq persp-auto-resume-time -1) 
+  (setq persp-set-last-persp-for-new-frames nil)
+  (setq persp-save-dir (expand-file-name "persp-sessions/" user-emacs-directory))
+  (setq persp-mode-init-frame-behaviour 'none)
+  (setq persp-auto-save-opt 0)
+  (add-hook 'kill-emacs-hook #'persp-save-state-to-file)
+  :config
+  (persp-mode)
+  )
+
+#+end_src
+
 ** MAGIT
 
 #+begin_src emacs-lisp
 
 (use-package magit
-  ;;:ensure t
   :commands (magit-status magit-get-current-branch)
   :custom
   (magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
 
 #+end_src
+
 * SPELLING
+
 ** Flyspell
 
    Flyspell offers on-the-fly spell checking.
@@ -334,7 +482,7 @@ Save minibuffer history
 
    We enable =flyspell-mode= for all text-modes, and use =flyspell-prog-mode=
    for spell checking comments and strings in all programming modes. We bind
-   =C-c l= to a function returned from =cycle-languages=, giving a language
+   =C-c f= to a function returned from =cycle-languages=, giving a language
    switcher for every buffer where flyspell is enabled.
 
    #+begin_src emacs-lisp
@@ -346,7 +494,7 @@ Save minibuffer history
             (prog-mode . flyspell-prog-mode)
             (flyspell-mode . (lambda ()
                                (local-set-key
-                                (kbd "C-c l")
+                                (kbd "C-c f")
                                 (cycle-languages)))))
      :config
      (ispell-change-dictionary "american" t))
@@ -358,7 +506,7 @@ Save minibuffer history
    This super neat package looks up the word at point. I use it a lot!
 
    #+begin_src emacs-lisp
-
+   
    ;; display the definition of word at point
    (use-package define-word
      :defer t
@@ -368,26 +516,46 @@ Save minibuffer history
 
 ** LANGUAGES
 
-# *** Language Server
+*** LSP
 
-# #+begin_src emacs-lisp
-# ;; lsp-mode
-# (use-package company
-#   ;;:ensure t
-#   :hook
-#   (dart-mode . global-company-mode))
-# (use-package lsp-ui  ;;:ensure t
-#   )
+#+begin_src emacs-lisp
 
-# (use-package lsp-mode
-#   ;;:ensure t
-#   :commands (lsp lsp-deffered)
-#   :init
-#   (setq lsp-keymap-prefix "C-c l")
-#   :config
-#   (lsp-enable-which-key-integration t))
+;; (use-package lsp-ui)
 
-# #+end_src
+;; (use-package lsp-mode
+;;   ;;:hook (python-mode . lsp)
+;;   :hook ((python-mode django-mode) . lsp)
+;;   :commands (lsp lsp-deferred)
+;;   :init
+;;   (setq lsp-keymap-prefix "C-c l")
+;;   :config
+;;   (setq lsp-completion-provider :none)
+;;   (setq lsp-client-packages '(lsp-pyright))
+;;   (lsp-enable-which-key-integration t))
+  
+;; (use-package lsp-pyright
+;;   :after lsp-mode
+;;   :init
+;;   (setq lsp-pyright-auto-import-completions t)
+;;   (setq lsp-diagnostics-provider :none)
+;;   :hook ((python-mode django-mode) . (lambda ()
+;;                                        (require 'lsp-pyright)
+;;                                        (lsp-deferred)))
+;;   :config
+;;   (add-to-list 'lsp-language-id-configuration `(django-mode . "python"))
+;;   ;; (with-eval-after-load 'lsp-pyright
+;;   ;;   (add-to-list 'lsp-language-id-configuration '(django-mode . "python")))
+;;   (with-eval-after-load 'lsp-pyright
+;;     (when (boundp 'lsp-pyright-modes)
+;;       (add-to-list 'lsp-pyright-modes 'django-mode))))
+
+(use-package eglot
+  :hook ((python-mode django-mode) . eglot-ensure)
+  :config
+  ;; Укажем, что для Python используется pyright
+  (add-to-list 'eglot-server-programs
+               '((python-mode django-mode) . ("pyright-langserver" "--stdio"))))
+#+end_src
 
 *** DART
 
@@ -395,23 +563,45 @@ Save minibuffer history
 
 (use-package dart-mode
   ;;:ensure t
-  :hook (dart-mode . lsp-deferred)
+  ;;:hook (dart-mode . lsp-deferred)
   :config
   (global-set-key (kbd "C-<f9>") 'lsp-dart-run)
   )
-(use-package lsp-dart
-  ;;:ensure t
-  :hook (dart-mode . lsp)
-  )
+;; (use-package lsp-dart
+;;   ;;:ensure t
+;;   :hook (dart-mode . lsp)
+;;   )
 
 #+end_src
   
-*** PYTHON
+*** PYTHON|DJANGO
 
 #+begin_src emacs-lisp
 
-(use-package python-mode
-  ;;:ensure t
+(use-package python-black
+  :demand t
+  :hook (python-mode . python-black-on-save-mode))
+
+#+end_src
+
+#+begin_src emacs-lisp
+  
+(use-package django-mode
+  ;;:hook (django-mode . lsp-deferred)
+  :mode ("\\.html$" . django-html-mode)
+  ;;:config
+  )
+  
+
+#+end_src
+
+#+begin_src emacs-lisp
+
+(use-package pyvenv
+  :ensure t
+  :config
+  (setq pyvenv-virtualenv-wrapper-workon "~/devel/python/environment")
+  (pyvenv-mode 1)
   )
 
 #+end_src
@@ -421,7 +611,6 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package lua-mode
-  ;;:ensure t
   )
 
 #+end_src
@@ -430,17 +619,26 @@ Save minibuffer history
 
 #+begin_src emacs-lisp
 
+#+end_src
+
+#+begin_src emacs-lisp
+
 (use-package projectile
   ;;:ensure t
   :config
   (projectile-global-mode 1)
+  
   :bind-keymap
   ("C-c p" . projectile-command-map)
   )
 
+(with-eval-after-load 'projectile
+  (add-hook 'projectile-after-switch-project-hook 'treemacs-project-follow-mode))
+
 #+end_src
   
 * SNIPPETS
+
 #+begin_src emacs-lisp
 ;; YASNIPET PACKAGE
 
@@ -456,45 +654,20 @@ Save minibuffer history
   (yas-global-mode 1)
   )
 
-;; (defun yas-popup-isearch-prompt (prompt choices &optional display-fn)
-;;   (when (featurep 'popup)
-;;     (popup-menu*
-;;      (mapcar
-;;       (lambda (choice)
-;;         (popup-make-item
-;;          (or (and display-fn (funcall display-fn choice))
-;;              choice)
-;;          :value choice))
-;;       choices)
-;;      :prompt prompt
-;;      ;; start isearch mode immediately
-;;      :isearch t
-;;      )))
-;; (setq yas-prompt-functions
-;;       '(yas-popup-isearch-prompt yas-ido-prompt yas-no-prompt))
-
 #+end_src
 
-* AUTOCOMPLETE
-
-#+begin_src emacs-lisp
-;; AUTOCOMPLETE PACKAGE
-;; (use-package auto-complete
-;;   ;;:ensure t
-;;   :config
-;;   (ac-config-default)
-;; )
-#+end_src
 
 * INTENDATION SETTINGS
 
 #+begin_src emacs-lisp
 
-;; DEFAULT TABULATION SIZE
+;; 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default c-basic-offset 4)
-(setq-default standart-indent 4)
+(setq-default standard-indent 4)
+(setq-default python-indent-offset 4)
+
 ;; switch beggining of lines
 (global-set-key (kbd "C-a")         'back-to-indentation)
 (global-set-key (kbd "C-S-a")       'move-beginning-of-line)
@@ -536,12 +709,12 @@ Save minibuffer history
 (global-set-key (kbd "<f7>")        'whitespace-mode)
 ;; comment/uncomment
 (global-set-key (kbd "C-;")         'comment-or-uncomment-region)
-;; make Ctrl-` sequence waiting
+;; make Ctrl-` sequence waiting for work with windows and align region
 (define-prefix-command 'ctr-w-pref)
-
-
+;; kill whole line with indents by default
+(global-set-key (kbd "C-k")         'kill-whole-line)
+(global-set-key (kbd "C-K")         'kill-line)
 ;; change word/char moving
-
 (global-set-key (kbd "C-f")         'forward-word)
 (global-set-key (kbd "C-b")         'backward-word)
 (global-set-key (kbd "M-f")         'forward-char)
@@ -553,7 +726,7 @@ Save minibuffer history
 
 #+end_src
 
-** buffer changes
+** BUFFER CHANGES
 
 #+begin_src emacs-lisp
 
@@ -562,11 +735,11 @@ Save minibuffer history
 (global-set-key (kbd "<f5>")        'save-buffer)
 (global-set-key (kbd "<f6>")        'revert-buffer)
 (global-set-key (kbd "<f2>")        'bs-show)
-(global-set-key (kbd "<f12>")       'speedbar-up)
+(global-set-key (kbd "<f12>")       'treemacs)
 
 #+end_src
 
-** navigation
+** NAVIGATION
 
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-`")             'ctr-w-pref)
@@ -583,7 +756,7 @@ Save minibuffer history
 ;; (define-key ctr-w-pref (kbd "C-k")  'scroll-up-command)
 ;; (define-key ctr-w-pref (kbd "v")    'scroll-other-window)
 ;; (define-key ctr-w-pref (kbd "p")    'scroll-other-window-down)
-(define-key ctr-w-pref (kbd "s")    'set-window-width)
+(define-key ctr-w-pref (kbd "s")        'set-window-width)
 
 #+end_src
 
@@ -601,12 +774,16 @@ Save minibuffer history
 
 (use-package doom-themes
   ;;:ensure t
+  :config
+  (load-theme 'doom-one t)
   )
-(load-theme 'doom-one t)
+
 (use-package doom-modeline
   ;;:ensure t
-  :init (doom-modeline-mode 1)
-  :custom (doom-modeline-height 25))
+  :config
+  (doom-modeline-mode 1)
+  :custom
+  (doom-modeline-height 25))
 
 #+end_src
 
