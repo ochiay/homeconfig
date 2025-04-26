@@ -67,7 +67,6 @@ local function run_or_raise (a, b)
 end
 
 
-
 local net = lain.widget.net({
       settings = function()
          widget:set_markup(
@@ -75,6 +74,10 @@ local net = lain.widget.net({
                beautiful.font, "#FEFEFE", " " .. net_now.received .. " ↓↑ " .. net_now.sent .. " "))
       end
 })
+
+
+
+
 
 local wifi_icon = wibox.widget.imagebox()
 local eth_icon = wibox.widget.imagebox()
@@ -93,7 +96,7 @@ local layouts = {
    awful.layout.suit.tile.right,     --"gui"
    awful.layout.suit.tile.right,     --"cfg"
    awful.layout.suit.tile.right,     --"rtfm"
-   awful.layout.suit.fair,           --"Xterm"
+   awful.layout.suit.fair,           --"term"
    awful.layout.suit.max,            --"dk"
    awful.layout.suit.fair,           --"stuff"
    awful.layout.suit.spiral.dwindle, --"etc"
@@ -280,8 +283,9 @@ local net_icon = wibox.widget.imagebox(beautiful.widget_net)
 -- Re-set wallpaper when a screen's geometry changes (e .g. different resolution)
 
 screen.connect_signal('property::geometry', set_wallpaper)
+-- tag_names = {'', '', '', '', '', '', '', '' ,'󱓇'}
 
-tag_names = {'', '', '', '', '', '', '', '' ,'󱓇'}
+tag_names = {'', '', '', '', '', '', '', '' ,'󰚌'}
 
 awful.screen.connect_for_each_screen( function(s)
 
@@ -343,6 +347,7 @@ awful.screen.connect_for_each_screen( function(s)
             volumebar,
             mykeyboardlayout,
             wibox.widget.systray(),
+            
             cld_clock,
             s.mylayoutbox,
 
@@ -350,6 +355,8 @@ awful.screen.connect_for_each_screen( function(s)
       }
 end)
 -- }}}
+
+require("todo")
 
 -- {{{ Mouse bindings
 root.buttons(

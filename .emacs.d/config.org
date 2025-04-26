@@ -354,9 +354,13 @@ Save minibuffer history
 * DASHBOARD
 
 #+begin_src emacs-lisp
-
+;; (defface dashboard-separator-face
+;;     '((t (:foreground "#5f5f5f" :weight bold)))
+;;     "Face for dashboard separator.")
+(use-package page-break-lines)
 (use-package dashboard
   :init
+    
   (setq dashboard-projects-backend 'projectile)
 
   (setq dashboard-projects-switch-function
@@ -365,7 +369,9 @@ Save minibuffer history
   (setq ;;dashboard-projects-backend 'projectile
         dashboard-set-footer nil
         dashboard-center-content t
-        dashboard-page-separator "\n\n\n"
+        ;;dashboard-page-separator "\n\n\n"
+        ;;dashboard-page-separator  "\n──────────────────────────────────────────────────\n"
+                    
         dashboard-set-heading-icons t
         dashboard-set-file-icons t
         dashboard-items '((recents . 10)
@@ -374,7 +380,9 @@ Save minibuffer history
                           (agenda . 5)
                           (registers . 5))
         )
+
   :config
+  
   (defun my/open-project-with-perspective (project)
     "Открывает PROJECT сессией persp и treemacs."
     (let* ((project-root (expand-file-name project))
@@ -394,25 +402,24 @@ Save minibuffer history
     (my/open-project-with-perspective (projectile-project-root)))
   
   (with-eval-after-load 'dashboard
- 
     (setq dashboard-startupify-list
           (remove 'dashboard-insert-banner dashboard-startupify-list))
     (setq dashboard-startupify-list
           (remove 'dashboard-insert-init-info dashboard-startupify-list))
     (setq dashboard-startupify-list
-          (remove 'dashboard-insert-banner-title dashboard-startupify-list))
-    )
+          (remove 'dashboard-insert-banner-title dashboard-startupify-list)))
     
     (dashboard-setup-startup-hook))
 
 ;;(setq initial-buffer-choice (lambda () (switch-to-buffer "*dashboard*")))
 (defun save-project-session-on-exit ()
-  "Сохраняет сессию persp перед выходом."
-  (let ((project-name 
-    (when (projectile-project-p)
-      (projectile-project-name))))
-    (when project-name
-      (persp-save-state-to-file (expand-file-name (concat project-name ".persp") persp-save-dir)))))
+  "Сохраняет сессию persp перед выходом, если находимся в проекте."
+  (when (and (fboundp 'projectile-project-p)
+             (projectile-project-p))
+    (let ((project-name (projectile-project-name)))
+      (when project-name
+        (persp-save-state-to-file
+         (expand-file-name (concat project-name ".persp") persp-save-dir))))))
 
 (setq projectile-switch-project-action #'dashboard-open-project)
 
