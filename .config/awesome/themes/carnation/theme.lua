@@ -15,7 +15,7 @@ local theme = dofile(themes_path.."default/theme.lua")
 -- load vector assets' generators for this theme
 
 theme.font         = "Misc Tamsyn 12"
-theme.taglist_font = "Terminess Nerd Font Mono Bold 26"
+theme.taglist_font = "Symbols Nerd Font Mono 20"
 theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/" .. theme_name
 theme.wallpaper = theme.dir .. "wall.png"
 --"Tamzen 12 "FontAwesome" "Roboto Bold 14"

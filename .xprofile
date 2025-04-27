@@ -1,8 +1,7 @@
-setxkbmap -model pc105 -option grp:ctrls_toggle&
+setxkbmap "us,ru" "," "ctrl:swapcaps" -option grp:ctrls_toggle&
 emacs --daemon &
 PATH="$HOME/.config/emacs/bin:$PATH"
 udiskie &
 source ~/.aliases &
 xcompmgr &
 devilspie &
-

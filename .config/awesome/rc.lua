@@ -284,8 +284,8 @@ local net_icon = wibox.widget.imagebox(beautiful.widget_net)
 
 screen.connect_signal('property::geometry', set_wallpaper)
 -- tag_names = {'', '', '', '', '', '', '', '' ,'󱓇'}
-
-tag_names = {'', '', '', '', '', '', '', '' ,'󰚌'}
+--
+tag_names = {'', '', '', '', ' ', '', '', '' ,'󱓇'}
 
 awful.screen.connect_for_each_screen( function(s)
 
