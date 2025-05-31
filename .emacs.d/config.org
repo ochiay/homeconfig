@@ -246,17 +246,7 @@ Save minibuffer history
 
 #+end_src
 
-** Eglot
-#+begin_src emacs-lisp
 
-(use-package eglot
-  :defer t
-  :hook (eglot-managed-mode . (lambda () (eglot-inlay-hints-mode -1)))
-  :config
-  (setq eglot-events-buffer-size 0)
-  )
-
-#+end_src
 
 * COMMAND LINE
 
@@ -510,7 +500,7 @@ Save minibuffer history
 
 ** Define word
 
-   This super neat package looks up the word at point. I use it a lot!
+   This super neat package looks up the word at point.
 
    #+begin_src emacs-lisp
    
@@ -527,41 +517,15 @@ Save minibuffer history
 
 #+begin_src emacs-lisp
 
-;; (use-package lsp-ui)
-
-;; (use-package lsp-mode
-;;   ;;:hook (python-mode . lsp)
-;;   :hook ((python-mode django-mode) . lsp)
-;;   :commands (lsp lsp-deferred)
-;;   :init
-;;   (setq lsp-keymap-prefix "C-c l")
-;;   :config
-;;   (setq lsp-completion-provider :none)
-;;   (setq lsp-client-packages '(lsp-pyright))
-;;   (lsp-enable-which-key-integration t))
-  
-;; (use-package lsp-pyright
-;;   :after lsp-mode
-;;   :init
-;;   (setq lsp-pyright-auto-import-completions t)
-;;   (setq lsp-diagnostics-provider :none)
-;;   :hook ((python-mode django-mode) . (lambda ()
-;;                                        (require 'lsp-pyright)
-;;                                        (lsp-deferred)))
-;;   :config
-;;   (add-to-list 'lsp-language-id-configuration `(django-mode . "python"))
-;;   ;; (with-eval-after-load 'lsp-pyright
-;;   ;;   (add-to-list 'lsp-language-id-configuration '(django-mode . "python")))
-;;   (with-eval-after-load 'lsp-pyright
-;;     (when (boundp 'lsp-pyright-modes)
-;;       (add-to-list 'lsp-pyright-modes 'django-mode))))
-
 (use-package eglot
-  :hook ((python-mode django-mode) . eglot-ensure)
+  :defer t
+  :hook ((python-mode django-mode web-mode) . eglot-ensure)
   :config
-  ;; Укажем, что для Python используется pyright
+  (setq eglot-events-buffer-size 0)
   (add-to-list 'eglot-server-programs
-               '((python-mode django-mode) . ("pyright-langserver" "--stdio"))))
+               '((python-mode django-mode) . ("pyright-langserver" "--stdio")))
+  (add-to-list 'eglot-server-programs
+               '(web-mode . ("vscode-html-language-server" "--stdio"))))
 #+end_src
 
 *** DART
@@ -597,8 +561,7 @@ Save minibuffer history
   ;;:hook (django-mode . lsp-deferred)
   :mode ("\\.html$" . django-html-mode)
   ;;:config
-  )
-  
+  )  
 
 #+end_src
 
@@ -613,6 +576,41 @@ Save minibuffer history
 
 #+end_src
 
+*** WEB-MODE
+
+#+begin_src emacs-lisp
+
+(use-package web-mode
+  :mode ("\\.html\\'" . web-mode)
+  :config
+  
+  (setq web-mode-enable-auto-closing t
+        web-mode-enable-auto-quoting t
+        web-mode-enable-current-element-highlight t)
+
+  
+  ;; Распознавание Django template syntax
+  (setq web-mode-engines-alist
+        '(("django" . "\\.html\\'")))
+
+  ;; Настройки отступов (опционально)
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2))
+
+#+end_src
+
+*** EMMET
+
+#+begin_src emacs-lisp
+
+(use-package emmet-mode
+  :hook ((web-mode css-mode) . emmet-mode)
+  :config
+  (setq emmet-self-closing-tag-style " /"))
+
+#+end_src
+
 *** LUA
 
 #+begin_src emacs-lisp
@@ -623,10 +621,6 @@ Save minibuffer history
 #+end_src
 
 ** PROJECTILE
-
-#+begin_src emacs-lisp
-
-#+end_src
 
 #+begin_src emacs-lisp
 
@@ -685,12 +679,6 @@ Save minibuffer history
 * FUNCTIONS
 
 #+begin_src emacs-lisp
-
-(defun speedbar-up()
-  (interactive)
-  (speedbar-update-contents)
-  (speedbar)
-  )
 
 #+end_src
   

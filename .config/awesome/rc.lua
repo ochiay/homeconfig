@@ -76,9 +76,6 @@ local net = lain.widget.net({
 })
 
 
-
-
-
 local wifi_icon = wibox.widget.imagebox()
 local eth_icon = wibox.widget.imagebox()
 
@@ -291,7 +288,6 @@ awful.screen.connect_for_each_screen( function(s)
 
       set_wallpaper(s)
 
-      -- s.quake = quake({ app = "alacritty",argname = "--title %s",extra = "--class QuakeDD -e tmux", visible = true, height = 0.9, screen = s })
       awful.tag(tag_names, s, layouts)
       
       -- Create a promptbox for each screen
@@ -391,7 +387,7 @@ globalkeys = awful.util.table.join(
          calendar:toggle()
       end
    ),
-   awful.key({ }, 'Print',
+   awful.key({ modkey }, 'Insert',
       function ()
          awful.util.spawn('scrot -e \'mv $f ~/Pictures/screenshot/ 2>/dev/null\'', false)
       end

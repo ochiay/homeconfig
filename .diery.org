@@ -129,8 +129,14 @@ In a statefull widget(A) I create method which has /setState/ function and chang
    - a,s : adjust window in best-fit or width mode
 
 * DJANGO
+** preinstall
+pip install -r <file>
+django-stubs django-types
+pyright, black
+
 ** tips
    pipreqs -- for generate requirements.txt
+
 ** tests
 ** errors
    Related model 'contract.Data' cannot be resolvedlass
@@ -143,7 +149,7 @@ In a statefull widget(A) I create method which has /setState/ function and chang
     url(<url>, '<app>.views.<function>')
     ]
     in templates
-*** settins
+*** settings
     + context processor?!
 ** django (modules)
 *** apps
