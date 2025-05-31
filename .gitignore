@@ -18,6 +18,7 @@
 /.config/awesome/*
 !/.config/awesome/in_error.lua
 !/.config/awesome/rc.lua
+!/.config/awesome/todo.lua
 !/.config/awesome/themes
 /.config/awesome/themes/*
 !/.config/awesome/themes/carnation/
