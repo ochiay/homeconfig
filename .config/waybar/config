@@ -1,0 +1,78 @@
+// ~/.config/waybar/config
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    
+    "modules-left": ["custom/run", "hyprland/workspaces",  "custom/launcher", "group/usage"] ,
+    "modules-center": ["hyprland/window"],
+    "modules-right": ["pulseaudio", "network", "tray", "custom/power"],
+
+    "group/usage": {
+        "orientation": "horizontal",
+        "modules": ["memory", "temperature"]
+    },
+
+    "custom/run": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "wofi --show drun",
+        "on-click-right": "wofi --show run"
+    },
+
+    "custom/power": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "wlogout"
+    },
+
+    "clock": {
+        "format": "{:%a %d %b  %H:%M}",
+        "tooltip": true,
+        "tooltip-format": "{:%Y-%m-%d %H:%M:%S}"
+    },
+
+    "pulseaudio": {
+        "format": " {volume}%",
+        "format-muted": " muted",
+        "on-click": "pavucontrol"
+    },
+
+    "network": {
+        "format-wifi": "  {essid}",
+        "format-ethernet": "  {ipaddr}",
+        "format-disconnected": " disconnected"
+    },
+
+    
+    "tray": {
+        
+        "spacing": 10
+    },
+
+    // 
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "format-icons": {
+            "1": "󰖟",
+            "2": "",            
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
+            "8": "",
+        },
+        "icon-size": 50,
+        "sort-by-number": true,
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "6": [],
+        }
+    },
+}
+

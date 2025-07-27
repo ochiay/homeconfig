@@ -37,6 +37,11 @@
 !/.config/systemd/user
 !/.config/systemd/user/capsctrlswitcher.service
 
+!/.config/waybar
+!/.config/waybar/config
+!/.config/waybar/style.css
+
+
 !/.config/hypr
 /.config/hypr/*
 !/.config/hypr/hyprland.conf
