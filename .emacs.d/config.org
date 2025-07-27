@@ -519,13 +519,21 @@ Save minibuffer history
 
 (use-package eglot
   :defer t
-  :hook ((python-mode django-mode web-mode) . eglot-ensure)
+  :hook ((python-mode django-mode web-mode rust-ts-mode) . eglot-ensure)
   :config
   (setq eglot-events-buffer-size 0)
   (add-to-list 'eglot-server-programs
                '((python-mode django-mode) . ("pyright-langserver" "--stdio")))
   (add-to-list 'eglot-server-programs
-               '(web-mode . ("vscode-html-language-server" "--stdio"))))
+               '(web-mode . ("vscode-html-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs
+               '(rust-ts-mode . ("rust-analyzer"))))
+#+end_src
+
+*** RUST
+
+#+begin_src emacs-lisp
+;;(use-package rust)
 #+end_src
 
 *** DART

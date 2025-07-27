@@ -40,7 +40,7 @@ local ranger = lain.util.quake(
    {
       app     = terminal,
       argname = '--class %s',
-      extra   = " -e ranger",
+      extra   = " -e yazi",
       name    = "QuakeRanger",
       height  = 1,
       width   = 0.5,
@@ -455,10 +455,6 @@ globalkeys = awful.util.table.join(
       {description = 'go back', group = 'client'}),
 
    -- Standard program
-
-   -- awful.key({ modkey,           }, '\\',
-   --    function () awful.spawn('Xterm -e ranger') end,
-   --    {description = 'open midnight commander', group = 'launcher'}),
    
    awful.key({modkey }, "F12", nil,
       function ()
