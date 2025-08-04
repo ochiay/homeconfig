@@ -1,12 +1,12 @@
 // ~/.config/waybar/config
 {
-    "layer": "top",
+    "layer": "bottom",
     "position": "top",
-    "height": 30,
+    "height": 20,
     
     "modules-left": ["custom/run", "hyprland/workspaces",  "custom/launcher", "group/usage"] ,
-    "modules-center": ["hyprland/window"],
-    "modules-right": ["pulseaudio", "network", "tray", "custom/power"],
+    "modules-center": ["wlr/taskbar"],
+    "modules-right": ["clock", "pulseaudio", "network", "tray", "custom/power"],
 
     "group/usage": {
         "orientation": "horizontal",
@@ -34,23 +34,37 @@
 
     "pulseaudio": {
         "format": " {volume}%",
+        "max-volume": 200,
         "format-muted": " muted",
-        "on-click": "pavucontrol"
+        "on-click": "pavucontrol",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
     },
 
+    "wlr/taskbar": {
+        "format": "{icon} {class}",
+        "icon-size": 20,
+        "tooltip-format": "{title}\n{app_id}",
+        "active-only": true,
+        "all-outputs": false,
+        "grouping": false,
+        "ignore-list": [],
+        "on-click": "activate",
+        "on-click-middle": "close"
+    },
+    
     "network": {
-        "format-wifi": "  {essid}",
-        "format-ethernet": "  {ipaddr}",
-        "format-disconnected": " disconnected"
+        "format-wifi": "",
+        "format-ethernet": "",
+        "format-disconnected": ""
     },
 
     
-    "tray": {
-        
-        "spacing": 10
+    "tray": {        
+        "spacing": 5
     },
 
-    // 
+    // 
     "hyprland/workspaces": {
         "format": "{icon}",
         "on-click": "activate",
@@ -60,11 +74,11 @@
             "3": "",
             "4": "",
             "5": "",
-            "6": "",
+            "6": "",
             "7": "",
             "8": "",
         },
-        "icon-size": 50,
+        "icon-size": 25,
         "sort-by-number": true,
         "persistent-workspaces": {
             "1": [],
