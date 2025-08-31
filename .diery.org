@@ -129,6 +129,20 @@ In a statefull widget(A) I create method which has /setState/ function and chang
    - a,s : adjust window in best-fit or width mode
 
 * DJANGO
+** settings
+- DEBUG
+- ALLOWED_HOSTS (off in debug mode)  
+- django.contrib.admin: An administration site.
+- django.contrib.auth: An authentication framework.
+- django.contrib.contenttypes: A framework for handling content types.
+- django.contrib.sessions: A session framework.
+- django.contrib.messages: A messaging framework.
+- django.contrib.staticfiles: A framework for managing static files, such as CSS, JavaScript files, and images.
+- MIDDLEWARE is a list that contains middleware to be executed.
+- ROOT_URLCONF indicates the Python module where the root URL patterns of your application are defined.
+- DATABASES is a dictionary that contains the settings for all the databases to be used in the project. There must always be a default database. The default configuration uses a SQLite3 database.
+- LANGUAGE_CODE defines the default language code for this Django site.
+- USE_TZ tells Django to activate/deactivate timezone support. Django comes with support for timezone-aware datetimes. This setting is set to True when you create a new project using the startproject management command.
 ** preinstall
 pip install -r <file>
 django-stubs django-types
@@ -211,12 +225,66 @@ pyright, black
       __in
       __range
 *** Fields
+
+**** lookups
+usage:
+<model>.objects.filter(<field>__<lookup>)
+
+lookups:
+exact (default)
+iexact - case-insensitive
+contains
+icontaint
+in
+gt - greater than
+gte - greater than or equal
+lt - less than
+lte - less than or equal
+startswith, istartswith
+endswith, iendwith
+date, year, month, day (+optional: __gt, __gte, __lt, __lte)
+
+related objects fields usage:
+<foreign key field>__<foreign table field>__<lookup>
+
+chaining filters:
+filter(...).field(...)
+
+excluding objects:
+filter(...).exclude(...)
+
+ordering:
+<model>.objects.order_by('<field>') - ascending order
+<model>.objects.order_by('-<field>') - descending order
+<model>.objects.order_by('<field1>', '<field2>') - few fields for ordering
+<model>.objects.order_by('?') - randomly order
+
+slicing:
+<model>.objects.all()[:n] or [n:m] - translated to sql offset n limit m
+
+checking:
+filter(...).exists()
+
+complex lookups with Q:
+from django.db.models import Q
+<name1> = Q(<lookup1>)
+<name1> = Q(<lookup2>)
+<model>.objects.filter(<name1> <operator> <name2>)
+operator: &(and) |(or) ^(xor)
+
+QuerySets ar only evaluated in the following cases: 
+- The first time you iterate over them
+- When you slice them, for instance, Post.objects.all()[:3]
+- When you pickle or cache them
+- When you call repr() or len() on them
+- When you explicitly call list() on them
+- When you test them in a statement, such as bool(), or, and, or if
 **** DateField
 ***** param:
       auto_now_add True?False
-**** all
-     field.on_delete:
-     CASCADE|PROTECT|SET_NULL|SET_DEFAULT|SET()|DO_NOTHING
+**** foreing key field.on_delete:
+CASCADE|PROTECT|SET_NULL|SET_DEFAULT|SET()|DO_NOTHING
+
 *** tips
     <model>.objects.all().delete()
 ** views #контроллер
@@ -283,7 +351,7 @@ pyright, black
    * change in manage.py os.environ.setdefault
    * change in config/wsgi.py os
    * change all project_name modules into "config folder name"
-
+     
 * WEB/HTML
 ** form
    + atribute
@@ -336,7 +404,13 @@ after updating something sometimes go wrong, so I should rm -rf emacs.d/elpa
    - \M-w : copy selection(kill-ring-save)
    - \c-y : insert selection(yank)
    - \c-w : kill selection(\c-y paste it too) (*not work in *fc \c-w \c-w)
+     
+** DJANGO MODE
+
 ** ORG-MODE
+
+*** 
+
 *** BLOCKS
 - C-c C-,
 *** help
@@ -473,7 +547,33 @@ C-c C-l org-insert-link
    package-list-packages
 ** jedi - python
    pip install jedi epc, m x jedi:install-server
+* VSCODE
+** python/django
+C+S+p: open workspace settings
+#+begin_src js-json
+{
+    "settings": {
+        "python.terminal.activateEnvInCurrentTerminal": true,
+        "python.defaultInterpreterPath": "<path to interpreter>"
+    }
+}  
+#+end_src
+
 * POSTGRESQL
+** installation
+pacman -S postgresql
+
+sudo -iu postgres
+initdb -D /var/lib/postgres/data
+            # optional args: --encoding=UTF8 --locale=en_US.UTF-8  - check with $> locale
+exit
+
+sudo systemctl start postgresql
+sudo -iu postgres
+createuser --interactive
+
+name as your user in system get you access to posgres commands directly??
+
 ** upgrade
    systemctl stop postgresql.service
    systemctl status postgresql.service
@@ -840,3 +940,4 @@ echo '( if                                                                ±[A1�
    использование python и excel
    как работает yield
 xrandr --output DVI-D-0 --brightness 0.4
+
