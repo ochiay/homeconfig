@@ -129,6 +129,15 @@ In a statefull widget(A) I create method which has /setState/ function and chang
    - a,s : adjust window in best-fit or width mode
 
 * DJANGO
+** AUTH (django.contrib.auth)
+AuthenticationMiddleware : associates users with requests using sessions
+SessionMiddleware : handles the current session across requests
+Middleware is classes with methods that are globally executed during the request or response phase.
+#+begin_type python
+django.contrib.auth.models : User, Group, Permission
+#+end_type
+
+django.c
 ** settings
 - DEBUG
 - ALLOWED_HOSTS (off in debug mode)  
@@ -693,6 +702,15 @@ name as your user in system get you access to posgres commands directly??
   + \c-b c                             : create new window
   + \c-b <num>                         : jump to <num> window
   + \c-b [ : enter into copy mode
+* ZSH
+** postinstall:
+#+begin_src shell
+chsh -s $(which zsh)
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+#+end_src
+
+
 * BASH
 ** MC
 *** tab switch

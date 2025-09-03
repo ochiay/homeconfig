@@ -1,7 +1,7 @@
 export VISUAL="emacs -nw"
 export PINKY="/run/media/$USER/PINKY"
 export EDITOR="emacs"
-export DOOMDIR=/home/kell/.config/doom
+export DOOMDIR="~/.config/doom"
 export TERMINAL=/usr/bin/alacritty
 export ANDROID_HOME=/home/kell/Android/Sdk/
 export CHROME_EXECUTABLE=/usr/bin/brave

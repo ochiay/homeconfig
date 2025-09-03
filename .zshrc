@@ -1,24 +1,23 @@
-# Use powerline
-ZSH_THEME="nicoulaj" # "robbyrussell"
+ZSH_THEME="nicoulaj"  # robbyrussell nicoulaj agnoster
 USE_POWERLINE="true"
-# Has weird character width
-# Example:
-#    is not a diamond
-HAS_WIDECHARS="false"
+HAS_WIDECHARS="true"
 
 if [[ -d $HOME/.oh-my-zsh ]]; then
     export ZSH="$HOME/.oh-my-zsh"
-    plugins=(git)
+    plugins=(git sudo z zsh-autosuggestions python tmux colorize)
     source $ZSH/oh-my-zsh.sh
 fi
+
 # Source manjaro-zsh-configuration
-if [[ -e /usr/share/zsh/manjaro-zsh-config ]]; then
-  source /usr/share/zsh/manjaro-zsh-config
+if [[ -e ~/.zshrc_manjaro.sh ]]; then
+  source ~/.zshrc_manjaro.sh
 fi
-# Use manjaro zsh prompt
+
+# # Use manjaro zsh prompt
 if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
-  source /usr/share/zsh/manjaro-zsh-prompt
+  #source /usr/share/zsh/manjaro-zsh-prompt
 fi
+
 # aliases 
 if [ -f $HOME/.aliases ]; then
   . $HOME/.aliases
