@@ -1,7 +1,6 @@
-setxkbmap "us,ru" "," "ctrl:swapcaps" -option grp:ctrls_toggle&
 emacs --daemon &
 PATH="$HOME/.doom.d/bin:$PATH"
 udiskie &
 source ~/.aliases &
-xcompmgr &
+#xcompmgr &
 devilspie &

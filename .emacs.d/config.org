@@ -22,7 +22,7 @@ https://github.com/larstvei/dot-emacs/tree/master
           ("nongnu" . "https://elpa.nongnu.org/nongnu/")
           ("elpa" . "https://elpa.gnu.org/packages/")))
 
-  (package-refresh-contents) ;; uncomment if have high net speed
+  ;; (package-refresh-contents) ;; uncomment if have high net speed
   (package-initialize)
 
 #+end_src
@@ -124,7 +124,6 @@ Olivetti is a package that simply centers the text of a buffer.
   (add-hook mode (lambda() (display-line-numbers-mode 0))))
 
 (use-package rainbow-delimiters
-  ;;:ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
 #+end_src
@@ -149,7 +148,6 @@ Olivetti is a package that simply centers the text of a buffer.
 #+begin_src emacs-lisp
 
 (use-package which-key
-  ;;:ensure t
   :init (which-key-mode 1)
   :diminish which-key-mode
   :config
@@ -166,14 +164,12 @@ Vertico + Consult + Orderless + Embark + Marginalia + Corfu
 #+begin_src emacs-lisp
 
 (use-package vertico
-  ;;:ensure t
   :init
   (vertico-mode 1)
   :config
   (setq vertico-count 25))
 
 (use-package vertico-posframe
-  ;;:ensure t
   :config
   (vertico-posframe-mode 1)
   (setq vertico-posframe-width 100
@@ -188,7 +184,6 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package savehist
-  ;;:ensure t
   :init
   (savehist-mode 1))
 
@@ -199,7 +194,6 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package marginalia
-  ;;:ensure t
   :init 
   (marginalia-mode 1))
 
@@ -210,7 +204,6 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package corfu
-  ;;:ensure t
   :init
   (global-corfu-mode 1)
   (corfu-popupinfo-mode 1)
@@ -228,7 +221,6 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package orderless
-  ;;:ensure t
   :config
   (setq completion-styles '(orderless basic partial-completion)
         completion-category-overrides '((file (styles basic partial-completion)))
@@ -310,7 +302,6 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package which-key
-  ;;:ensure t
   :init (which-key-mode)
   :diminish which-key-mode
   :config
@@ -343,6 +334,24 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (setq org-return-follows-link t)
+
+(defun org-bol-open-line ()
+  "Go to beginning of line and insert a blank line above, like open-line at BOL."
+  (interactive)
+  (beginning-of-line)
+  (open-line 1))
+
+;; Bind to C-S-o in org-mode
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-S-o") #'org-bol-open-line))
+
+;; (add-hook 'org-mode-hook
+;;           (lambda ()
+;;             (local-set-key (kbd "C-S-o") 
+;;                            (lambda ()
+;;                              (interactive)
+;;                              (move-beginning-of-line 1)
+;;                              (newline)))))
 
 #+end_src
 
@@ -546,18 +555,50 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package dart-mode
-  ;;:ensure t
   ;;:hook (dart-mode . lsp-deferred)
   :config
   (global-set-key (kbd "C-<f9>") 'lsp-dart-run)
   )
 ;; (use-package lsp-dart
-;;   ;;:ensure t
 ;;   :hook (dart-mode . lsp)
 ;;   )
 
 #+end_src
-  
+
+*** GO
+
+#+begin_src emacs-lisp
+
+(use-package go-mode
+  :mode "\\.go\\'"
+  :init
+  ;; Format Go code before saving
+  (add-hook 'go-mode-hook #'gofmt-before-save)
+  :config
+  ;; Use goimports instead of gofmt
+  (setq gofmt-command "goimports")
+  ;; Indentation settings
+  ;;(setq-default indent-tabs-mode nil)
+  ;;(setq-default tab-width 4)
+  ;; Keybindings
+  (define-key go-mode-map (kbd "C-c C-r") 'go-remove-unused-imports)
+  (define-key go-mode-map (kbd "C-c C-g") 'go-goto-imports)
+  (define-key go-mode-map (kbd "C-c C-f") 'gofmt)
+  ;; Optional: show documentation at point (requires godoc)
+  (add-hook 'go-mode-hook #'godoc-at-point))
+
+(provide 'go-mode-config)
+
+#+end_src
+
+*** DOCKER
+
+#+begin_src emacs-lisp
+
+(use-package dockerfile-mode)
+
+#+end_src
+
 *** PYTHON|DJANGO
 
 #+begin_src emacs-lisp
@@ -581,7 +622,6 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package pyvenv
-  :ensure t
   :config
   (setq pyvenv-virtualenv-wrapper-workon "~/devel/python/environment")
   (pyvenv-mode 1)
@@ -638,7 +678,6 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package projectile
-  ;;:ensure t
   :config
   (projectile-global-mode 1)
   
@@ -701,7 +740,6 @@ Save minibuffer history
 
 #+begin_src emacs-lisp
 (use-package reverse-im
-  :ensure t
   :config
   (setq reverse-im-input-methods '("russian-computer"))
   (reverse-im-mode 1))
@@ -719,6 +757,7 @@ Save minibuffer history
 (global-set-key (kbd "C-;")         'comment-or-uncomment-region)
 ;; make Ctrl-` sequence waiting for work with windows and align region
 (define-prefix-command 'ctr-w-pref)
+
 ;; kill whole line with indents by default
 (global-set-key (kbd "C-k")         'kill-whole-line)
 (global-set-key (kbd "C-K")         'kill-line)
@@ -738,7 +777,7 @@ Save minibuffer history
 
 #+begin_src emacs-lisp
 
-(global-set-key (kbd "C-S-<tab>")   'bs-cycle-next)
+(global-set-key (kbd "C-<iso-lefttab>")   'bs-cycle-next)
 (global-set-key (kbd "C-<tab>")     'bs-cycle-previous)
 (global-set-key (kbd "<f5>")        'save-buffer)
 (global-set-key (kbd "<f6>")        'revert-buffer)
@@ -746,26 +785,30 @@ Save minibuffer history
 (global-set-key (kbd "<f12>")       'treemacs)
 
 #+end_src
-
-** NAVIGATION
+** WINDOW NAVIGATION
 
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-`")             'ctr-w-pref)
-(define-key ctr-w-pref (kbd "j")        'next-multiframe-window)
-(define-key ctr-w-pref (kbd "k")        'previous-multiframe-window)
-(define-key ctr-w-pref (kbd "<up>")     'windmove-up)
-(define-key ctr-w-pref (kbd "<down>")   'windmove-down)
-(define-key ctr-w-pref (kbd "<left>")   'windmove-left)
-(define-key ctr-w-pref (kbd "<right>")  'windmove-right)
+(define-prefix-command 'ctr-q-pref)
+(global-set-key (kbd "C-q")             'ctr-q-pref)
+(define-key ctr-q-pref (kbd "j")        'next-multiframe-window)
+(define-key ctr-q-pref (kbd "k")        'previous-multiframe-window)
+(define-key ctr-q-pref (kbd "<up>")     'windmove-up)
+(define-key ctr-q-pref (kbd "<down>")   'windmove-down)
+(define-key ctr-q-pref (kbd "<left>")   'windmove-left)
+(define-key ctr-q-pref (kbd "<right>")  'windmove-right)
+(define-key ctr-q-pref (kbd "g")        'goto-line)
+(define-key ctr-q-pref (kbd "a")        'align-regexp)
+;; (define-key ctr-q-pref (kbd "C-j")  'scroll-down-command)
+;; (define-key ctr-q-pref (kbd "C-k")  'scroll-up-command)
+;; (define-key ctr-q-pref (kbd "v")    'scroll-other-window)
+;; (define-key ctr-q-pref (kbd "p")    'scroll-other-window-down)
+(define-key ctr-q-pref (kbd "s")        'set-window-width)
+#+end_src
 
-(define-key ctr-w-pref (kbd "g")        'goto-line)
-(define-key ctr-w-pref (kbd "a")        'align-regexp)
-;; (define-key ctr-w-pref (kbd "C-j")  'scroll-down-command)
-;; (define-key ctr-w-pref (kbd "C-k")  'scroll-up-command)
-;; (define-key ctr-w-pref (kbd "v")    'scroll-other-window)
-;; (define-key ctr-w-pref (kbd "p")    'scroll-other-window-down)
-(define-key ctr-w-pref (kbd "s")        'set-window-width)
+** LOST
 
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-`")             'quoted-insert)
 #+end_src
 
 ** EXECUTIONS
@@ -781,13 +824,11 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package doom-themes
-  ;;:ensure t
   :config
   (load-theme 'doom-one t)
   )
 
 (use-package doom-modeline
-  ;;:ensure t
   :config
   (doom-modeline-mode 1)
   :custom
