@@ -707,15 +707,26 @@ commands:
   + \c-b c                             : create new window
   + \c-b <num>                         : jump to <num> window
   + \c-b [ : enter into copy mode
+** TMUXINATOR:
+*** windows layout:
+- even-horizontal
+- even-vertical
+- main-horizontal
+- main-vertical
+- tiled
 * ZSH
+
 ** postinstall:
 #+begin_src shell
+
 chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
 #+end_src
 
 * DOCKER
+
 | Command                | Description                                     |
 |------------------------+-------------------------------------------------|
 | ps                     | Show a table of all the running containers      |

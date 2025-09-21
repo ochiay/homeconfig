@@ -6,7 +6,7 @@
     
     "modules-left": ["custom/run", "hyprland/workspaces",  "custom/launcher", "group/usage"] ,
     "modules-center": ["wlr/taskbar"],
-    "modules-right": ["clock", "pulseaudio", "network", "tray", "custom/power"],
+    "modules-right": ["clock", "hyprland/language", "pulseaudio", "network", "tray", "custom/power"],
 
     "group/usage": {
         "orientation": "horizontal",
@@ -42,6 +42,7 @@
         
     },
 
+
     "wlr/taskbar": {
         "format": "{icon} {class}",
         "icon-size": 20,
@@ -53,7 +54,16 @@
         "on-click": "activate",
         "on-click-middle": "close"
     },
-    
+
+
+    "hyprland/language": {
+        "format": " {}",
+        "format-en": "en",
+        "format-ru": "ru",
+        "keyboard-name": "hs-hw308--------01-01--usb-keyboard"
+    },
+
+        
     "network": {
         "format-wifi": "",
         "format-ethernet": "",
@@ -65,12 +75,11 @@
         "spacing": 5
     },
 
-    // 
     "hyprland/workspaces": {
         "format": "{icon}",
         "on-click": "activate",
         "format-icons": {
-            "1": "󰖟",
+            "1": "󰖟", //  
             "2": "",            
             "3": "",
             "4": "",
