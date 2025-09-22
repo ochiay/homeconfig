@@ -13,17 +13,12 @@ https://github.com/larstvei/dot-emacs/tree/master
 
 #+begin_src emacs-lisp :noindent
 
-  (require 'gnutls)
-  (add-to-list 'gnutls-trustfiles "/etc/libressl/cert.pem")
-  (require 'package)
+;;  ​(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://www.mirrorservice.org/sites/melpa.org/packages/") t)
 
-  (setq package-archives
-        '(("melpa-stable" . "https://stable.melpa.org/packages/")
-          ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-          ("elpa" . "https://elpa.gnu.org/packages/")))
-
-  ;; (package-refresh-contents) ;; uncomment if have high net speed
-  (package-initialize)
+;; (package-refresh-contents) ;; uncomment if have high net speed
+(package-initialize)
 
 #+end_src
 
@@ -38,6 +33,14 @@ https://github.com/larstvei/dot-emacs/tree/master
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+#+end_src
+
+* BUG
+
+#+begin_src emacs-lisp
+
+(setq inhibit-compacting-font-caches t)
 
 #+end_src
 
@@ -69,7 +72,7 @@ https://github.com/larstvei/dot-emacs/tree/master
 ** Treemacs
 
 #+begin_src emacs-lisp
-  
+
 (use-package treemacs
   :defer t
   :init
@@ -97,7 +100,7 @@ https://github.com/larstvei/dot-emacs/tree/master
 
 ** Olivetti
 
-Olivetti is a package that simply centers the text of a buffer. 
+Olivetti is a package that simply centers the text of a buffer.
 
 #+begin_src emacs-lisp
 
@@ -142,7 +145,7 @@ Olivetti is a package that simply centers the text of a buffer.
 
 (defvar custom-bindings-map (make-sparse-keymap)
   "A keymap for custom bindings.")
-  
+
 #+end_src
 
 #+begin_src emacs-lisp
@@ -159,7 +162,7 @@ Olivetti is a package that simply centers the text of a buffer.
 
 Vertico + Consult + Orderless + Embark + Marginalia + Corfu
 
-** Vertico 
+** Vertico
 
 #+begin_src emacs-lisp
 
@@ -194,7 +197,7 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package marginalia
-  :init 
+  :init
   (marginalia-mode 1))
 
 #+end_src
@@ -364,18 +367,18 @@ Save minibuffer history
 (use-package page-break-lines)
 (use-package dashboard
   :init
-    
+
   (setq dashboard-projects-backend 'projectile)
 
   (setq dashboard-projects-switch-function
         #'my/open-project-with-perspective)
-  
+
   (setq ;;dashboard-projects-backend 'projectile
         dashboard-set-footer nil
         dashboard-center-content t
         ;;dashboard-page-separator "\n\n\n"
         ;;dashboard-page-separator  "\n──────────────────────────────────────────────────\n"
-                    
+
         dashboard-set-heading-icons t
         dashboard-set-file-icons t
         dashboard-items '((recents . 10)
@@ -386,15 +389,15 @@ Save minibuffer history
         )
 
   :config
-  
+
   (defun my/open-project-with-perspective (project)
     "Открывает PROJECT сессией persp и treemacs."
     (let* ((project-root (expand-file-name project))
            (project-name (file-name-nondirectory (directory-file-name project-root)))
            (persp-file (expand-file-name (concat project-name ".persp") persp-save-dir)))
-    
+
       (persp-switch project-name)
-      
+
       (when (file-exists-p persp-file)
         (persp-load-state-from-file persp-file))
 
@@ -404,7 +407,7 @@ Save minibuffer history
   (defun my/projectile-open-project ()
     "Обёртка для projectile-switch-project-action."
     (my/open-project-with-perspective (projectile-project-root)))
-  
+
   (with-eval-after-load 'dashboard
     (setq dashboard-startupify-list
           (remove 'dashboard-insert-banner dashboard-startupify-list))
@@ -412,7 +415,7 @@ Save minibuffer history
           (remove 'dashboard-insert-init-info dashboard-startupify-list))
     (setq dashboard-startupify-list
           (remove 'dashboard-insert-banner-title dashboard-startupify-list)))
-    
+
     (dashboard-setup-startup-hook))
 
 ;;(setq initial-buffer-choice (lambda () (switch-to-buffer "*dashboard*")))
@@ -430,7 +433,7 @@ Save minibuffer history
 (add-hook 'kill-emacs-hook #'save-project-session-on-exit)
 
 #+end_src
-  
+
 * DEVELOPMENT
 
 ** DESKTOP
@@ -441,7 +444,7 @@ Save minibuffer history
   :init
   (setq persp-autokill-buffer-on-remove 'kill-weak)
   (setq persp-init-frame-behaviour nil)
-  (setq persp-auto-resume-time -1) 
+  (setq persp-auto-resume-time -1)
   (setq persp-set-last-persp-for-new-frames nil)
   (setq persp-save-dir (expand-file-name "persp-sessions/" user-emacs-directory))
   (setq persp-mode-init-frame-behaviour 'none)
@@ -517,7 +520,7 @@ Save minibuffer history
    This super neat package looks up the word at point.
 
    #+begin_src emacs-lisp
-   
+
    ;; display the definition of word at point
    (use-package define-word
      :defer t
@@ -610,12 +613,12 @@ Save minibuffer history
 #+end_src
 
 #+begin_src emacs-lisp
-  
+
 (use-package django-mode
   ;;:hook (django-mode . lsp-deferred)
   :mode ("\\.html$" . django-html-mode)
   ;;:config
-  )  
+  )
 
 #+end_src
 
@@ -634,22 +637,29 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (use-package web-mode
-  :mode ("\\.html\\'" . web-mode)
+  :mode (("\\.html\\'" . web-mode)
+         ("\\.djhtml\\'" . web-mode))
+         
   :config
-  
+
   (setq web-mode-enable-auto-closing t
         web-mode-enable-auto-quoting t
         web-mode-enable-current-element-highlight t)
 
-  
+
   ;; Распознавание Django template syntax
   (setq web-mode-engines-alist
-        '(("django" . "\\.html\\'")))
+        '(("django" . "\\.djhtml\\'")))
 
   ;; Настройки отступов (опционально)
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
-        web-mode-code-indent-offset 2))
+        web-mode-code-indent-offset 2)
+  
+  (defun my/disable-electric-pair ()
+    (electric-pair-mode -1))
+  (add-hook 'web-mode-hook #'my/disable-electric-pair)
+  )
 
 #+end_src
 
@@ -680,7 +690,7 @@ Save minibuffer history
 (use-package projectile
   :config
   (projectile-global-mode 1)
-  
+
   :bind-keymap
   ("C-c p" . projectile-command-map)
   )
@@ -689,7 +699,7 @@ Save minibuffer history
   (add-hook 'projectile-after-switch-project-hook 'treemacs-project-follow-mode))
 
 #+end_src
-  
+
 * SNIPPETS
 
 #+begin_src emacs-lisp
@@ -714,7 +724,7 @@ Save minibuffer history
 
 #+begin_src emacs-lisp
 
-;; 
+;;
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default c-basic-offset 4)
@@ -733,7 +743,7 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 #+end_src
-  
+
 * KEYBINDINGS
 
 ** MULTILINGUAL INPUT SUPPORT
@@ -828,11 +838,9 @@ Save minibuffer history
   (load-theme 'doom-one t)
   )
 
-(use-package doom-modeline
+(use-package mood-line
   :config
-  (doom-modeline-mode 1)
-  :custom
-  (doom-modeline-height 25))
+  (mood-line 1))
 
 #+end_src
 
@@ -840,4 +848,3 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 #+end_src
-
