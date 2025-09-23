@@ -1,6 +1,2 @@
 emacs --daemon &
 PATH="$HOME/.doom.d/bin:$PATH"
-udiskie &
-source ~/.aliases &
-#xcompmgr &
-devilspie &
