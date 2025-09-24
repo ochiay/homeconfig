@@ -7,20 +7,27 @@ require("awful.autofocus")
 local wibox         = require("wibox")
 -- Theme handling library
 local beautiful     = require("beautiful")
--- Notification library
-local os = os
+
+
+local os            = os
 local menubar       = require("menubar")
 
-local hotkeys_popup = require("awful.hotkeys_popup").widget --hp_widget.new({width=60,},)
+local hotkeys_popup = require("awful.hotkeys_popup").widget
 local freedesktop   = require("freedesktop")
 
-require("in_error")
+require("in_error") -- Notification library
 require("awful.hotkeys_popup.keys")
---
+
 local lain = require("lain")
---
-awful.spawn.with_shell("~/.config/awesome/autorun.sh")
+
+-- autostart
+
+awful.spawn.with_shell('setxkbmap "us,ru" "," "ctrl:swapcaps" -option grp:ctrls_toggle')
+awful.spawn.with_shell("xcompmgr")
+awful.spawn.with_shell("devilspie")
+
 -- theme
+
 beautiful.init(string.format("%s/.config/awesome/themes/carnation/theme.lua", os.getenv("HOME")))
 
 terminal = 'alacritty'
@@ -40,7 +47,7 @@ local ranger = lain.util.quake(
    {
       app     = terminal,
       argname = '--class %s',
-      extra   = " -e yazi",
+      extra   = " -e ranger",
       name    = "QuakeRanger",
       height  = 1,
       width   = 0.5,

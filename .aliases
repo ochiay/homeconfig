@@ -1,29 +1,13 @@
 #!/usr/bin/env bash
 #.aliases
-#добавляется в .bashrc
-# [[ $- != *i* ]] && return
-# if [ -f ~/.aliases ];then
-#     . ~/.aliases
-# fi
-# if [ -f ~/.variables ];then
-#     . ~/.variables
-# fi'
-# нужно создать .variables(или раскоментировать нижние), если будете
-# выносить переменные отдельно, содержит :
-# export PINKY="/run/media/$USER/PINKY"'  #~ dlya usbsync и cdusb
+
 alias ctl_restart="systemctl restart"
 alias ctl_enable="systemctl enable"
 alias ctl_status="systemctl status"
 alias ctl_start="systemctl start"
 
-# PYTHON
 # django environment
-export DJANGO_ENV='~/devel/python/environment/django_env'
-alias activate_django_env="source ~/devel/python/environment/django_env/bin/activate"
 
-alias cd_django_current="pushd ~/devel/python/django/azaa"
-alias rebase="dropdb kskd_prod; createdb kskd_prod"
-alias createsuperuser="./manage.py createsuperuser"
 alias deletemigrations='find . -path "*/migrations/*.py" -not -name "__init__.py" -delete -print && find . -path "*.pyc"  -delete -print'
 
 #---------------
@@ -32,15 +16,6 @@ alias last_comand="fc -ln -1 >> ~/last_comand.his"
 alias lya='\!-1 | less'
 alias pd='pushd'
 alias pp='popd'
-alias cdh="pushd $HOME"
-
-alias cdcurrent="pushd ~/devel/python/django/samplesite_old && tmux new-session -s 'current' 'source ~/devel/venv/bin/activate'"
-alias cdlie="pushd ~/liebrary/"
-alias cddev="pushd ~/devel/"
-alias cdwd='pushd ~/devel/qt/qae_exp'
-alias cdprimary_ps='cd /home/kell/devel/workbench/primary_ps'
-alias cdkmdstuff='pushd $KMD_STUFF'
-alias cdusb='pushd $PINKY'
 
 alias recfg='qq ~/.aliases && . ~/.zshrc ; echo "zsh is reconfigured"'
 alias dvl='pushd ~/devel/workbench/snd_pst/'
@@ -48,18 +23,13 @@ alias emagz="nohup emacs -f shell --no-desktop -f delete-other-windows --no-site
 alias qq="emacs -nw --no-desktop -eval \"(load-theme 'tango-dark)\""
 alias findem="find -regextype emacs -regex"
 alias diery="qq ~/.diery.org"
-#alias fuckfinger="xmodmap ~/.HEAL_MY_THUMB_KILL_MY_NERVES"
 
-# TMUX
+# tmux
 
 alias tmxs="tmux start-server"
 alias tmxd="tmux detach"
 alias tmxk="tmux kill-server"
 alias tmxa="tmux attach"
-
-
-
-
 
 alias gitclone='pushd ~/downloads/builds/;git clone'
 alias dbshell="./manage.py dbshell"
@@ -67,7 +37,9 @@ alias dbshell="./manage.py dbshell"
 alias runserver="./manage.py runserver 0:8000"
 alias shell="./manage.py shell"
 alias migrate="./manage.py makemigrations && ./manage.py migrate"
-#utils
+
+# utils
+
 alias clrasil="find -regextype emacs -regex '^.*\(\(\.#.*\)\|\(~\|#\)\)$' -delete -print"
 alias hlp="bind -p | less -R"
 alias ls='ls --color=always'
@@ -76,19 +48,19 @@ alias lal='ls -alh --color=always'
 alias lesr="less -R"
 alias treel="tree -C | less -R"
 alias kek='ls -1 --color=always'
-#git
+
+# git
+
 alias gitupdate="git update-index --assume-unchanged"
-alias br='git branch'
-alias st='git status'
-alias ms='git checkout master'
-alias is='git checkout is'
-alias git-ch="git checkout"
+
 # pacman
-alias spacman="sudo pacman -S"
-alias sspacman="pacman -Ss"
+
 alias pacmani='pacman -Si'
 alias pacmans='sudo pacman -S'
 alias pacmanss='pacman -Ss'
+
+# blya
+
 alias ska='kill -9'
 alias blya="sudo !!"
 # function recfg() {
