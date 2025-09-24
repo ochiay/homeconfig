@@ -5,6 +5,7 @@
 #+OPTIONS: ^:nil _:nil
 
 * GIT
+- 
 - git update-index --no-assume-unchanged .emacs.d/init.el
 - git update-index --assume-unchanged <file> 
 - git ls-files | while read f; do git blame -w -M -C -C --line-porcelain "$f" | grep "^author " ; done | sort -f | uniq -ic | sort -nr
@@ -14,24 +15,30 @@
 - <ветка>^ -- родитель
 - <ветка>~<num> -- родитель под номером git clone <user>@<ip>/<wut>
 - git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
-- добавление локального репозитория
 
+- добавление локального репозитория:
   git init --bare /path/to/bare/repo.git
   project/git/folder: git remote add origin /path/to/bare/repo.git
 
-- settings
+** settings
+
 
   git config --global core.editor "name"
   --global user.name|email "name|email"
   --list
-** TIPS
 
-git init
+** init
+
+#+begin_src shell
+
+git init .
 git remote add origin <git address>(https://github.com/username/projectname.git)
-git pull *remote existing files* git pull
+git pull
+
+#+end_src
 
 * GDB
-* breakpoints:
+** breakpoints:
 b <n>, b <file:n>
 
 * DART/FLUTTER
