@@ -15,8 +15,7 @@ https://github.com/larstvei/dot-emacs/tree/master
 
 ;;  ​(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://www.mirrorservice.org/sites/melpa.org/packages/") t)
-
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;; (package-refresh-contents) ;; uncomment if have high net speed
 (package-initialize)
 
@@ -96,6 +95,7 @@ https://github.com/larstvei/dot-emacs/tree/master
 
 (use-package treemacs-magit
   :after (treemacs magit))
+
 #+end_src
 
 ** Olivetti
@@ -116,7 +116,6 @@ Olivetti is a package that simply centers the text of a buffer.
 
 #+begin_src emacs-lisp
 
-;; (setq show-paren-style 'expression)
 (global-display-line-numbers-mode 1)
 (dolist (mode '(show-paren-mode
                 org-mode-hook
@@ -154,7 +153,15 @@ Olivetti is a package that simply centers the text of a buffer.
   :init (which-key-mode 1)
   :diminish which-key-mode
   :config
-  (setq which-key-idle-delay 1))
+  (setq which-key-idle-delay 0.4))
+
+#+end_src
+
+#+begin_src emacs-lisp
+
+(use-package whitespace
+  :ensure nil
+:hook (before-save . whitespace-cleanup))
 
 #+end_src
 
@@ -302,16 +309,6 @@ Save minibuffer history
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 #+end_src
-#+begin_src emacs-lisp
-
-(use-package which-key
-  :init (which-key-mode)
-  :diminish which-key-mode
-  :config
-  (setq which-key-idle-delay 0.3)
-  )
-
-#+end_src
 
 ** Command log mode
 
@@ -324,10 +321,7 @@ Save minibuffer history
 #+begin_src emacs-lisp
 
 (setq initial-scratch-message nil )
-
-;; rewrite selection
 (delete-selection-mode t)
-
 (setq-default indicate-empty-lines t)
 
 #+end_src
@@ -344,26 +338,24 @@ Save minibuffer history
   (beginning-of-line)
   (open-line 1))
 
-;; Bind to C-S-o in org-mode
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-S-o") #'org-bol-open-line))
 
-;; (add-hook 'org-mode-hook
-;;           (lambda ()
-;;             (local-set-key (kbd "C-S-o") 
-;;                            (lambda ()
-;;                              (interactive)
-;;                              (move-beginning-of-line 1)
-;;                              (newline)))))
+;;
+
+(use-package org-bullets :hook (org-mode . org-bullets-mode))
+
+(use-package org
+  :hook (;;(org-mode . org-bullets-mode)
+         (org-mode . visual-line-mode)
+         (org-mode . org-indent-mode)))
 
 #+end_src
 
 * DASHBOARD
 
 #+begin_src emacs-lisp
-;; (defface dashboard-separator-face
-;;     '((t (:foreground "#5f5f5f" :weight bold)))
-;;     "Face for dashboard separator.")
+
 (use-package page-break-lines)
 (use-package dashboard
   :init
@@ -530,23 +522,6 @@ Save minibuffer history
 
 ** LANGUAGES
 
-*** LSP
-
-#+begin_src emacs-lisp
-
-(use-package eglot
-  :defer t
-  :hook ((python-mode django-mode web-mode rust-ts-mode) . eglot-ensure)
-  :config
-  (setq eglot-events-buffer-size 0)
-  (add-to-list 'eglot-server-programs
-               '((python-mode django-mode) . ("pyright-langserver" "--stdio")))
-  (add-to-list 'eglot-server-programs
-               '(web-mode . ("vscode-html-language-server" "--stdio")))
-  (add-to-list 'eglot-server-programs
-               '(rust-ts-mode . ("rust-analyzer"))))
-#+end_src
-
 *** RUST
 
 #+begin_src emacs-lisp
@@ -639,7 +614,7 @@ Save minibuffer history
 (use-package web-mode
   :mode (("\\.html\\'" . web-mode)
          ("\\.djhtml\\'" . web-mode))
-         
+
   :config
 
   (setq web-mode-enable-auto-closing t
@@ -655,7 +630,7 @@ Save minibuffer history
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2)
-  
+
   (defun my/disable-electric-pair ()
     (electric-pair-mode -1))
   (add-hook 'web-mode-hook #'my/disable-electric-pair)
@@ -681,6 +656,23 @@ Save minibuffer history
 (use-package lua-mode
   )
 
+#+end_src
+
+*** EGLOT
+
+#+begin_src emacs-lisp
+
+(use-package eglot
+  :defer t
+  :hook ((python-mode django-mode web-mode rust-ts-mode) . eglot-ensure)
+  :config
+  (setq eglot-events-buffer-size 0)
+  (add-to-list 'eglot-server-programs
+               '((python-mode django-mode) . ("pyright-langserver" "--stdio")))
+  (add-to-list 'eglot-server-programs
+               '(web-mode . ("vscode-html-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs
+               '(rust-ts-mode . ("rust-analyzer"))))
 #+end_src
 
 ** PROJECTILE
@@ -839,9 +831,9 @@ Save minibuffer history
   (load-theme 'doom-one t)
   )
 
-(use-package mood-line
+(use-package telephone-line
   :config
-  (mood-line 1))
+  (telephone-line-mode t))
 
 #+end_src
 
