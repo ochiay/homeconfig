@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #.aliases
 
+alias mux="tmuxinator"
 alias ctl_restart="systemctl restart"
 alias ctl_enable="systemctl enable"
 alias ctl_status="systemctl status"

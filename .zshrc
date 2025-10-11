@@ -1,6 +1,6 @@
 ZSH_THEME="nicoulaj"  # robbyrussell nicoulaj agnoster
-USE_POWERLINE="true"
-HAS_WIDECHARS="true"
+USE_POWERLINE="false"
+HAS_WIDECHARS="false"
 
 if [[ -d $HOME/.oh-my-zsh ]]; then
     export ZSH="$HOME/.oh-my-zsh"
@@ -8,17 +8,22 @@ if [[ -d $HOME/.oh-my-zsh ]]; then
     source $ZSH/oh-my-zsh.sh
 fi
 
-# Source manjaro-zsh-configuration
-if [[ -e ~/.zshrc_manjaro.sh ]]; then
-  source ~/.zshrc_manjaro.sh
-fi
+# if [[ -n "$TMUXINATOR_FIRST_CMD" ]]; then
+#   eval "$TMUXINATOR_FIRST_CMD"
+#   unset TMUXINATOR_FIRST_CMD
+# fi
+
+# #Source manjaro-zsh-configuration
+# if [[ -e ~/.zshrc_manjaro.sh ]]; then
+#   source ~/.zshrc_manjaro.sh
+# fi
 
 # # Use manjaro zsh prompt
-if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
-  #source /usr/share/zsh/manjaro-zsh-prompt
-fi
+# if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
+#   source /usr/share/zsh/manjaro-zsh-prompt
+# fi
 
-# aliases 
+# aliases
 if [ -f $HOME/.aliases ]; then
   . $HOME/.aliases
 fi
