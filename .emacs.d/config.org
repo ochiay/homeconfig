@@ -520,6 +520,12 @@ Save minibuffer history
 
 ** LANGUAGES
 
+*** CLOJURE
+
+#+begin_src emacs-lisp
+(use-package clojure-mode)
+#+end_src
+
 *** RUST
 
 #+begin_src emacs-lisp

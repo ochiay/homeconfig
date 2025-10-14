@@ -21,7 +21,6 @@
 
 ** settings
 
-
   git config --global core.editor "name"
   --global user.name|email "name|email"
   --list
@@ -140,14 +139,30 @@ where is nothing about
 * DJANGO
 
 ** AUTH (django.contrib.auth)
+
+Middleware is classes with methods that are globally executed during the request or response phase.
+
 AuthenticationMiddleware : associates users with requests using sessions
 SessionMiddleware : handles the current session across requests
-Middleware is classes with methods that are globally executed during the request or response phase.
 
 django.contrib.auth.models : User, Group, Permission
 
+** Three ways to override default user model:
+
+- django.contrib.auth.models import AbstactUserModel
+- django.contrib.auth.models import AbstractBaseUserModel
+- OneToOne field to UserModel
+
 ** ADMIN
 
+from django.contrib import admin
+
+@admin.register
+class..
+
+or
+
+admin.site.register(model, admin class)
 
 ** settings
 - DEBUG
