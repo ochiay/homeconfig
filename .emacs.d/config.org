@@ -62,7 +62,7 @@ https://github.com/larstvei/dot-emacs/tree/master
 (blink-cursor-mode -1)
 (electric-pair-mode 1)
 (set-fringe-mode 10)
-(toggle-truncate-lines 1)
+(setq-default truncate-lines t)
 
 #+end_src
 
@@ -519,6 +519,12 @@ Save minibuffer history
    #+end_src
 
 ** LANGUAGES
+
+*** CLOJURE
+
+#+begin_src emacs-lisp
+(use-package clojure-mode)
+#+end_src
 
 *** RUST
 

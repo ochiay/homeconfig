@@ -1,13 +1,12 @@
-
 #+TITLE: Tips For IT-instruments
 #+AUTHOR: Vladimir Stetsyuk
 #+STARTUP: overview indent
 #+OPTIONS: ^:nil _:nil
 
 * GIT
-- 
+-
 - git update-index --no-assume-unchanged .emacs.d/init.el
-- git update-index --assume-unchanged <file> 
+- git update-index --assume-unchanged <file>
 - git ls-files | while read f; do git blame -w -M -C -C --line-porcelain "$f" | grep "^author " ; done | sort -f | uniq -ic | sort -nr
 - checkout -- сменить ветку
 - branch -- создать ветку
@@ -21,7 +20,6 @@
   project/git/folder: git remote add origin /path/to/bare/repo.git
 
 ** settings
-
 
   git config --global core.editor "name"
   --global user.name|email "name|email"
@@ -86,7 +84,7 @@ In a statefull widget(A) I create method which has /setState/ function and chang
 + A container with some default styling
 + Can take one child
 + Typically used to output a single piece/group of information
-  
+
 **** Repeat Elements
 ***** ListView/GridView
 + Used to output lists(or grids) of items
@@ -112,7 +110,7 @@ In a statefull widget(A) I create method which has /setState/ function and chang
 *** WEBDEV
 + Activate
   dart pub global activate webdev
-   
+
 * CPP
 where is nothing about
 
@@ -141,18 +139,34 @@ where is nothing about
 * DJANGO
 
 ** AUTH (django.contrib.auth)
+
+Middleware is classes with methods that are globally executed during the request or response phase.
+
 AuthenticationMiddleware : associates users with requests using sessions
 SessionMiddleware : handles the current session across requests
-Middleware is classes with methods that are globally executed during the request or response phase.
 
 django.contrib.auth.models : User, Group, Permission
 
+** Three ways to override default user model:
 
+- django.contrib.auth.models import AbstactUserModel
+- django.contrib.auth.models import AbstractBaseUserModel
+- OneToOne field to UserModel
 
+** ADMIN
+
+from django.contrib import admin
+
+@admin.register
+class..
+
+or
+
+admin.site.register(model, admin class)
 
 ** settings
 - DEBUG
-- ALLOWED_HOSTS (off in debug mode)  
+- ALLOWED_HOSTS (off in debug mode)
 - django.contrib.admin: An administration site.
 - django.contrib.auth: An authentication framework.
 - django.contrib.contenttypes: A framework for handling content types.
@@ -293,7 +307,7 @@ from django.db.models import Q
 <model>.objects.filter(<name1> <operator> <name2>)
 operator: &(and) |(or) ^(xor)
 
-QuerySets ar only evaluated in the following cases: 
+QuerySets ar only evaluated in the following cases:
 - The first time you iterate over them
 - When you slice them, for instance, Post.objects.all()[:3]
 - When you pickle or cache them
@@ -372,7 +386,7 @@ resolver_url !?
     * change in manage.py os.environ.setdefault
     * change in config/wsgi.py os
     * change all project_name modules into "config folder name"
-     
+
 * WEB/HTML
 ** form
 + atribute
@@ -388,11 +402,11 @@ or restart-emacs on melpa
 
 after updating something sometimes go wrong, so I should rm -rf emacs.d/elpa
 ** general
-    
+
 C-x ^         -- enlarge window
 C-x { | C-x } -- shrink, enlarge window horizontaly
 C-q C-j       -- for newline in query-seaching
-    
+
 ** all
 - \c-q \c-j : in command-menu help to insert RET for searching f.e.
 - \M-x <function> : run function
@@ -430,7 +444,7 @@ C-q C-j       -- for newline in query-seaching
 
 ** ORG-MODE
 
-*** 
+***
 
 *** BLOCKS
 - C-c C-,
@@ -513,32 +527,32 @@ C-c C-a s attribute select
 C-c C-a t attribute transpose
 *** DIRED
 *** ORG-MODE
-* all:
+**** all:
 - C-h i C-s org Cm Cm : open fucking manual
 - C-c C-e : org-export-dispatch
 - M-tab : completition
 - <s+M : BEGIN_SRC-END_SRC snippet
   ** navigation
   - C-c C-n’     (‘outline-next-visible-heading’)
-* lists
-* M-ret -- org-insert-heading
-* M-S-ret -- insert new item with checkbox
-* M-S-left|right -- inc|dec indentation of list
-* C-c ^ -- sort plain list
-* note
+**** lists
+**** M-ret -- org-insert-heading
+**** M-S-ret -- insert new item with checkbox
+**** M-S-left|right -- inc|dec indentation of list
+**** C-c ^ -- sort plain list
+*** note
 - C-c C- : org-add-note
-* on tag
+*** on tag
 - M-S-<right>|<left> -- increase|decrease hierarchy position with all child branches
-* timestamps
+*** timestamps
 - C-c . -- org-time-stamp
 - C-c C-c -- normalize timestamp
 - S-<left>|<right> -- down day|up day
-*** INFO
-**** navigation
+** INFO
+*** navigation
 - n|p : next, previos on the same line
 - DEL|SPACE : scroll-up | ~-down
 - [ | ] : backword-node | forward-node
-** regexp
+*** regexp
 | .           | any character (but newline)                                                              |
 | *           | previous character or group, repeated 0 or more time                                     |
 | +           | previous character or group, repeated 1 or more time                                     |
@@ -577,7 +591,7 @@ C+S+p: open workspace settings
         "python.terminal.activateEnvInCurrentTerminal": true,
         "python.defaultInterpreterPath": "<path to interpreter>"
     }
-}  
+}
 #+end_src
 
 * POSTGRESQL
@@ -886,9 +900,9 @@ adduser, usermod, chmod, chown, newgrp
 
 ** transparency
 
-mkdir .devilspie                                                          
-touch .devilspie/opacity.ds                                               
-echo '( if                                                                
+mkdir .devilspie
+touch .devilspie/opacity.ds
+echo '( if
 ( contains ( window_class ) "Gvim" )
 ( begin
 ( spawn_async (str "transset-df -i " (window_xid) " 0.85" ))
@@ -906,7 +920,7 @@ lsblk -l
 #+begin_src shell
 
 pacman -Qi | grep 'Name\|Size\|Description' | cut -d: -f2 | paste - - - | awk -F'\t' 'BEGIN{ s["MiB"]=1024; s["KiB"]=1;} {split($3, a, " "); print a[1] * s[a[2]], "KiB", $1}' | sort -n
-pacman -S - < .applist.txt   
+pacman -S - < .applist.txt
 
 #+end_src
 
@@ -1070,4 +1084,3 @@ in templates:
 использование python и excel
 как работает yield
 xrandr --output DVI-D-0 --brightness 0.4
-
