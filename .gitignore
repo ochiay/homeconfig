@@ -32,6 +32,10 @@
 !/.config/ranger/rc.conf
 !/.config/ranger/rifle.conf
 
+!/.config/tmuxinator
+/.config/tmuxinator/*
+!/.config/tmuxinator/steps.yml
+
 !/.config/systemd
 /.config/systemd/*
 !/.config/systemd/user
