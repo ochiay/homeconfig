@@ -3,9 +3,8 @@
 #+AUTHOR: Vladimir Stetsyuk
 
 * INFO, HINTS, TIPS, SOURCES e.c.
-https://github.com/MatthewZMD/.emacs.d
-
-https://github.com/larstvei/dot-emacs/tree/master
+- https://github.com/MatthewZMD/.emacs.d
+- https://github.com/larstvei/dot-emacs/tree/master
 
 * PACKAGE MANAGEMENT
 
@@ -553,7 +552,6 @@ Save minibuffer history
 (use-package dart-mode
   ;;:hook (dart-mode . lsp-deferred)
   :config
-  (global-set-key (kbd "C-<f9>") 'lsp-dart-run)
   )
 ;; (use-package lsp-dart
 ;;   :hook (dart-mode . lsp)
