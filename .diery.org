@@ -966,6 +966,7 @@ mkswap <path2file>
 swapon <path2file>
 
 *** scripts
+
 per login:
 setxkbmap "us,ru" "," "ctrl:swapcaps"
 only once :: after all installations
@@ -975,6 +976,13 @@ cp /usr/share/emacs/26.1/etc/emacs.service ~/.config/systemd/user/
 systemctl enable --user emacs
 systemctl start --user emacs
 
+** i3
+
+#+begin_src shell
+
+exec_always "setxkbmap -model pc104 -layout us,ru -variant , ctrl:swapcaps, -option grp:ctrls_toggle"
+
+#+end_src
 ** fonts
 /usr/share/fonts/misc/font.alias
 ** mpd config

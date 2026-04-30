@@ -551,8 +551,10 @@ Save minibuffer history
 
 (use-package dart-mode
   ;;:hook (dart-mode . lsp-deferred)
-  :config
+
   )
+
+
 ;; (use-package lsp-dart
 ;;   :hook (dart-mode . lsp)
 ;;   )
@@ -680,7 +682,7 @@ Save minibuffer history
 
 (use-package eglot
   :defer t
-  :hook ((python-mode django-mode web-mode rust-ts-mode) . eglot-ensure)
+  :hook ((python-mode django-mode web-mode rust-ts-mode dart-mode) . eglot-ensure)
   :config
   (setq eglot-events-buffer-size 0)
   (add-to-list 'eglot-server-programs
@@ -688,7 +690,11 @@ Save minibuffer history
   (add-to-list 'eglot-server-programs
                '(web-mode . ("vscode-html-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs
-               '(rust-ts-mode . ("rust-analyzer"))))
+               '(rust-ts-mode . ("rust-analyzer")))
+  ;; (add-to-list 'eglot-server-programs
+  ;;              '(dart-mode . ("/snap/bin/dart" "language-server" "--protocol=lsp")))
+)
+
 #+end_src
 
 ** PROJECTILE
