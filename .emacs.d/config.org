@@ -331,15 +331,15 @@ Save minibuffer history
 
 #+begin_src emacs-lisp
 
-(use-package org-roam
+;; (use-package org-roam
 
-  :custom
-  (org-roam-directory "~/.tch")
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n i" . org-roam-node-insert))
-  :config
-  (org-roam-setup))
+;;   :custom
+;;   (org-roam-directory "~/.tch")
+;;   :bind (("C-c n l" . org-roam-buffer-toggle)
+;;          ("C-c n f" . org-roam-node-find)
+;;          ("C-c n i" . org-roam-node-insert))
+;;   :config
+;;   (org-roam-setup))
 
 (setq org-return-follows-link t)
 
@@ -538,6 +538,7 @@ Save minibuffer history
 #+begin_src emacs-lisp
 (use-package clojure-mode)
 (use-package cider)
+(use-package paredit)
 #+end_src
 
 *** RUST
@@ -603,6 +604,9 @@ Save minibuffer history
   :demand t
   :hook (python-mode . python-black-on-save-mode))
 
+;; (use-package jedi
+;;   :hook (python-mode . jedi:setup))
+
 #+end_src
 
 #+begin_src emacs-lisp
@@ -619,9 +623,15 @@ Save minibuffer history
 
 (use-package pyvenv
   :config
-  (setq pyvenv-virtualenv-wrapper-workon "~/devel/python/environment")
   (pyvenv-mode 1)
-  )
+  ;; чтобы eglot видел активный venv
+  (add-hook 'pyvenv-post-activate-hooks
+            (lambda ()
+              (setq eglot-workspace-configuration
+                    `(:python
+                      (:venvPath ,pyvenv-virtual-env
+                       :pythonPath ,(concat pyvenv-virtual-env "/bin/python"))))
+              (eglot-reconnect))))
 
 #+end_src
 
